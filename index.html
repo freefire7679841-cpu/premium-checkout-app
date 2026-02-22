@@ -14,9 +14,12 @@
         .glow-2 { width: 400px; height: 400px; background: #1d4ed8; bottom: -150px; right: -100px; }
         @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 50px) scale(1.2); } }
         
-        .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(24px); border-radius: 24px; padding: 25px; width: 85%; max-width: 340px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(24px); border-radius: 24px; padding: 25px; width: 85%; max-width: 340px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative; }
         #checkout-page { display: none; }
         
+        /* Back Button Styling */
+        .back-btn { position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.1); border: none; color: white; padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; }
+
         .qr-container { background: white; padding: 10px; border-radius: 12px; margin: 15px auto; width: 160px; height: 160px; }
         .qr-container img { width: 100%; height: 100%; object-fit: contain; }
         
@@ -27,9 +30,9 @@
         .btn { position: relative; width: 100%; padding: 15px; border-radius: 14px; border: none; font-size: 15px; font-weight: 800; color: white; cursor: pointer; margin-top: 10px; text-transform: uppercase; overflow: hidden; }
         .btn-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); }
         .btn-gold { background: linear-gradient(45deg, #d97706, #fbbf24); color: #000; }
-        .btn-green { background: linear-gradient(45deg, #059669, #10b981); margin-top: 20px; }
+        .btn-green { background: linear-gradient(45deg, #059669, #10b981); margin-top: 15px; }
         
-        .upload-area { border: 1px dashed rgba(255,255,255,0.3); padding: 12px; border-radius: 10px; margin-top: 10px; cursor: pointer; font-size: 12px; background: rgba(255,255,255,0.05); }
+        .upload-area { border: 1px dashed rgba(255,255,255,0.3); padding: 12px; border-radius: 10px; margin-top: 10px; cursor: pointer; font-size: 12px; background: rgba(255,255,255,0.05); display: block; }
     </style>
 </head>
 <body>
@@ -44,6 +47,7 @@
     </div>
 
     <div id="checkout-page" class="card">
+        <button class="back-btn" onclick="goBack()">← Back</button>
         <h2 id="title" style="margin:0;">Checkout</h2>
         <div class="qr-container">
             <img id="qr-display" src="" alt="Scanner">
@@ -63,8 +67,8 @@
         tg.expand();
         let plan = "";
 
-        // CONFIGURATION
-        let qr_url = "PASTE_YOUR_IMGBB_DIRECT_LINK_HERE"; //
+        // CONFIGURATION - Put your QR Link below
+        let qr_url = "PASTE_YOUR_IMGBB_DIRECT_LINK_HERE"; 
 
         const params = new URLSearchParams(window.location.search);
         document.getElementById('price-w').innerText = params.get('w') || "199";
@@ -82,6 +86,14 @@
             list.innerHTML = sel === 'Weekly' ? 
                 "<li>7 Days Entry</li><li>Daily Files</li><li>Verified Status</li>" : 
                 "<li>Lifetime Entry</li><li>All Future Updates</li><li>24/7 Priority Support</li><li>Verified VIP Tag</li>";
+        }
+
+        function goBack() {
+            document.getElementById('checkout-page').style.display = 'none';
+            document.getElementById('selection-page').style.display = 'block';
+            // Reset upload status
+            document.getElementById('sub-btn').style.display = 'none';
+            document.getElementById('label-text').innerText = "📸 Tap to Upload Screenshot";
         }
 
         function ready() {
