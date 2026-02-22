@@ -19,7 +19,6 @@
         #checkout-page { display: none; padding-top: 45px; }
         .back-btn { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; z-index: 20; }
         
-        /* Ticker Style */
         .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 8px; border-radius: 12px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(251, 191, 36, 0.2); }
 
         .btn { width: 100%; padding: 16px; border-radius: 18px; border: none; font-size: 16px; font-weight: 800; color: white; cursor: pointer; text-transform: uppercase; transition: 0.3s; position: relative; }
@@ -31,7 +30,6 @@
         .popular-tag { background: #ef4444; }
         .value-tag { background: #10b981; }
         
-        /* Glowing Badges */
         .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
         .mini-badge { background: rgba(255,255,255,0.05); padding: 8px; border-radius: 12px; font-size: 10px; font-weight: 700; color: #fff; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; gap: 6px; }
         .badge-blue { box-shadow: 0 0 10px rgba(59, 130, 246, 0.4); border-color: rgba(59, 130, 246, 0.3); }
@@ -154,25 +152,6 @@
             document.body.removeChild(link);
             alert("QR Code ready! If it didn't save, please long-press the QR image to save to gallery.");
         }
-        
-        function goBack() { 
-            document.getElementById('checkout-page').style.display = 'none'; 
-            document.getElementById('selection-page').style.display = 'block'; 
-        }
-        
-        function ready() { 
-            document.getElementById('sub-btn').style.display = 'block'; 
-            document.getElementById('label-box').style.borderColor = "#10b981"; 
-            document.getElementById('label-box').innerHTML = '<div style="color:#34d399; font-weight:800;">✅ SCREENSHOT LOADED</div>';
-        }
-
-        function submit() { 
-            tg.sendData("PAID"); 
-            tg.close(); 
-        }
-    </script>
-</body>
-</html>
         
         function goBack() { 
             document.getElementById('checkout-page').style.display = 'none'; 
