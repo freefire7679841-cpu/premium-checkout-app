@@ -14,13 +14,14 @@
         .glow-2 { width: 400px; height: 400px; background: #1d4ed8; bottom: -150px; right: -100px; }
         @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, 40px) scale(1.1); } }
         
-        /* Removed overflow:hidden to allow tags to show */
         .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(24px); border-radius: 28px; padding: 30px 20px; width: 88%; max-width: 350px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative; z-index: 10; }
         
         #checkout-page { display: none; }
         .back-btn { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; }
-        .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 6px; border-radius: 10px; margin-bottom: 15px; text-transform: uppercase; }
         
+        /* Ticker Tape */
+        .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 8px; border-radius: 12px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(251, 191, 36, 0.2); }
+
         .price-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 4px; }
         .current-price { font-size: 20px; font-weight: 800; }
         .old-price { font-size: 14px; color: rgba(255,255,255,0.4); text-decoration: line-through; }
@@ -30,13 +31,18 @@
         .qr-container img { width: 100%; height: 100%; }
         
         .btn { width: 100%; padding: 16px; border-radius: 18px; border: none; font-size: 16px; font-weight: 800; color: white; cursor: pointer; text-transform: uppercase; transition: 0.3s; position: relative; }
-        .btn-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); margin-bottom: 25px; }
+        .btn-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); margin-bottom: 30px; }
         .btn-gold { background: linear-gradient(45deg, #d97706, #fbbf24); color: #000; }
         .btn-green { background: linear-gradient(45deg, #059669, #10b981); margin-top: 15px; }
 
-        /* Tag Styling */
-        .popular-tag { position: absolute; top: -12px; right: 15px; background: #ef4444; color: white; font-size: 9px; padding: 4px 10px; border-radius: 6px; font-weight: 800; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
-        .value-tag { position: absolute; top: -12px; right: 15px; background: #10b981; color: white; font-size: 9px; padding: 4px 10px; border-radius: 6px; font-weight: 800; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
+        /* Trust & Marketing Text */
+        .trust-text { font-size: 13px; color: #94a3b8; margin: 15px 0; line-height: 1.6; }
+        .highlight { color: #fbbf24; font-weight: 800; }
+
+        /* Tag Styling - Positioned inside relative wrappers */
+        .tag { position: absolute; top: -14px; right: 15px; color: white; font-size: 9px; padding: 5px 12px; border-radius: 6px; font-weight: 800; z-index: 15; text-transform: uppercase; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .popular-tag { background: #ef4444; }
+        .value-tag { background: #10b981; }
         
         .upi-box { background: rgba(255,255,255,0.05); padding: 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 15px; cursor: pointer; }
         .upload-area { border: 2px dashed rgba(255,255,255,0.2); padding: 20px; border-radius: 18px; cursor: pointer; background: rgba(255,255,255,0.03); }
@@ -48,10 +54,14 @@
         <div class="ticker">⚡ LIMITED TIME OFFER: JOIN 50K+ COLLECTIONS ⚡</div>
         <div style="font-size: 45px; margin-bottom: 10px;">👑</div>
         <h1>Premium VIP</h1>
-        <p style="font-size: 13px; color: #94a3b8; margin-bottom: 25px;">Instant channel entry after payment ✅</p>
         
-        <div style="position:relative; margin-bottom:30px;">
-            <div class="popular-tag">MOST POPULAR</div>
+        <p class="trust-text">
+            Trusted bot: <span class="highlight">Instant channel entry</span> after payment. ✅<br>
+            50,000+ Premium Videos & Collections inside.
+        </p>
+        
+        <div style="position:relative; margin-bottom:35px;">
+            <div class="tag popular-tag">MOST POPULAR</div>
             <button class="btn btn-blue" onclick="openCheckout('Weekly')">
                 Weekly Pass
                 <div class="price-row">
@@ -63,7 +73,7 @@
         </div>
 
         <div style="position:relative;">
-            <div class="value-tag">VALUE FOR MONEY</div>
+            <div class="tag value-tag">VALUE FOR MONEY</div>
             <button class="btn btn-gold" onclick="openCheckout('Permanent')">
                 Permanent Pass
                 <div class="price-row" style="color:#000;">
@@ -73,6 +83,7 @@
                 </div>
             </button>
         </div>
+        <p style="font-size:10px; color:#64748b; margin-top:15px;">Trusted bot instant entry after payment 💎</p>
     </div>
 
     <div id="checkout-page" class="card">
@@ -107,6 +118,12 @@
             document.getElementById('selection-page').style.display = 'none'; document.getElementById('checkout-page').style.display = 'block';
         }
         
+        function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'block'; }
+        function ready() { document.getElementById('sub-btn').style.display = 'block'; document.getElementById('label-box').style.borderColor = "#10b981"; }
+        function submit() { tg.sendData("PAID"); tg.close(); }
+    </script>
+</body>
+</html>
         function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'block'; }
         function ready() { document.getElementById('sub-btn').style.display = 'block'; document.getElementById('label-box').style.borderColor = "#10b981"; }
         function submit() { tg.sendData("PAID"); tg.close(); }
