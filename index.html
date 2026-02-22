@@ -14,45 +14,73 @@
         .glow-2 { width: 400px; height: 400px; background: #1d4ed8; bottom: -150px; right: -100px; }
         @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 50px) scale(1.2); } }
         
-        .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(24px); border-radius: 24px; padding: 30px 20px; width: 88%; max-width: 350px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative; margin: 20px 0; }
-        #checkout-page { display: none; }
+        .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(24px); border-radius: 28px; padding: 30px 20px; width: 88%; max-width: 350px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative; margin: 20px 0; animation: slideUp 0.6s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
+        #checkout-page { display: none; }
         .back-btn { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; z-index: 10; }
 
-        /* Trust Badges */
+        .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 6px; border-radius: 10px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Pricing UI */
+        .price-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 4px; }
+        .current-price { font-size: 20px; font-weight: 800; }
+        .old-price { font-size: 14px; color: rgba(255,255,255,0.4); text-decoration: line-through; }
+        .discount-tag { font-size: 12px; color: #34d399; font-weight: 800; }
+
         .trust-row { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; }
-        .badge { background: rgba(255, 255, 255, 0.1); padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); text-transform: uppercase; display: flex; align-items: center; gap: 4px; }
+        .badge { background: rgba(255, 255, 255, 0.08); padding: 5px 10px; border-radius: 8px; font-size: 10px; font-weight: 800; color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); text-transform: uppercase; }
         .badge-blue { color: #3b82f6; border-color: rgba(59, 130, 246, 0.3); }
 
-        .qr-container { background: white; padding: 10px; border-radius: 12px; margin: 10px auto; width: 160px; height: 160px; box-shadow: 0 0 25px rgba(255,255,255,0.15); }
-        .qr-container img { width: 100%; height: 100%; object-fit: contain; }
+        .qr-container { background: white; padding: 12px; border-radius: 16px; margin: 10px auto; width: 160px; height: 160px; box-shadow: 0 0 30px rgba(255,255,255,0.2); }
+        .qr-container img { width: 100%; height: 100%; }
         
-        .upi-box { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 15px; cursor: pointer; }
+        .upi-box { background: rgba(255,255,255,0.05); padding: 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 15px; cursor: pointer; }
         .upi-id { font-size: 14px; font-weight: 800; color: #fff; }
 
-        .trust-text { font-size: 12px; color: #94a3b8; margin: 10px 0; line-height: 1.5; }
+        .trust-text { font-size: 13px; color: #94a3b8; margin: 15px 0; line-height: 1.5; }
         .highlight { color: #fbbf24; font-weight: 800; }
 
-        .facilities { text-align: left; font-size: 13px; color: #cbd5e1; margin-bottom: 20px; padding: 0; list-style: none; }
-        .facilities li { margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-
-        .btn { width: 100%; padding: 16px; border-radius: 16px; border: none; font-size: 15px; font-weight: 800; color: white; cursor: pointer; text-transform: uppercase; }
-        .btn-gold { background: linear-gradient(45deg, #d97706, #fbbf24); color: #000; margin-bottom: 12px; }
-        .btn-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); }
+        .btn { width: 100%; padding: 16px; border-radius: 18px; border: none; font-size: 16px; font-weight: 800; color: white; cursor: pointer; text-transform: uppercase; transition: 0.3s; position: relative; }
+        .btn-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3); }
+        .btn-gold { background: linear-gradient(45deg, #d97706, #fbbf24); color: #000; box-shadow: 0 8px 25px rgba(217, 119, 6, 0.4); }
         .btn-green { background: linear-gradient(45deg, #059669, #10b981); margin-top: 15px; box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
-        
-        .upload-area { border: 2px dashed rgba(255,255,255,0.2); padding: 18px; border-radius: 16px; cursor: pointer; background: rgba(255,255,255,0.03); display: block; }
+
+        .popular-tag { position: absolute; top: -10px; right: 15px; background: #ef4444; color: white; font-size: 9px; padding: 3px 8px; border-radius: 6px; z-index: 5; }
+
+        .upload-area { border: 2px dashed rgba(255,255,255,0.2); padding: 20px; border-radius: 18px; cursor: pointer; background: rgba(255,255,255,0.03); }
     </style>
 </head>
 <body>
     <div class="light-bg"><div class="glow glow-1"></div><div class="glow glow-2"></div></div>
 
     <div id="selection-page" class="card">
-        <div class="badge" style="width:fit-content; margin:0 auto 10px;">👑 OFFICIAL PREMIUM BOT</div>
-        <h1>VIP Access</h1>
-        <p class="trust-text">Get instant access to <span class="highlight">50k+ Premium Videos</span>.<br>All collections are verified and trusted.</p>
-        <button class="btn btn-gold" onclick="openCheckout('Permanent')">Permanent Pass - ₹<span id="price-p">149</span></button>
-        <button class="btn btn-blue" onclick="openCheckout('Weekly')">Weekly Pass - ₹<span id="price-w">69</span></button>
+        <div class="ticker">⚡ Limited Time Offer: JOIN 50K+ COLLECTIONS ⚡</div>
+        <div style="font-size: 45px; margin-bottom: 10px;">👑</div>
+        <h1>Premium VIP</h1>
+        <p class="trust-text">Trusted bot: <span class="highlight">Instant channel entry</span> after payment.<br>50,000+ Premium Videos & Collections ✅</p>
+        
+        <div style="position:relative; margin-bottom:20px;">
+            <div class="popular-tag">MOST POPULAR</div>
+            <button class="btn btn-blue" onclick="openCheckout('Weekly')">
+                Weekly Pass
+                <div class="price-row">
+                    <span class="old-price">₹199</span>
+                    <span class="current-price">₹<span id="price-w">69</span></span>
+                    <span class="discount-tag">65% OFF</span>
+                </div>
+            </button>
+        </div>
+
+        <button class="btn btn-gold" onclick="openCheckout('Permanent')">
+            Permanent Pass
+            <div class="price-row" style="color:#000;">
+                <span class="old-price" style="color:rgba(0,0,0,0.5);">₹999</span>
+                <span class="current-price">₹<span id="price-p">149</span></span>
+                <span class="discount-tag" style="color:#059669;">85% OFF</span>
+            </div>
+        </button>
+        <p style="font-size:10px; color:#64748b; margin-top:10px;">Trusted bot instant entry after payment 💎</p>
     </div>
 
     <div id="checkout-page" class="card">
@@ -60,8 +88,8 @@
         <h2 id="title" style="margin-top:20px;">Secure Checkout</h2>
         
         <div class="trust-row">
-            <div class="badge">🛡️ VERIFIED</div>
-            <div class="badge badge-blue">⚡ INSTANT LINK</div>
+            <div class="badge">🛡️ 100% TRUSTED</div>
+            <div class="badge badge-blue">⚡ INSTANT DELIVERY</div>
         </div>
 
         <div class="qr-container"><img id="qr-display" src="" alt="QR"></div>
@@ -71,17 +99,15 @@
             <div class="upi-id" id="upi-val">sayedjinnatrana@naviaxis</div>
         </div>
 
-        <p class="trust-text">Trusted bot: <span class="highlight">Instant entry</span> after payment.<br>Verified merchant account ✅</p>
-
-        <ul class="facilities" id="fac-list"></ul>
+        <p class="trust-text">Verified Merchant: <span class="highlight">Link delivered in bot</span> after payment proof submission ✅</p>
 
         <label class="upload-area" for="file-in" id="label-box">
             <div style="font-size:14px; font-weight:800;">📸 UPLOAD SCREENSHOT</div>
-            <div style="font-size:11px; color:#94a3b8; margin-top:4px;">Submit payment proof to receive your link</div>
+            <div style="font-size:11px; color:#94a3b8; margin-top:4px;">Submit proof to get instant channel link</div>
         </label>
         <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
         
-        <button id="sub-btn" class="btn btn-green" style="display:none;" onclick="submit()">Confirm & Get Link</button>
+        <button id="sub-btn" class="btn btn-green" style="display:none;" onclick="submit()">Confirm & Get Link Now</button>
     </div>
 
     <script>
@@ -101,12 +127,14 @@
             document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}`;
             document.getElementById('selection-page').style.display = 'none';
             document.getElementById('checkout-page').style.display = 'block';
-            document.getElementById('fac-list').innerHTML = sel === 'Weekly' ? 
-                "<li>✅ 7 Days Entry</li><li>✅ 50,000+ Premium Videos</li><li>✅ Instant Support</li>" : 
-                "<li>✅ Lifetime Access</li><li>✅ 50,000+ Premium Videos</li><li>✅ Priority Admin Access</li>";
         }
 
         function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'block'; }
+        function ready() { document.getElementById('sub-btn').style.display = 'block'; document.getElementById('label-box').style.borderColor = "#10b981"; tg.HapticFeedback.impactOccurred('medium'); }
+        function submit() { tg.sendData("PAID"); tg.close(); }
+    </script>
+</body>
+</html>
         function ready() { document.getElementById('sub-btn').style.display = 'block'; document.getElementById('label-box').style.borderColor = "#10b981"; }
         function submit() { tg.sendData("PAID"); tg.close(); }
     </script>
