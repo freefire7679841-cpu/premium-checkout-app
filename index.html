@@ -7,47 +7,47 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; font-family: 'Outfit', sans-serif; background: radial-gradient(circle at top, #1a1a2e 0%, #050505 100%); color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-x: hidden; }
+        body { margin: 0; font-family: 'Outfit', sans-serif; background: radial-gradient(circle at top, #1a1a2e 0%, #050505 100%); color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
         
-        /* Premium Card Container */
-        .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); border-radius: 28px; padding: 20px; width: 90%; max-width: 360px; text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); margin: 15px; box-sizing: border-box; }
+        /* Enlarged Card Container */
+        .card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(25px); border-radius: 32px; padding: 25px; width: 92%; max-width: 400px; text-align: center; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 96vh; box-sizing: border-box; }
 
-        /* Navigation & Headers */
         #checkout-page { display: none; }
-        .back-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 8px 16px; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 700; margin-bottom: 15px; width: fit-content; }
+        .back-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: white; padding: 10px 20px; border-radius: 14px; cursor: pointer; font-size: 14px; font-weight: 700; margin-bottom: 15px; width: fit-content; transition: 0.2s; }
+        .back-btn:active { transform: scale(0.95); }
         
-        .ticker { background: linear-gradient(90deg, rgba(251,191,36,0.1), rgba(251,191,36,0.05)); color: #fbbf24; font-size: 10px; font-weight: 800; padding: 8px; border-radius: 12px; margin-bottom: 15px; border: 1px solid rgba(251,191,36,0.2); text-transform: uppercase; letter-spacing: 0.5px; }
+        .ticker { background: linear-gradient(90deg, rgba(251,191,36,0.15), rgba(251,191,36,0.05)); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 10px; border-radius: 14px; margin-bottom: 20px; border: 1px solid rgba(251,191,36,0.25); text-transform: uppercase; letter-spacing: 0.8px; }
 
-        /* Pricing Buttons */
-        .plan-btn { width: 100%; padding: 18px; border-radius: 20px; border: none; cursor: pointer; position: relative; margin-bottom: 25px; transition: transform 0.2s; }
-        .plan-btn:active { transform: scale(0.98); }
-        .weekly-btn { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-        .perm-btn { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        /* Bigger Action Buttons */
+        .plan-btn { width: 100%; padding: 22px 15px; border-radius: 24px; border: none; cursor: pointer; position: relative; margin-bottom: 28px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .plan-btn:active { transform: scale(0.97); }
+        .weekly-btn { background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 10px 20px rgba(29, 78, 216, 0.3); }
+        .perm-btn { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 10px 20px rgba(217, 119, 6, 0.3); }
         
-        .plan-name { font-size: 18px; font-weight: 800; display: block; margin-bottom: 4px; text-transform: uppercase; }
-        .price-row { display: flex; justify-content: center; align-items: center; gap: 8px; }
-        .old-p { text-decoration: line-through; opacity: 0.6; font-size: 14px; }
-        .new-p { font-size: 22px; font-weight: 800; }
-        .discount { color: #4ade80; font-weight: 800; font-size: 14px; }
+        .plan-name { font-size: 20px; font-weight: 800; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .price-row { display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .old-p { text-decoration: line-through; opacity: 0.5; font-size: 16px; }
+        .new-p { font-size: 26px; font-weight: 800; }
+        .discount { color: #4ade80; font-weight: 800; font-size: 16px; background: rgba(74, 222, 128, 0.15); padding: 2px 8px; border-radius: 8px; }
 
-        /* Selection Tags */
-        .tag { position: absolute; top: -12px; right: 15px; color: white; font-size: 10px; padding: 5px 12px; border-radius: 8px; font-weight: 800; text-transform: uppercase; }
+        .tag { position: absolute; top: -14px; right: 20px; color: white; font-size: 11px; padding: 6px 14px; border-radius: 10px; font-weight: 800; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .pop-tag { background: #ef4444; }
         .best-tag { background: #10b981; }
 
-        /* Checkout Elements */
-        .qr-wrapper { background: #ffffff; padding: 12px; border-radius: 20px; margin: 15px auto; width: 180px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        /* Enlarged Checkout Elements */
+        .qr-wrapper { background: #ffffff; padding: 15px; border-radius: 24px; margin: 10px auto; width: 210px; box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
         
-        .upi-box { background: rgba(255,255,255,0.05); padding: 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; margin: 15px 0; }
-        .instr-card { background: rgba(16, 185, 129, 0.05); border-left: 4px solid #10b981; border-radius: 12px; padding: 15px; text-align: left; margin-bottom: 15px; }
+        .upi-box { background: rgba(255,255,255,0.06); padding: 16px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.12); cursor: pointer; margin: 10px 0; transition: 0.2s; }
+        .upi-box:active { background: rgba(255,255,255,0.12); }
         
-        .upload-area { border: 2px dashed rgba(255,255,255,0.2); padding: 18px; border-radius: 20px; cursor: pointer; background: rgba(255,255,255,0.03); display: block; margin-top: 10px; }
-        .confirm-btn { width: 100%; padding: 16px; border-radius: 18px; border: none; background: #10b981; color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 15px; display: none; }
+        .instr-card { background: rgba(16, 185, 129, 0.08); border-left: 5px solid #10b981; border-radius: 14px; padding: 16px; text-align: left; margin-bottom: 12px; }
+        
+        .upload-area { border: 2px dashed rgba(255,255,255,0.25); padding: 20px; border-radius: 22px; cursor: pointer; background: rgba(255,255,255,0.04); display: block; transition: 0.3s; }
+        .confirm-btn { width: 100%; padding: 20px; border-radius: 22px; border: none; background: #10b981; color: white; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 15px; display: none; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4); text-transform: uppercase; }
 
-        /* Status Styling */
-        .live-counter { font-size: 12px; color: #4ade80; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 10px; }
-        .dot { height: 6px; width: 6px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
+        .live-counter { font-size: 13px; color: #4ade80; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
+        .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
     </style>
 </head>
@@ -55,9 +55,9 @@
 
     <div id="selection-page" class="card">
         <div class="ticker">⚡ LIMITED TIME OFFER: JOIN 50K+ COLLECTIONS ⚡</div>
-        <div style="font-size: 40px; margin-bottom: 10px;">👑</div>
-        <h1 style="margin: 0; font-size: 26px; font-weight: 800;">Premium VIP</h1>
-        <p style="font-size: 14px; color: #94a3b8; margin: 8px 0 25px 0;">Trusted bot: <span style="color:#fbbf24; font-weight:700;">Instant entry</span> after payment. ✅</p>
+        <div style="font-size: 45px; margin-bottom: 10px;">👑</div>
+        <h1 style="margin: 0; font-size: 30px; font-weight: 800;">Premium VIP</h1>
+        <p style="font-size: 16px; color: #94a3b8; margin: 10px 0 30px 0;">Trusted bot: <span style="color:#fbbf24; font-weight:700;">Instant entry</span> after payment. ✅</p>
         
         <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
             <span class="tag pop-tag">MOST POPULAR</span>
@@ -78,26 +78,26 @@
                 <span class="discount">85% OFF</span>
             </div>
         </button>
-        <p style="font-size: 11px; color: #64748b;">Instant entry after payment verified 💎</p>
+        <p style="font-size: 12px; color: #64748b; margin-top: 10px;">Instant entry after payment verified 💎</p>
     </div>
 
     <div id="checkout-page" class="card">
         <div class="back-btn" onclick="goBack()">← Back</div>
         <div class="live-counter"><span class="dot"></span> 1,428 people purchased today</div>
-        <h2 id="plan-title" style="margin: 0; font-size: 20px;">VIP Access</h2>
+        <h2 id="plan-title" style="margin: 0; font-size: 24px; font-weight: 800;">VIP Access</h2>
 
         <div class="qr-wrapper">
             <img id="qr-display" src="" alt="Payment QR">
         </div>
 
         <div class="upi-box" onclick="copyUPI()">
-            <div style="font-size: 10px; color: #94a3b8; font-weight: 800; margin-bottom: 4px;">TAP TO COPY UPI ID 📋</div>
-            <div style="font-size: 15px; font-weight: 800;">sayedjinnatrana@naviaxis</div>
+            <div style="font-size: 11px; color: #94a3b8; font-weight: 800; margin-bottom: 4px; letter-spacing: 1px;">TAP TO COPY UPI ID 📋</div>
+            <div style="font-size: 17px; font-weight: 800; color: #ffffff;">sayedjinnatrana@naviaxis</div>
         </div>
 
         <div class="instr-card">
-            <div style="color: #10b981; font-weight: 800; font-size: 12px; margin-bottom: 5px;">🚀 HOW TO JOIN</div>
-            <div style="font-size: 11px; line-height: 1.5; color: #e2e8f0;">
+            <div style="color: #10b981; font-weight: 800; font-size: 13px; margin-bottom: 6px; letter-spacing: 0.5px;">🚀 HOW TO JOIN</div>
+            <div style="font-size: 12px; line-height: 1.6; color: #e2e8f0;">
                 1. Pay via QR or UPI ID.<br>
                 2. Take a screenshot of payment.<br>
                 3. Upload it below for instant link.
@@ -105,8 +105,8 @@
         </div>
 
         <label class="upload-area" for="file-in" id="label-box">
-            <div style="font-size: 13px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
-            <div style="font-size: 10px; color: #94a3b8; margin-top: 4px;">Auto-verification active</div>
+            <div style="font-size: 14px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
+            <div style="font-size: 11px; color: #94a3b8; margin-top: 5px;">Auto-verification active</div>
         </label>
         
         <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
@@ -127,7 +127,7 @@
             let price = (sel === 'Weekly') ? "69" : "149";
             document.getElementById('plan-title').innerText = sel + " VIP Pass";
             let upiLink = `upi://pay?pa=sayedjinnatrana@naviaxis&pn=VIP%20Portal&am=${price}&cu=INR`;
-            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiLink)}`;
+            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=${encodeURIComponent(upiLink)}`;
             document.getElementById('selection-page').style.display = 'none';
             document.getElementById('checkout-page').style.display = 'block';
         }
@@ -140,9 +140,16 @@
         function ready() {
             document.getElementById('sub-btn').style.display = 'block';
             document.getElementById('label-box').style.borderColor = "#10b981";
-            document.getElementById('label-box').innerHTML = '<div style="color:#10b981; font-weight:800;">✅ SCREENSHOT LOADED</div>';
+            document.getElementById('label-box').innerHTML = '<div style="color:#10b981; font-weight:800; font-size: 15px;">✅ SCREENSHOT LOADED</div>';
         }
 
+        function submit() {
+            tg.sendData("PAID");
+            tg.close();
+        }
+    </script>
+</body>
+</html>
         function submit() {
             tg.sendData("PAID");
             tg.close();
