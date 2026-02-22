@@ -8,49 +8,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body { margin: 0; font-family: 'Outfit', sans-serif; background: radial-gradient(circle at top, #1a1a2e 0%, #050505 100%); color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        .light-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: -1; }
-        .glow { position: absolute; border-radius: 50%; filter: blur(60px); animation: float 8s infinite alternate ease-in-out; opacity: 0.3; }
-        .glow-1 { width: 300px; height: 300px; background: #6b21a8; top: -100px; left: -100px; }
-        .glow-2 { width: 400px; height: 400px; background: #1d4ed8; bottom: -150px; right: -100px; }
-        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, 40px) scale(1.1); } }
         
-        /* Optimized Card for No-Scroll */
-        .card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 30px; padding: 15px 20px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; }
-        
-        #checkout-page { display: none; flex-direction: column; justify-content: space-between; height: 100%; }
-        .back-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 800; width: fit-content; }
-        
-        .ticker { background: linear-gradient(90deg, rgba(251,191,36,0.2), rgba(251,191,36,0.05)); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 10px; border-radius: 14px; border: 1px solid rgba(251,191,36,0.3); text-transform: uppercase; margin-bottom: 10px; }
+        /* Jumbo Container optimized for single-frame */
+        .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 20px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
 
-        .plan-btn { width: 100%; padding: 20px; border-radius: 24px; border: none; cursor: pointer; position: relative; margin-bottom: 20px; }
+        #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; }
+        .back-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 14px; cursor: pointer; font-size: 14px; font-weight: 800; width: fit-content; }
+        
+        .ticker { background: linear-gradient(90deg, rgba(251,191,36,0.2), rgba(251,191,36,0.05)); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 10px; border-radius: 14px; margin-bottom: 12px; border: 1px solid rgba(251,191,36,0.3); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Pricing Buttons with restored 65%/85% tags */
+        .plan-btn { width: 100%; padding: 22px 15px; border-radius: 24px; border: none; cursor: pointer; position: relative; margin-bottom: 22px; transition: 0.3s; }
+        .plan-btn:active { transform: scale(0.96); }
         .weekly-btn { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
         .perm-btn { background: linear-gradient(135deg, #f59e0b, #d97706); }
-        .plan-name { font-size: 20px; font-weight: 800; display: block; text-transform: uppercase; color: #fff; }
-        .price-row { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 5px; }
-        .old-p { text-decoration: line-through; opacity: 0.5; font-size: 16px; }
-        .new-p { font-size: 28px; font-weight: 800; }
-        .discount { color: #4ade80; font-weight: 800; font-size: 16px; background: rgba(74, 222, 128, 0.2); padding: 2px 10px; border-radius: 8px; }
+        
+        .plan-name { font-size: 20px; font-weight: 800; display: block; margin-bottom: 4px; text-transform: uppercase; color: #fff; }
+        .price-row { display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .old-p { text-decoration: line-through; opacity: 0.5; font-size: 15px; }
+        .new-p { font-size: 26px; font-weight: 800; }
+        .discount { color: #4ade80; font-weight: 800; font-size: 16px; }
 
-        .tag { position: absolute; top: -15px; right: 20px; color: white; font-size: 10px; padding: 6px 12px; border-radius: 8px; font-weight: 800; text-transform: uppercase; }
+        .tag { position: absolute; top: -14px; right: 20px; color: white; font-size: 11px; padding: 6px 12px; border-radius: 8px; font-weight: 800; text-transform: uppercase; }
         .pop-tag { background: #ef4444; }
         .best-tag { background: #10b981; }
 
-        /* Payment UI Layout - Fixed Height Elements */
+        /* Jumbo Payment UI Elements */
         .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
-        .mini-badge { background: rgba(255,255,255,0.05); padding: 6px; border-radius: 10px; font-size: 10px; font-weight: 700; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .mini-badge { background: rgba(255,255,255,0.05); padding: 7px; border-radius: 12px; font-size: 10px; font-weight: 700; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; gap: 5px; }
         
-        .qr-wrapper { background: #ffffff; padding: 10px; border-radius: 20px; margin: 10px auto; width: 160px; }
+        .qr-wrapper { background: #ffffff; padding: 12px; border-radius: 20px; margin: 10px auto; width: 180px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
         
-        .notice-badge { background: rgba(251, 191, 36, 0.15); color: #fbbf24; padding: 6px 12px; border-radius: 10px; font-size: 11px; font-weight: 800; border: 1px solid rgba(251, 191, 36, 0.3); display: inline-block; margin-bottom: 8px; }
+        .notice-badge { background: rgba(251, 191, 36, 0.15); color: #fbbf24; padding: 8px 14px; border-radius: 12px; font-size: 11px; font-weight: 800; border: 1px solid rgba(251, 191, 36, 0.3); display: inline-block; margin-bottom: 10px; }
 
-        .upi-box { background: rgba(255,255,255,0.08); padding: 12px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.15); cursor: pointer; margin-bottom: 8px; }
-        .instr-card { background: rgba(16, 185, 129, 0.1); border-left: 5px solid #10b981; border-radius: 14px; padding: 12px; text-align: left; margin-bottom: 10px; font-size: 11px; line-height: 1.4; }
+        .upi-box { background: rgba(255,255,255,0.08); padding: 15px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.15); cursor: pointer; margin: 10px 0; }
+        .instr-card { background: rgba(16, 185, 129, 0.1); border-left: 6px solid #10b981; border-radius: 16px; padding: 15px; text-align: left; margin-bottom: 12px; }
         
-        .upload-area { border: 2px dashed rgba(255,255,255,0.3); padding: 15px; border-radius: 20px; cursor: pointer; background: rgba(255,255,255,0.05); display: block; }
-        .confirm-btn { width: 100%; padding: 18px; border-radius: 22px; border: none; background: #10b981; color: white; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 10px; display: none; text-transform: uppercase; }
+        .upload-area { border: 2px dashed rgba(255,255,255,0.3); padding: 20px; border-radius: 22px; cursor: pointer; background: rgba(255,255,255,0.05); display: block; }
+        .confirm-btn { width: 100%; padding: 22px; border-radius: 25px; border: none; background: #10b981; color: white; font-size: 20px; font-weight: 800; cursor: pointer; margin-top: 15px; display: none; text-transform: uppercase; }
 
-        .live-counter { font-size: 13px; color: #4ade80; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 5px; }
+        .live-counter { font-size: 14px; color: #4ade80; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
     </style>
@@ -60,32 +58,43 @@
     <div id="selection-page" class="card">
         <div>
             <div class="ticker">⚡ LIMITED TIME OFFER: JOIN 50K+ COLLECTIONS ⚡</div>
-            <div style="font-size: 40px; margin-bottom: 5px;">👑</div>
-            <h1 style="margin: 0; font-size: 28px; font-weight: 800;">Premium VIP</h1>
-            <p style="font-size: 14px; color: #94a3b8; margin: 5px 0 20px 0;">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> ✅</p>
+            <div style="font-size: 50px; margin-bottom: 10px;">👑</div>
+            <h1 style="margin: 0; font-size: 32px; font-weight: 800;">Premium VIP</h1>
+            <p style="font-size: 15px; color: #94a3b8; margin: 10px 0 25px 0;">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> after payment. ✅</p>
         </div>
         
-        <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
-            <span class="tag pop-tag">MOST POPULAR</span>
-            <span class="plan-name">Weekly Pass</span>
-            <div class="price-row"><span class="old-p">₹199</span><span class="new-p">₹69</span><span class="discount">65% OFF</span></div>
-        </button>
+        <div>
+            <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
+                <span class="tag pop-tag">MOST POPULAR</span>
+                <span class="plan-name">Weekly Pass</span>
+                <div class="price-row">
+                    <span class="old-p">₹199</span>
+                    <span class="new-p">₹69</span>
+                    <span class="discount">65% OFF</span>
+                </div>
+            </button>
 
-        <button class="plan-btn perm-btn" onclick="openCheckout('Permanent')">
-            <span class="tag best-tag">BEST VALUE</span>
-            <span class="plan-name">Permanent Pass</span>
-            <div class="price-row"><span class="old-p">₹999</span><span class="new-p">₹149</span><span class="discount">85% OFF</span></div>
-        </button>
+            <button class="plan-btn perm-btn" onclick="openCheckout('Permanent')">
+                <span class="tag best-tag">BEST VALUE</span>
+                <span class="plan-name">Permanent Pass</span>
+                <div class="price-row">
+                    <span class="old-p">₹999</span>
+                    <span class="new-p">₹149</span>
+                    <span class="discount">85% OFF</span>
+                </div>
+            </button>
+        </div>
+        <p style="font-size: 12px; color: #64748b;">Instant entry after payment verified 💎</p>
     </div>
 
     <div id="checkout-page" class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
             <div class="back-btn" onclick="goBack()">← Back</div>
             <div class="live-counter"><span class="dot"></span> 1,428 sales today</div>
         </div>
 
-        <div style="flex-grow: 1;">
-            <h2 id="plan-title" style="margin: 0; font-size: 20px; font-weight: 800;">VIP Access</h2>
+        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+            <h2 id="plan-title" style="margin: 5px 0; font-size: 22px; font-weight: 800;">VIP Access</h2>
             <div class="badge-grid">
                 <div class="mini-badge">✓ Verified Seller</div>
                 <div class="mini-badge">⚡ Instant Entry</div>
@@ -93,21 +102,22 @@
             <div class="qr-wrapper"><img id="qr-display" src="" alt="Payment QR"></div>
             <div class="notice-badge">📸 Take Screenshot or Copy UPI to Pay</div>
             <div class="upi-box" onclick="copyUPI()">
-                <div style="font-size: 10px; color: #94a3b8; margin-bottom: 2px;">TAP TO COPY UPI ID 📋</div>
-                <div style="font-size: 15px; font-weight: 800;">sayedjinnatrana@naviaxis</div>
+                <div style="font-size: 11px; color: #94a3b8; margin-bottom: 2px;">TAP TO COPY UPI ID 📋</div>
+                <div style="font-size: 18px; font-weight: 800;">sayedjinnatrana@naviaxis</div>
             </div>
         </div>
 
         <div>
             <div class="instr-card">
-                <b>🚀 HOW TO JOIN:</b> Pay amount via QR/UPI, take screenshot, and upload below.
+                <b style="color: #10b981; display: block; margin-bottom: 4px;">🚀 HOW TO JOIN:</b>
+                <span style="font-size: 12px; line-height: 1.4;">Pay exact amount via QR or UPI, take screenshot, and upload below for instant link.</span>
             </div>
             <label class="upload-area" for="file-in" id="label-box">
-                <div style="font-size: 14px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
+                <div style="font-size: 16px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
             </label>
             <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
             <button id="sub-btn" class="confirm-btn" onclick="submit()">CONFIRM & GET LINK</button>
-            <div id="change-text" style="font-size: 10px; color: #94a3b8; margin-top: 5px; cursor: pointer; display: none;" onclick="resetFile()">Change Screenshot</div>
+            <div id="change-text" style="font-size: 11px; color: #94a3b8; margin-top: 5px; cursor: pointer; display: none;" onclick="resetFile()">Change Screenshot</div>
         </div>
     </div>
 
@@ -124,17 +134,17 @@
             document.getElementById('selection-page').style.display = 'none';
             document.getElementById('checkout-page').style.display = 'flex';
         }
-        function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'block'; }
+        function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'flex'; }
         function ready() { 
             document.getElementById('sub-btn').style.display = 'block';
             document.getElementById('change-text').style.display = 'block';
-            document.getElementById('label-box').innerHTML = '<div style="color:#10b981; font-weight:800; font-size: 16px;">✅ PROOF LOADED</div>';
+            document.getElementById('label-box').innerHTML = '<div style="color:#10b981; font-weight:800; font-size: 18px;">✅ PROOF LOADED</div>';
         }
         function resetFile() {
             document.getElementById('file-in').value = "";
             document.getElementById('sub-btn').style.display = 'none';
             document.getElementById('change-text').style.display = 'none';
-            document.getElementById('label-box').innerHTML = '<div style="font-size: 14px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>';
+            document.getElementById('label-box').innerHTML = '<div style="font-size: 16px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>';
         }
         function submit() { tg.sendData("VERIFY_" + selectedPlan.toUpperCase()); tg.close(); }
     </script>
