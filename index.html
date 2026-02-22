@@ -9,45 +9,60 @@
     <style>
         body { margin: 0; font-family: 'Outfit', sans-serif; background: #050505; color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; position: relative; }
         
+        /* GLOWING EMOJI RAIN */
         .emoji-rain { position: absolute; top: -50px; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
         .emoji { position: absolute; font-size: 35px; opacity: 0.6; filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9)); animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
+        /* RECENT PURCHASE NOTIFICATION */
         #purchase-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: rgba(16, 185, 129, 0.95); color: white; padding: 12px 25px; border-radius: 50px; font-size: 13px; font-weight: 800; z-index: 200; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1.5px solid rgba(255,255,255,0.3); box-shadow: 0 10px 40px rgba(0,0,0,0.8); display: flex; align-items: center; gap: 10px; pointer-events: none; }
         #purchase-toast.show { transform: translateX(-50%) translateY(0); }
 
+        /* MAIN CONTAINER */
         .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 15px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
 
-        #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: flex-start; transition: all 0.3s ease; }
-        .lift-up { transform: translateY(-15px); } /* Initial lift to fill gaps */
+        #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; }
 
+        /* GLOWING TRUST BADGES */
         .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
         .mini-badge { background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 12px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1.5px solid transparent; }
-        
-        /* Glowing Badges Fix */
         .badge-glow-blue { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.6); animation: glow-blue 2s infinite alternate; }
         .badge-glow-gold { border-color: #fbbf24; box-shadow: 0 0 15px rgba(251, 191, 36, 0.6); animation: glow-gold 2s infinite alternate; }
         @keyframes glow-blue { from { box-shadow: 0 0 5px rgba(59, 130, 246, 0.3); } to { box-shadow: 0 0 18px rgba(59, 130, 246, 0.8); } }
         @keyframes glow-gold { from { box-shadow: 0 0 5px rgba(251, 191, 36, 0.3); } to { box-shadow: 0 0 18px rgba(251, 191, 36, 0.8); } }
 
-        .plan-btn { width: 100%; padding: 22px 15px; border-radius: 28px; border: 2px solid rgba(255,255,255,0.1); cursor: pointer; position: relative; margin-bottom: 25px; color: #fff; }
+        /* TRANSPARENT PLAN BUTTONS */
+        .plan-btn { width: 100%; padding: 22px 15px; border-radius: 28px; border: 2px solid rgba(255,255,255,0.1); cursor: pointer; position: relative; margin-bottom: 25px; color: #fff; transition: 0.3s; }
         .weekly-btn { background: rgba(37, 99, 235, 0.25); border-color: #2563eb; }
         .perm-btn { background: rgba(217, 119, 6, 0.25); border-color: #d97706; }
+        .amount-big { font-size: 34px; font-weight: 800; text-shadow: 0 0 15px rgba(255,255,255,0.4); }
 
-        /* How to Join Section */
-        .how-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%); border: 1.5px solid #10b981; border-radius: 22px; padding: 12px; text-align: left; width: 100%; box-sizing: border-box; margin-bottom: 8px; }
+        /* HOW TO JOIN (MARGIN ADDED FOR GAP) */
+        .how-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%); border: 1.5px solid #10b981; border-radius: 22px; padding: 18px; text-align: left; width: 100%; box-sizing: border-box; margin-top: 15px; margin-bottom: 12px; }
 
-        /* Upload Area Fix - contained in bracket */
-        .upload-area { border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.1); padding: 14px; border-radius: 22px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 5px 0; width: 100%; box-sizing: border-box; }
+        .join-counter { font-size: 14px; color: #4ade80; font-weight: 800; background: rgba(74, 222, 128, 0.2); padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(74, 222, 128, 0.4); display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; }
+        .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
+
+        /* UPLOAD AREA BRACKET */
+        .upload-area { border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.1); padding: 18px; border-radius: 22px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 10px 0; box-sizing: border-box; width: 100%; }
         
-        /* Bigger Change Screenshot button */
-        .change-txt { font-size: 15px; color: #ffffff; text-decoration: underline; margin-top: 10px; cursor: pointer; display: none; padding: 12px; font-weight: 800; background: rgba(255,255,255,0.15); border-radius: 15px; width: 85%; margin-left: auto; margin-right: auto; }
-        
-        .confirm-btn { width: 100%; padding: 18px; border-radius: 28px; border: none; background: #10b981; color: white; font-size: 20px; font-weight: 800; cursor: pointer; margin-top: 5px; display: none; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); text-transform: uppercase; }
+        /* FLOATING ANIMATION FOR INSTRUCTION TEXT */
+        .upload-hint { color: #10b981; font-weight: 800; font-size: 12px; margin-bottom: 5px; animation: floatText 2s ease-in-out infinite; }
+        @keyframes floatText { 
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
 
-        .qr-wrapper { background: #ffffff; padding: 10px; border-radius: 20px; margin: 5px auto; width: 160px; }
+        /* BIGGER CHANGE BUTTON */
+        .change-txt { font-size: 15px; color: #ffffff; text-decoration: underline; margin-top: 10px; cursor: pointer; display: none; padding: 12px; font-weight: 800; background: rgba(255,255,255,0.15); border-radius: 15px; width: 80%; margin-left: auto; margin-right: auto; }
+        
+        .confirm-btn { width: 100%; padding: 22px; border-radius: 30px; border: none; background: #10b981; color: white; font-size: 20px; font-weight: 800; cursor: pointer; margin-top: 10px; display: none; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); }
+
+        .qr-wrapper { background: #ffffff; padding: 10px; border-radius: 20px; margin: 5px auto; width: 180px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
 
+        .upi-box-small { background:rgba(255,255,255,0.07); padding:8px; border-radius:15px; cursor:pointer; margin: 5px 0; border: 1px solid rgba(255,255,255,0.1); }
+        
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
     </style>
 </head>
@@ -62,30 +77,33 @@
             <h1 style="margin: 0; font-size: 32px; font-weight: 800;">Premium VIP</h1>
             <p style="font-size: 14px; color: #94a3b8;">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> after payment ✅</p>
         </div>
+        
         <div>
             <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
                 <span style="position: absolute; top: -14px; right: 20px; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 10px; background: #ef4444;">🔥 MOST POPULAR</span>
                 <span style="font-size: 18px; font-weight: 800;">WEEKLY PASS</span>
-                <div style="font-size: 34px; font-weight: 800;">₹69 <span style="font-size: 16px; color: #4ade80;">65% OFF</span></div>
+                <div class="amount-big">₹69 <span style="font-size: 16px; color: #4ade80;">65% OFF</span></div>
             </button>
+
             <button class="plan-btn perm-btn" onclick="openCheckout('Permanent')">
                 <span style="position: absolute; top: -14px; right: 20px; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 10px; background: #10b981;">💎 BEST VALUE</span>
                 <span style="font-size: 18px; font-weight: 800;">PERMANENT PASS</span>
-                <div style="font-size: 34px; font-weight: 800;">₹149 <span style="font-size: 16px; color: #4ade80;">85% OFF</span></div>
+                <div class="amount-big">₹149 <span style="font-size: 16px; color: #4ade80;">85% OFF</span></div>
             </button>
         </div>
-        <div style="font-size: 14px; color: #4ade80; font-weight: 800; background: rgba(74, 222, 128, 0.2); padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(74, 222, 128, 0.4); display: inline-flex; align-items: center; gap: 8px; align-self: center;">
-            <span style="height: 8px; width: 8px; background: #4ade80; border-radius: 50%;"></span> 1,428 people joined today 💎
+
+        <div class="join-counter">
+            <span class="dot"></span> 1,428 people joined in last 24h 💎
         </div>
     </div>
 
-    <div id="checkout-page" class="card lift-up">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+    <div id="checkout-page" class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
             <button onclick="goBack()" style="background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2); color: white; padding: 8px 18px; border-radius: 12px; cursor: pointer; font-weight: 800;">← Back</button>
-            <div style="font-size: 12px; color: #4ade80; font-weight: 800;">● Active Sales</div>
+            <div class="join-counter" style="margin:0; font-size: 12px; padding: 5px 12px;"><span class="dot"></span> Active Sales</div>
         </div>
 
-        <div>
+        <div style="flex-grow: 1;">
             <h2 id="plan-title" style="margin: 2px 0; font-size: 22px; font-weight: 800;">VIP Access</h2>
             <div class="badge-grid">
                 <div class="mini-badge badge-glow-blue">✓ Verified Seller</div>
@@ -94,22 +112,26 @@
                 <div class="mini-badge badge-glow-gold">🛡️ Secured Payment</div>
             </div>
             <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
-            <div style="background:rgba(251, 191, 36, 0.1); color:#fbbf24; padding:6px; border-radius:10px; border:1px solid rgba(251,191,36,0.3); font-size:11px; font-weight:800; margin-bottom: 5px;">📸 Take Screenshot or Copy UPI to Pay</div>
-            <div style="background:rgba(255,255,255,0.07); padding:8px; border-radius:15px; cursor:pointer;" onclick="copyUPI()">
-                <div style="font-size:9px; color:#94a3b8;">TAP TO COPY UPI ID 📋</div>
+            <div style="background:rgba(251, 191, 36, 0.1); color:#fbbf24; padding:6px; border-radius:10px; border:1px solid rgba(251,191,36,0.3); font-size:11px; font-weight:800;">📸 Take Screenshot or Copy UPI to Pay</div>
+            
+            <div class="upi-box-small" onclick="copyUPI()">
+                <div style="font-size:9px; color:#94a3b8; font-weight:800;">TAP TO COPY UPI ID 📋</div>
                 <div style="font-size:15px; font-weight:800;">sayedjinnatrana@naviaxis</div>
             </div>
         </div>
 
         <div>
             <div class="how-box">
-                <div style="color: #10b981; font-weight: 800; font-size: 13px; margin-bottom: 2px;">🚀 HOW TO JOIN</div>
-                <div style="font-size: 10px; line-height: 1.3;">Pay exact amount via QR or UPI and upload proof below.</div>
+                <div style="color: #10b981; font-weight: 800; font-size: 14px; margin-bottom: 5px;">🚀 HOW TO JOIN</div>
+                <div style="font-size: 11px; line-height: 1.4;">Pay exact amount via QR or UPI and upload proof below.</div>
             </div>
-            <div style="color: #10b981; font-weight: 800; font-size: 10px; margin-bottom: 3px;">👇 CLICK AND UPLOAD PAYMENT PROOF TO GET LINK 👇</div>
+            
+            <div class="upload-hint">👇🙏🏻 CLICK AND UPLOAD PAYMENT PROOF TO GET LINK 👇🏻</div>
+
             <label class="upload-area" for="file-in" id="label-box">
                 <div id="label-text" style="font-size: 14px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
             </label>
+            
             <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
             <button id="sub-btn" class="confirm-btn" onclick="submit()">CONFIRM & GET LINK</button>
             <div id="change-txt" class="change-txt" onclick="resetFile()">Change Screenshot 🔄</div>
@@ -131,15 +153,15 @@
         }
         setInterval(createEmoji, 400);
 
-        const names = ["Aman", "Rohit", "Vikram", "Sneha", "Kabir", "Arjun", "Zoya", "Ravi"];
-        function showSocialProof() {
-            const name = names[Math.floor(Math.random() * names.length)];
+        const userNames = ["Aman", "Rohit", "Vikram", "Sneha", "Kabir", "Arjun", "Zoya", "Ravi"];
+        function showPurchaseAlert() {
+            const name = userNames[Math.floor(Math.random() * userNames.length)];
             const plan = Math.random() > 0.4 ? "Weekly Pass" : "Permanent Pass";
-            document.getElementById('toast-msg').innerText = `${name} recently purchased ${plan}!`;
+            document.getElementById('toast-msg').innerText = `${name} just purchased ${plan}!`;
             document.getElementById('purchase-toast').classList.add('show');
             setTimeout(() => document.getElementById('purchase-toast').classList.remove('show'), 3500);
         }
-        setInterval(showSocialProof, 9000);
+        setInterval(showPurchaseAlert, 9000);
 
         function openCheckout(sel) {
             let price = (sel === 'Weekly') ? "69" : "149";
@@ -150,30 +172,32 @@
         }
 
         function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'flex'; }
+        
         function copyUPI() { navigator.clipboard.writeText("sayedjinnatrana@naviaxis"); tg.HapticFeedback.notificationOccurred('success'); alert("UPI ID Copied!"); }
 
         function ready() { 
-            document.getElementById('checkout-page').classList.remove('lift-up');
             document.getElementById('sub-btn').style.display = 'block';
             document.getElementById('change-txt').style.display = 'block';
             document.getElementById('label-box').style.borderStyle = 'solid';
             document.getElementById('label-box').style.backgroundColor = 'rgba(16, 185, 129, 0.2)';
             document.getElementById('label-text').innerHTML = '<span style="color:#10b981">✅ SCREENSHOT LOADED</span>';
+            document.querySelector('.upload-hint').style.display = 'none';
         }
 
         function resetFile() {
-            document.getElementById('checkout-page').classList.add('lift-up');
             document.getElementById('file-in').value = "";
             document.getElementById('sub-btn').style.display = 'none';
             document.getElementById('change-txt').style.display = 'none';
             document.getElementById('label-box').style.borderStyle = 'dashed';
             document.getElementById('label-box').style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
             document.getElementById('label-text').innerHTML = '📸 UPLOAD PAYMENT PROOF';
+            document.querySelector('.upload-hint').style.display = 'block';
         }
 
         function submit() { tg.sendData("PAID"); tg.close(); }
     </script>
 </body>
 </html>
+
 
 
