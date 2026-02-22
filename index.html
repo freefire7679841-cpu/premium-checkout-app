@@ -7,7 +7,6 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* Base setup to prevent overflow */
         body { margin: 0; font-family: 'Outfit', sans-serif; background-color: #050505; color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
         .light-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: -1; }
         .glow { position: absolute; border-radius: 50%; filter: blur(60px); animation: float 8s infinite alternate ease-in-out; opacity: 0.4; }
@@ -15,7 +14,6 @@
         .glow-2 { width: 400px; height: 400px; background: #1d4ed8; bottom: -150px; right: -100px; }
         @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, 40px) scale(1.1); } }
         
-        /* Optimized Card for Single Frame View */
         .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(24px); border-radius: 28px; padding: 18px 20px; width: 88%; max-width: 350px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative; z-index: 10; display: flex; flex-direction: column; justify-content: space-between; max-height: 96vh; }
         
         #checkout-page { display: none; }
@@ -38,8 +36,6 @@
         
         .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
         .mini-badge { background: rgba(255,255,255,0.05); padding: 6px; border-radius: 10px; font-size: 10px; font-weight: 700; color: #fff; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; gap: 6px; }
-        .badge-blue { box-shadow: 0 0 8px rgba(59, 130, 246, 0.3); border-color: rgba(59, 130, 246, 0.3); }
-        .badge-gold { box-shadow: 0 0 8px rgba(251, 191, 36, 0.3); border-color: rgba(251, 191, 36, 0.3); }
         
         .qr-wrapper { background: white; padding: 8px; border-radius: 18px; margin: 8px auto; width: 140px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
@@ -68,12 +64,8 @@
             <div class="ticker">⚡ LIMITED TIME OFFER: JOIN 50K+ COLLECTIONS ⚡</div>
             <div style="font-size: 35px; margin-bottom: 5px;">👑</div>
             <h1 style="margin:0 0 5px 0; font-size: 24px;">Premium VIP</h1>
-            <p style="font-size: 12px; color: #94a3b8; margin: 0 0 15px 0;">
-                Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant channel entry</span> after payment. ✅<br>
-                50,000+ Premium Videos & Collections inside.
-            </p>
+            <p style="font-size: 12px; color: #94a3b8; margin: 0 0 15px 0;">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant channel entry</span> after payment. ✅</p>
         </div>
-        
         <div>
             <div style="position:relative; margin-bottom:30px;">
                 <div class="tag popular-tag">MOST POPULAR</div>
@@ -86,7 +78,6 @@
                     </div>
                 </button>
             </div>
-
             <div style="position:relative;">
                 <div class="tag value-tag">BEST VALUE</div>
                 <button class="btn btn-gold" onclick="openCheckout('Permanent')">
@@ -99,50 +90,80 @@
                 </button>
             </div>
         </div>
-        <p style="font-size:9px; color:#64748b; margin-top:15px;">Trusted bot instant entry after payment 💎</p>
     </div>
 
     <div id="checkout-page" class="card">
         <button class="back-btn" onclick="goBack()">← Back</button>
-        
         <div style="margin-top: 15px;">
-            <div class="live-counter"><span class="dot"></span> 1,428 people purchased today</div>
+            <div class="live-counter"><span class="dot"></span> 1,428 purchased today</div>
             <h2 id="plan-title" style="margin: 0; font-size: 18px;">VIP Access</h2>
-
             <div class="badge-grid">
-                <div class="mini-badge badge-blue">✓ Verified Seller</div>
-                <div class="mini-badge badge-blue">⚡ Instant Entry</div>
-                <div class="mini-badge badge-gold">💎 50K+ Files</div>
-                <div class="mini-badge badge-gold">🛡️ Secured Payment</div>
+                <div class="mini-badge">✓ Verified</div>
+                <div class="mini-badge">⚡ Instant</div>
+                <div class="mini-badge">💎 50K+ Files</div>
+                <div class="mini-badge">🛡️ Secured</div>
             </div>
-
             <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
             <div class="notice-badge">📸 Take Screenshot or Copy UPI to Pay</div>
         </div>
-
         <div>
             <div class="upi-box" onclick="copyUPI()">
                 <div style="font-size:8px; color:#94a3b8; font-weight: 800;">TAP TO COPY UPI ID 📋</div>
                 <div id="upi-val" style="font-size:12px; font-weight:800; margin-top:2px;">sayedjinnatrana@naviaxis</div>
             </div>
-
             <div class="instruction-card">
                 <div class="instruction-header">🚀 How to join</div>
-                <div class="instruction-step">1. <b>Pay amount</b> via QR or UPI ID.</div>
-                <div class="instruction-step">2. <b>Take clear screenshot</b> of success page.</div>
-                <div class="instruction-step">3. <b>Upload below</b> for instant delivery.</div>
+                <div class="instruction-step">1. Pay amount via QR or UPI.</div>
+                <div class="instruction-step">2. Upload proof for instant link.</div>
             </div>
-
             <label class="upload-area" for="file-in" id="label-box">
                 <div style="font-size:12px; font-weight:800;">📸 UPLOAD PAYMENT PROOF</div>
-                <div style="font-size:9px; color:#94a3b8;">Auto-verification active</div>
             </label>
             <div id="change-btn" class="change-btn" onclick="resetFile()">Change Screenshot</div>
-            
             <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
             <button id="sub-btn" class="btn btn-green" style="display:none;" onclick="submit()">Confirm & Get Link</button>
         </div>
     </div>
+
+    <script>
+        let tg = window.Telegram.WebApp; 
+        tg.expand();
+        let selectedPlan = "";
+        const params = new URLSearchParams(window.location.search);
+        let upiId = params.get('upi') || "sayedjinnatrana@naviaxis";
+        let wPrice = params.get('w') || "69"; 
+        let pPrice = params.get('p') || "149";
+        document.getElementById('price-w').innerText = wPrice; 
+        document.getElementById('price-p').innerText = pPrice; 
+        document.getElementById('upi-val').innerText = upiId;
+        function copyUPI() { navigator.clipboard.writeText(upiId); tg.HapticFeedback.notificationOccurred('success'); alert("UPI ID Copied!"); }
+        function openCheckout(sel) {
+            selectedPlan = sel;
+            let price = (sel === 'Weekly') ? wPrice : pPrice;
+            document.getElementById('plan-title').innerText = sel + " VIP Pass";
+            let upiLink = `upi://pay?pa=${upiId}&pn=VIP%20Portal&am=${price}&cu=INR`;
+            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiLink)}`;
+            document.getElementById('selection-page').style.display = 'none'; 
+            document.getElementById('checkout-page').style.display = 'flex';
+        }
+        function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'flex'; }
+        function ready() { 
+            document.getElementById('sub-btn').style.display = 'block'; 
+            document.getElementById('change-btn').style.display = 'block'; 
+            document.getElementById('label-box').style.borderColor = "#10b981"; 
+            document.getElementById('label-box').innerHTML = '<div style="color:#34d399; font-weight:800; font-size:12px;">✅ SCREENSHOT LOADED</div>';
+        }
+        function resetFile() {
+            document.getElementById('file-in').value = "";
+            document.getElementById('sub-btn').style.display = 'none';
+            document.getElementById('change-btn').style.display = 'none';
+            document.getElementById('label-box').style.borderColor = "rgba(255,255,255,0.2)";
+            document.getElementById('label-box').innerHTML = '<div style="font-size:12px; font-weight:800;">📸 UPLOAD PAYMENT PROOF</div>';
+        }
+        function submit() { tg.sendData("VERIFY_" + selectedPlan.toUpperCase()); tg.close(); }
+    </script>
+</body>
+</html>
 
     <script>
         let tg = window.Telegram.WebApp; 
