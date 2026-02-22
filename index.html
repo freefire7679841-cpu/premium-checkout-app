@@ -8,8 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body { margin: 0; font-family: 'Outfit', sans-serif; background-color: #050505; color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        
-        /* Ambient Animated Lights */
         .light-bg { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: -1; }
         .glow { position: absolute; border-radius: 50%; filter: blur(60px); animation: float 8s infinite alternate ease-in-out; opacity: 0.5; }
         .glow-1 { width: 300px; height: 300px; background: #6b21a8; top: -100px; left: -100px; }
@@ -17,132 +15,42 @@
         .glow-3 { width: 250px; height: 250px; background: #fbbf24; top: 40%; left: 30%; animation: pulse 6s infinite alternate; opacity: 0.2;}
         @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 50px) scale(1.2); } }
         @keyframes pulse { 0% { transform: scale(0.8); opacity: 0.1; } 100% { transform: scale(1.5); opacity: 0.4; } }
-
-        /* 3D Frosted Glass Card */
-        .card {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-radius: 24px;
-            padding: 40px 25px; width: 85%; max-width: 340px; text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05);
-            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-radius: 24px; padding: 40px 25px; width: 85%; max-width: 340px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05); animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         @keyframes slideUp { 0% { transform: translateY(40px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-
         .crown { font-size: 45px; margin-bottom: 5px; filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.6)); }
         h1 { font-size: 28px; font-weight: 800; margin: 0 0 10px; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         p { color: #94a3b8; font-size: 15px; margin: 0 0 30px; line-height: 1.4; }
-
-        /* Animated Glowing Buttons */
-        .btn {
-            position: relative; width: 100%; padding: 18px; border-radius: 16px; border: none;
-            font-size: 16px; font-weight: 800; color: white; cursor: pointer; margin-bottom: 15px;
-            overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; text-transform: uppercase;
-        }
-        
-        .btn-permanent {
-            background: linear-gradient(45deg, #d97706, #fbbf24, #d97706, #f59e0b);
-            background-size: 300% 300%; animation: gradientShift 4s ease infinite;
-            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3); text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .btn-weekly {
-            background: linear-gradient(45deg, #2563eb, #3b82f6, #60a5fa, #2563eb);
-            background-size: 300% 300%; animation: gradientShift 4s ease infinite;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3); text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
+        .btn { position: relative; width: 100%; padding: 18px; border-radius: 16px; border: none; font-size: 16px; font-weight: 800; color: white; cursor: pointer; margin-bottom: 15px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; text-transform: uppercase; }
+        .btn-permanent { background: linear-gradient(45deg, #d97706, #fbbf24, #d97706, #f59e0b); background-size: 300% 300%; animation: gradientShift 4s ease infinite; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3); text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .btn-weekly { background: linear-gradient(45deg, #2563eb, #3b82f6, #60a5fa, #2563eb); background-size: 300% 300%; animation: gradientShift 4s ease infinite; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3); text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
         @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
-        /* Light Reflection Sweep */
-        .btn::after {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
-            transform: skewX(-25deg); animation: shine 3s infinite;
-        }
+        .btn::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent); transform: skewX(-25deg); animation: shine 3s infinite; }
         @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
         .btn:active { transform: scale(0.95); }
     </style>
 </head>
 <body>
-    <div class="light-bg">
-        <div class="glow glow-1"></div>
-        <div class="glow glow-2"></div>
-        <div class="glow glow-3"></div>
-    </div>
-
+    <div class="light-bg"> <div class="glow glow-1"></div> <div class="glow glow-2"></div> <div class="glow glow-3"></div> </div>
     <div class="card">
         <div class="crown">👑</div>
         <h1>VIP Access</h1>
         <p>Unlock the ultimate premium experience with an exclusive pass.</p>
-        
         <button class="btn btn-permanent" onclick="sendData('Permanent')">Permanent Pass - ₹<span id="price-p">999</span></button>
         <button class="btn btn-weekly" onclick="sendData('Weekly')">Weekly Pass - ₹<span id="price-w">199</span></button>
     </div>
-
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
-        
-        // This catches the live prices you set in Bots.Business
         const urlParams = new URLSearchParams(window.location.search);
         if(urlParams.get('w')) document.getElementById('price-w').innerText = urlParams.get('w');
         if(urlParams.get('p')) document.getElementById('price-p').innerText = urlParams.get('p');
-
         function sendData(plan) {
             if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('heavy');
-            setTimeout(() => {
-                tg.sendData(plan); 
-                tg.close();
-            }, 150);
+            setTimeout(() => { tg.sendData(plan); tg.close(); }, 150);
         }
     </script>
 </body>
 </html>
-    </div>
-
-    <div class="product-card">
-        <div class="badge">Best Seller</div>
-        
-        <img class="banner" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop" alt="Permanent Banner">
-        
-        <div class="details">
-            <h2 class="title">Lifetime VIP Access</h2>
-            <div class="price-container">
-                <span class="price">₹999</span>
-                <span class="original-price">₹2999</span>
-                <span class="discount">66% off</span>
-            </div>
-            
-            <ul class="features">
-                <li>Permanent, never-expiring access to the VIP channel</li>
-                <li>Access to all future premium updates for free</li>
-                <li>Priority 24/7 admin support</li>
-                <li>Exclusive direct messaging privileges</li>
-            </ul>
-
-            <button class="btn btn-permanent" onclick="sendData('Permanent')">Buy Now</button>
-        </div>
-    </div>
-
-    <script>
-        let tg = window.Telegram.WebApp;
-        tg.expand();
-        
-        function sendData(plan) {
-            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
-            setTimeout(() => {
-                tg.sendData(plan); 
-                tg.close();
-            }, 100);
-        }
-    </script>
-</body>
-</html>
-    <script>
-        let tg = window.Telegram.WebApp;
-        tg.expand();
-        
-        function sendData(plan) {
             if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('heavy');
             // Small delay to let them see the button click animation
             setTimeout(() => {
