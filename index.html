@@ -17,35 +17,34 @@
         .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(24px); border-radius: 28px; padding: 30px 20px; width: 88%; max-width: 350px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative; z-index: 10; }
         
         #checkout-page { display: none; padding-top: 45px; }
-        .back-btn { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; transition: 0.2s; z-index: 20; }
-        
-        .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 8px; border-radius: 12px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(251, 191, 36, 0.2); }
-
-        .price-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 4px; }
-        .current-price { font-size: 20px; font-weight: 800; }
-        .old-price { font-size: 14px; color: rgba(255,255,255,0.4); text-decoration: line-through; }
-        .discount-tag { font-size: 12px; color: #34d399; font-weight: 800; }
-        
-        .qr-container { background: white; padding: 12px; border-radius: 16px; margin: 15px auto; width: 140px; height: 140px; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
-        .qr-container img { width: 100%; height: 100%; }
+        .back-btn { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; z-index: 20; }
         
         .btn { width: 100%; padding: 16px; border-radius: 18px; border: none; font-size: 16px; font-weight: 800; color: white; cursor: pointer; text-transform: uppercase; transition: 0.3s; position: relative; }
         .btn-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); margin-bottom: 30px; }
         .btn-gold { background: linear-gradient(45deg, #d97706, #fbbf24); color: #000; }
-        .btn-green { background: linear-gradient(45deg, #059669, #10b981); margin-top: 20px; }
+        .btn-green { background: linear-gradient(45deg, #059669, #10b981); margin-top: 20px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
 
-        .tag { position: absolute; top: -14px; right: 15px; color: white; font-size: 9px; padding: 5px 12px; border-radius: 6px; font-weight: 800; z-index: 15; text-transform: uppercase; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .tag { position: absolute; top: -14px; right: 15px; color: white; font-size: 9px; padding: 5px 12px; border-radius: 6px; font-weight: 800; z-index: 15; text-transform: uppercase; }
         .popular-tag { background: #ef4444; }
         .value-tag { background: #10b981; }
         
-        .upi-box { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); margin: 10px 0; cursor: pointer; }
-        .upload-area { border: 2px dashed rgba(255,255,255,0.2); padding: 20px; border-radius: 18px; cursor: pointer; background: rgba(255,255,255,0.03); display: block; }
+        /* GLOWING BADGES */
+        .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .mini-badge { background: rgba(255,255,255,0.05); padding: 8px; border-radius: 12px; font-size: 10px; font-weight: 700; color: #fff; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.3s; }
+        .badge-blue { box-shadow: 0 0 10px rgba(59, 130, 246, 0.4); border-color: rgba(59, 130, 246, 0.3); }
+        .badge-gold { box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); border-color: rgba(251, 191, 36, 0.3); }
+        
+        .qr-wrapper { background: white; padding: 12px; border-radius: 20px; margin: 15px auto; width: 150px; position: relative; }
+        .qr-wrapper img { width: 100%; height: auto; display: block; }
+        
+        .save-qr { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; margin-bottom: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
 
-        /* NEW PROFESSIONAL BADGES */
-        .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 15px 0; }
-        .mini-badge { background: rgba(255,255,255,0.05); padding: 6px; border-radius: 8px; font-size: 9px; font-weight: 700; color: #94a3b8; border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; gap: 4px; }
-        .verify-icon { color: #3b82f6; font-size: 10px; }
-        .live-counter { font-size: 11px; color: #34d399; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .instruction-box { background: rgba(52, 211, 153, 0.1); border-left: 3px solid #34d399; padding: 10px; border-radius: 8px; font-size: 11px; text-align: left; margin: 15px 0 10px 0; color: #d1d5db; }
+
+        .upi-box { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; cursor: pointer; }
+        .upload-area { border: 2px dashed rgba(255,255,255,0.2); padding: 18px; border-radius: 18px; cursor: pointer; background: rgba(255,255,255,0.03); display: block; }
+
+        .live-counter { font-size: 11px; color: #34d399; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 5px; }
         .dot { height: 6px; width: 6px; background-color: #34d399; border-radius: 50%; display: inline-block; animation: pulse 1s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     </style>
@@ -54,32 +53,23 @@
     <div class="light-bg"><div class="glow glow-1"></div><div class="glow glow-2"></div></div>
     
     <div id="selection-page" class="card">
-        <div class="ticker">⚡ LIMITED TIME OFFER: JOIN 50K+ COLLECTIONS ⚡</div>
-        <div style="font-size: 45px; margin-bottom: 10px;">👑</div>
+        <div style="font-size: 40px; margin-bottom: 10px;">👑</div>
         <h1>Premium VIP</h1>
-        <p style="font-size: 13px; color: #94a3b8; margin: 15px 0;">Trusted by <b>42,800+</b> active members globally.</p>
+        <p style="font-size: 13px; color: #94a3b8; margin-bottom: 25px;">Join 42,000+ elite members today.</p>
         
         <div style="position:relative; margin-bottom:35px;">
             <div class="tag popular-tag">MOST POPULAR</div>
             <button class="btn btn-blue" onclick="openCheckout('Weekly')">
                 Weekly Pass
-                <div class="price-row">
-                    <span class="old-price">₹199</span>
-                    <span class="current-price">₹<span id="price-w">69</span></span>
-                    <span class="discount-tag">65% OFF</span>
-                </div>
+                <div style="font-size: 18px;">₹<span id="price-w">69</span></div>
             </button>
         </div>
 
         <div style="position:relative;">
-            <div class="tag value-tag">VALUE FOR MONEY</div>
+            <div class="tag value-tag">BEST VALUE</div>
             <button class="btn btn-gold" onclick="openCheckout('Permanent')">
                 Permanent Pass
-                <div class="price-row" style="color:#000;">
-                    <span class="old-price" style="color:rgba(0,0,0,0.5);">₹999</span>
-                    <span class="current-price">₹<span id="price-p">149</span></span>
-                    <span class="discount-tag" style="color:#059669;">85% OFF</span>
-                </div>
+                <div style="font-size: 18px;">₹<span id="price-p">149</span></div>
             </button>
         </div>
     </div>
@@ -87,36 +77,39 @@
     <div id="checkout-page" class="card">
         <button class="back-btn" onclick="goBack()">← Back</button>
         
-        <div class="live-counter"><span class="dot"></span> 1,428 people purchased in last 24h</div>
-        
-        <h2 id="plan-title" style="margin: 0; font-size: 22px;">Weekly Access</h2>
-        <p id="plan-desc" style="font-size: 11px; color: #94a3b8; margin: 5px 0 15px 0;">Instant link delivery to your Telegram inbox.</p>
+        <div class="live-counter"><span class="dot"></span> 1,428 people purchased today</div>
+        <h2 id="plan-title" style="margin: 0; font-size: 20px;">VIP Access</h2>
 
         <div class="badge-grid">
-            <div class="mini-badge"><span class="verify-icon">✓</span> Verified Seller</div>
-            <div class="mini-badge"><span class="verify-icon">⚡</span> Instant Entry</div>
-            <div class="mini-badge"><span class="verify-icon">💎</span> 50K+ Collections</div>
-            <div class="mini-badge"><span class="verify-icon">🛡️</span> Secured Payment</div>
+            <div class="mini-badge badge-blue">✓ Verified</div>
+            <div class="mini-badge badge-blue">⚡ Instant</div>
+            <div class="mini-badge badge-gold">💎 50K+ Files</div>
+            <div class="mini-badge badge-gold">🛡️ Secure</div>
         </div>
 
-        <div class="qr-container"><img id="qr-display" src="" alt="QR"></div>
+        <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
+        
+        <button class="save-qr" onclick="saveQR()">📥 Save QR to Gallery</button>
 
         <div class="upi-box" onclick="copyUPI()">
-            <div style="font-size:9px; color:#94a3b8; font-weight: 800;">TAP TO COPY UPI ID 📋</div>
+            <div style="font-size:9px; color:#94a3b8; font-weight: 800;">TAP TO COPY UPI ID</div>
             <div id="upi-val" style="font-size:13px; font-weight:800; margin-top:3px;">sayedjinnatrana@naviaxis</div>
         </div>
 
+        <div class="instruction-box">
+            <b>How to join:</b><br>
+            1. Pay the amount via QR or UPI.<br>
+            2. Take a screenshot of the success page.<br>
+            3. Upload it below for instant link delivery.
+        </div>
+
         <label class="upload-area" for="file-in" id="label-box">
-            <div style="font-size:13px; font-weight:800;">📸 UPLOAD PAYMENT PROOF</div>
-            <div style="font-size:10px; color:#94a3b8; margin-top:4px;">Auto-verification starts after upload</div>
+            <div style="font-size:13px; font-weight:800;">📸 UPLOAD SCREENSHOT</div>
+            <div style="font-size:10px; color:#94a3b8; margin-top:4px;">Auto-verification active</div>
         </label>
         
         <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
-        <button id="sub-btn" class="btn btn-green" style="display:none;" onclick="submit()">Claim Your Access Now</button>
-        
-        <div style="margin-top: 15px; font-size: 9px; color: #64748b; font-weight: 600;">
-            MOST TRUSTED PREMIUM PORTAL • 100% SATISFACTION
-        </div>
+        <button id="sub-btn" class="btn btn-green" style="display:none;" onclick="submit()">Confirm & Get Link</button>
     </div>
 
     <script>
@@ -131,18 +124,34 @@
         function openCheckout(sel) {
             let price = (sel === 'Weekly') ? wPrice : pPrice;
             document.getElementById('plan-title').innerText = sel + " VIP Pass";
-            document.getElementById('plan-desc').innerText = (sel === 'Weekly') ? "Valid for 7 days. Full access to all 50k+ collections." : "Lifetime access. One-time payment, no hidden charges.";
-            
             let upiLink = `upi://pay?pa=${upiId}&pn=VIP%20Portal&am=${price}&cu=INR`;
-            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}`;
+            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiLink)}`;
             document.getElementById('selection-page').style.display = 'none'; 
             document.getElementById('checkout-page').style.display = 'block';
         }
+
+        function saveQR() {
+            const link = document.createElement('a');
+            link.href = document.getElementById('qr-display').src;
+            link.download = 'VIP_Payment_QR.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            alert("QR Code link opened! Long press the image to save to gallery.");
+        }
         
         function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'block'; }
+        
         function ready() { 
             document.getElementById('sub-btn').style.display = 'block'; 
             document.getElementById('label-box').style.borderColor = "#10b981"; 
+            document.getElementById('label-box').innerHTML = '<div style="color:#34d399; font-weight:800;">✅ SCREENSHOT LOADED</div>';
+        }
+
+        function submit() { tg.sendData("PAID"); tg.close(); }
+    </script>
+</body>
+</html>
             document.getElementById('label-box').innerHTML = '<div style="font-size:13px; font-weight:800; color:#34d399;">✅ SCREENSHOT ATTACHED</div>';
         }
         function submit() { tg.sendData("PAID"); tg.close(); }
