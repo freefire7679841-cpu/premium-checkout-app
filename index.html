@@ -3,110 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Store</title>
+    <title>VIP Access</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
-            padding: 15px;
-            font-family: 'Roboto', sans-serif;
-            background-color: #f1f3f6; /* Flipkart/Amazon light gray background */
-            padding-bottom: 40px;
+            font-family: 'Outfit', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Prevents all scrolling */
+        }
+        
+        /* Ambient Animated Lights */
+        .light-bg {
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+            overflow: hidden; z-index: -1;
+        }
+        .glow {
+            position: absolute; border-radius: 50%; filter: blur(60px);
+            animation: float 8s infinite alternate ease-in-out; opacity: 0.5;
+        }
+        .glow-1 { width: 300px; height: 300px; background: #6b21a8; top: -100px; left: -100px; }
+        .glow-2 { width: 400px; height: 400px; background: #1d4ed8; bottom: -150px; right: -100px; animation-delay: -4s; }
+        .glow-3 { width: 250px; height: 250px; background: #fbbf24; top: 40%; left: 30%; animation: pulse 6s infinite alternate; opacity: 0.2;}
+
+        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 50px) scale(1.2); } }
+        @keyframes pulse { 0% { transform: scale(0.8); opacity: 0.1; } 100% { transform: scale(1.5); opacity: 0.4; } }
+
+        /* Main Frosted Glass Card */
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border-radius: 24px; padding: 30px 20px;
+            width: 90%; max-width: 400px; text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05);
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes slideUp { 0% { transform: translateY(40px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+
+        .crown { font-size: 35px; margin-bottom: 5px; filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.6)); }
+        h1 { font-size: 24px; font-weight: 800; margin: 0 0 20px; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Side-by-Side Split Container */
+        .split-container {
+            display: flex; gap: 12px; justify-content: space-between;
         }
 
-        .header {
-            font-size: 22px;
-            font-weight: 700;
-            color: #212121;
-            margin-bottom: 15px;
-            text-align: center;
+        /* Individual Plan Boxes */
+        .plan-box {
+            flex: 1; background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px; padding: 15px 10px;
+            display: flex; flex-direction: column; position: relative;
         }
 
-        /* Product Card Styling */
-        .product-card {
-            background: #ffffff;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            position: relative;
-        }
-
-        /* Banners */
-        .banner {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            background-color: #e0e0e0;
-        }
-
-        /* Best Value Tag */
         .badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #26a541;
-            color: white;
-            padding: 4px 10px;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: absolute; top: -10px; right: -5px;
+            background: linear-gradient(45deg, #d97706, #fbbf24); color: black;
+            padding: 3px 8px; font-size: 10px; font-weight: 900;
+            border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); text-transform: uppercase;
         }
 
-        .details {
-            padding: 16px;
-        }
+        h3 { margin: 0; font-size: 16px; font-weight: 800; color: #cbd5e1; }
+        .price { font-size: 24px; font-weight: 800; color: #fff; margin: 5px 0 10px; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
 
-        .title {
-            font-size: 18px;
-            font-weight: 500;
-            color: #212121;
-            margin: 0 0 8px 0;
-        }
-
-        .price-container {
-            display: flex;
-            align-items: baseline;
-            margin-bottom: 12px;
-        }
-
-        .price {
-            font-size: 24px;
-            font-weight: 700;
-            color: #212121;
-        }
-
-        .original-price {
-            font-size: 14px;
-            color: #878787;
-            text-decoration: line-through;
-            margin-left: 8px;
-        }
-
-        .discount {
-            color: #388e3c;
-            font-size: 14px;
-            font-weight: 500;
-            margin-left: 8px;
-        }
-
-        /* Features/Facilities List */
+        /* Small Features List */
         .features {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 20px 0;
+            list-style: none; padding: 0; margin: 0 0 15px 0;
+            text-align: left; font-size: 12px; color: #94a3b8;
+        }
+        .features li { margin-bottom: 6px; display: flex; align-items: flex-start; line-height: 1.2; }
+        .features li::before { content: '✨'; margin-right: 5px; font-size: 10px; }
+
+        /* Animated Buttons (Scaled for split design) */
+        .btn {
+            position: relative; width: 100%; padding: 12px 5px; border-radius: 12px; border: none;
+            font-size: 14px; font-weight: 800; color: white; cursor: pointer;
+            overflow: hidden; transition: transform 0.2s; text-transform: uppercase; margin-top: auto;
+        }
+        
+        .btn-weekly {
+            background: linear-gradient(45deg, #2563eb, #3b82f6, #60a5fa, #2563eb);
+            background-size: 300% 300%; animation: gradientShift 4s ease infinite;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn-permanent {
+            background: linear-gradient(45deg, #d97706, #fbbf24, #d97706, #f59e0b);
+            background-size: 300% 300%; animation: gradientShift 4s ease infinite;
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3); color: black;
         }
 
-        .features li {
-            font-size: 14px;
-            color: #212121;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: flex-start;
-            line-height: 1.4;
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .btn::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-25deg); animation: shine 3s infinite;
         }
+        @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+        .btn:active { transform: scale(0.95); }
+    </style>
+</head>
+<body>
+    <div class="light-bg">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+    </div>
+
+    <div class="card">
+        <div class="crown">👑</div>
+        <h1>Select Your Pass</h1>
+        
+        <div class="split-container">
+            <div class="plan-box">
+                <h3>Weekly</h3>
+                <div class="price">₹199</div>
+                <ul class="features">
+                    <li>7 days access</li>
+                    <li>Daily updates</li>
+                    <li>Standard support</li>
+                </ul>
+                <button class="btn btn-weekly" onclick="sendData('Weekly')">Buy Now</button>
+            </div>
+
+            <div class="plan-box">
+                <div class="badge">Best</div>
+                <h3>Lifetime</h3>
+                <div class="price">₹999</div>
+                <ul class="features">
+                    <li>Never expires</li>
+                    <li>Future updates</li>
+                    <li>24/7 VIP support</li>
+                </ul>
+                <button class="btn btn-permanent" onclick="sendData('Permanent')">Buy Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+        
+        function sendData(plan) {
+            if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('heavy');
+            setTimeout(() => {
+                tg.sendData(plan); 
+                tg.close();
+            }, 150);
+        }
+    </script>
+</body>
+</html>
 
         .features li::before {
             content: '✔️';
