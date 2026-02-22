@@ -21,10 +21,10 @@
         
         .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 8px; border-radius: 12px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(251, 191, 36, 0.2); }
 
-        .price-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 5px; }
-        .old-price { font-size: 14px; text-decoration: line-through; opacity: 0.5; }
-        .discount-pct { font-size: 14px; color: #34d399; font-weight: 800; }
-
+        .price-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 4px; }
+        .old-price { font-size: 14px; color: rgba(255,255,255,0.4); text-decoration: line-through; }
+        .discount-tag { font-size: 14px; color: #34d399; font-weight: 800; }
+        
         .btn { width: 100%; padding: 16px; border-radius: 18px; border: none; font-size: 16px; font-weight: 800; color: white; cursor: pointer; text-transform: uppercase; transition: 0.3s; position: relative; }
         .btn-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); margin-bottom: 30px; }
         .btn-gold { background: linear-gradient(45deg, #d97706, #fbbf24); color: #000; }
@@ -43,7 +43,6 @@
         .qr-wrapper img { width: 100%; height: auto; display: block; }
         
         .save-qr { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; margin-bottom: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
-
         .instruction-box { background: rgba(52, 211, 153, 0.1); border-left: 3px solid #34d399; padding: 10px; border-radius: 8px; font-size: 11px; text-align: left; margin: 15px 0 10px 0; color: #d1d5db; }
 
         .upi-box { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; cursor: pointer; }
@@ -71,10 +70,10 @@
             <div class="tag popular-tag">MOST POPULAR</div>
             <button class="btn btn-blue" onclick="openCheckout('Weekly')">
                 Weekly Pass
-                <div style="font-size: 18px;">₹<span id="price-w">69</span></div>
                 <div class="price-row">
                     <span class="old-price">₹199</span>
-                    <span class="discount-pct">65% OFF</span>
+                    <span style="font-size: 20px; font-weight: 800;">₹<span id="price-w">69</span></span>
+                    <span class="discount-tag">65% OFF</span>
                 </div>
             </button>
         </div>
@@ -83,10 +82,10 @@
             <div class="tag value-tag">BEST VALUE</div>
             <button class="btn btn-gold" onclick="openCheckout('Permanent')">
                 Permanent Pass
-                <div style="font-size: 18px;">₹<span id="price-p">149</span></div>
-                <div class="price-row">
-                    <span class="old-price" style="color:#000; opacity:0.4;">₹999</span>
-                    <span class="discount-pct" style="color:#059669;">85% OFF</span>
+                <div class="price-row" style="color:#000;">
+                    <span class="old-price" style="color:rgba(0,0,0,0.5);">₹999</span>
+                    <span style="font-size: 20px; font-weight: 800;">₹<span id="price-p">149</span></span>
+                    <span class="discount-tag" style="color:#059669;">85% OFF</span>
                 </div>
             </button>
         </div>
@@ -107,6 +106,89 @@
 
         <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
         <button class="save-qr" onclick="saveQR()">📥 Save QR to Gallery</button>
+
+        <div class="upi-box" onclick="copyUPI()">
+            <div style="font-size:9px; color:#94a3b8; font-weight: 800;">TAP TO COPY UPI ID</div>
+            <div id="upi-val" style="font-size:13px; font-weight:800; margin-top:3px;">sayedjinnatrana@naviaxis</div>
+        </div>
+
+        <div class="instruction-box">
+            <b>How to join:</b><br>
+            1. Pay the amount via QR or UPI.<br>
+            2. Take a screenshot of the success page.<br>
+            3. Upload it below for instant link delivery.
+        </div>
+
+        <label class="upload-area" for="file-in" id="label-box">
+            <div style="font-size:13px; font-weight:800;">📸 UPLOAD PAYMENT PROOF</div>
+            <div style="font-size:10px; color:#94a3b8; margin-top:4px;">Auto-verification active</div>
+        </label>
+        
+        <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
+        <button id="sub-btn" class="btn btn-green" style="display:none;" onclick="submit()">Confirm & Get Link</button>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp; tg.expand();
+        const params = new URLSearchParams(window.location.search);
+        let upiId = params.get('upi') || "sayedjinnatrana@naviaxis";
+        let wPrice = params.get('w') || "69"; let pPrice = params.get('p') || "149";
+        
+        document.getElementById('price-w').innerText = wPrice; 
+        document.getElementById('price-p').innerText = pPrice; 
+        document.getElementById('upi-val').innerText = upiId;
+        
+        function copyUPI() { 
+            navigator.clipboard.writeText(upiId); 
+            tg.HapticFeedback.notificationOccurred('success'); 
+            alert("UPI ID Copied!");
+        }
+        
+        function openCheckout(sel) {
+            let price = (sel === 'Weekly') ? wPrice : pPrice;
+            document.getElementById('plan-title').innerText = sel + " VIP Pass";
+            let upiLink = `upi://pay?pa=${upiId}&pn=VIP%20Portal&am=${price}&cu=INR`;
+            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiLink)}`;
+            document.getElementById('selection-page').style.display = 'none'; 
+            document.getElementById('checkout-page').style.display = 'block';
+        }
+
+        async function saveQR() {
+            try {
+                const response = await fetch(document.getElementById('qr-display').src);
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'VIP_Payment_QR.png';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                tg.HapticFeedback.notificationOccurred('success');
+            } catch (err) {
+                alert("Please long-press the QR to save manually.");
+            }
+        }
+        
+        function goBack() { 
+            document.getElementById('checkout-page').style.display = 'none'; 
+            document.getElementById('selection-page').style.display = 'block'; 
+        }
+        
+        function ready() { 
+            document.getElementById('sub-btn').style.display = 'block'; 
+            document.getElementById('label-box').style.borderColor = "#10b981"; 
+            document.getElementById('label-box').innerHTML = '<div style="color:#34d399; font-weight:800;">✅ SCREENSHOT LOADED</div>';
+        }
+
+        function submit() { 
+            tg.sendData("PAID"); 
+            tg.close(); 
+        }
+    </script>
+</body>
+</html>
 
         <div class="upi-box" onclick="copyUPI()">
             <div style="font-size:9px; color:#94a3b8; font-weight: 800;">TAP TO COPY UPI ID</div>
