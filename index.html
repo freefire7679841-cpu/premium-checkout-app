@@ -7,198 +7,181 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { 
-            margin: 0; 
-            font-family: 'Outfit', sans-serif; 
-            background: #050505; 
-            color: #ffffff; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            overflow: hidden; 
-            position: relative;
-        }
-
+        body { margin: 0; font-family: 'Outfit', sans-serif; background: #050505; color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; position: relative; }
+        
         /* --- GLOWING EMOJI RAIN --- */
-        .emoji-rain {
-            position: absolute;
-            top: -50px;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .emoji {
-            position: absolute;
-            font-size: 35px;
-            opacity: 0.5;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)); /* Glow effect */
-            animation: fall linear infinite;
-        }
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
-        }
+        .emoji-rain { position: absolute; top: -50px; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .emoji { position: absolute; font-size: 35px; opacity: 0.6; filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9)); animation: fall linear infinite; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        /* --- MAIN CARD --- */
-        .card { 
-            background: rgba(255, 255, 255, 0.05); 
-            border: 1.5px solid rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(30px); 
-            border-radius: 35px; 
-            padding: 20px; 
-            width: 92%; 
-            max-width: 420px; 
-            text-align: center; 
-            position: relative; 
-            z-index: 10; 
-            display: flex; 
-            flex-direction: column; 
-            max-height: 98vh; 
-            box-sizing: border-box; 
-            justify-content: space-between; 
-        }
+        /* --- MAIN CONTAINER --- */
+        .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 15px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
 
         #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; }
-        
-        /* --- SELECTION PAGE ELEMENTS --- */
-        .ticker { 
-            background: rgba(251, 191, 36, 0.1); 
-            color: #fbbf24; 
-            font-size: 11px; 
-            font-weight: 800; 
-            padding: 10px; 
-            border-radius: 14px; 
-            border: 1px solid rgba(251, 191, 36, 0.3); 
-            text-transform: uppercase; 
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
 
-        .plan-btn { 
-            width: 100%; 
-            padding: 22px 15px; 
-            border-radius: 24px; 
-            border: none; 
-            cursor: pointer; 
-            position: relative; 
-            margin-bottom: 22px; 
-            color: #fff;
-            transition: 0.3s;
-        }
+        /* --- RESTORED MARKETING ELEMENTS --- */
+        .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 10px; font-weight: 800; padding: 8px; border-radius: 12px; border: 1px solid rgba(251, 191, 36, 0.3); text-transform: uppercase; margin-bottom: 5px; }
+        .trusted-text { font-size: 13px; color: #94a3b8; margin: 5px 0 15px 0; }
+        .live-counter { font-size: 14px; color: #4ade80; font-weight: 800; background: rgba(74, 222, 128, 0.15); padding: 6px 12px; border-radius: 20px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin: 5px 0; }
+        .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
+
+        /* --- PLAN BUTTONS & BADGES --- */
+        .plan-btn { width: 100%; padding: 20px 15px; border-radius: 22px; border: none; cursor: pointer; position: relative; margin-bottom: 20px; color: #fff; transition: 0.3s; }
         .weekly-btn { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
         .perm-btn { background: linear-gradient(135deg, #d97706, #b45309); }
+        .tag { position: absolute; top: -12px; right: 20px; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 8px; text-transform: uppercase; }
+        .price-row { display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .old-p { text-decoration: line-through; opacity: 0.5; font-size: 14px; }
+        .new-p { font-size: 24px; font-weight: 800; }
+        .discount { background: rgba(74, 222, 128, 0.2); color: #4ade80; font-weight: 800; font-size: 14px; padding: 2px 8px; border-radius: 6px; }
 
-        .tag { 
-            position: absolute; 
-            top: -12px; 
-            right: 20px; 
-            font-size: 10px; 
-            font-weight: 800; 
-            padding: 5px 12px; 
-            border-radius: 8px; 
-            text-transform: uppercase; 
-        }
-
-        .price-row { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 5px; }
-        .old-p { text-decoration: line-through; opacity: 0.5; font-size: 15px; }
-        .new-p { font-size: 26px; font-weight: 800; }
-        .discount { color: #4ade80; font-weight: 800; font-size: 16px; }
-
-        /* --- PAYMENT PAGE BADGES --- */
-        .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
-        .mini-badge { 
-            background: rgba(255, 255, 255, 0.05); 
-            padding: 8px; 
-            border-radius: 12px; 
-            font-size: 10px; 
-            font-weight: 700; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 6px; 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-        }
+        /* --- PAYMENT PAGE BADGES & UI --- */
+        .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 5px 0; }
+        .mini-badge { background: rgba(255, 255, 255, 0.05); padding: 8px; border-radius: 12px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1px solid rgba(255, 255, 255, 0.1); }
         .badge-glow-blue { border-color: rgba(59, 130, 246, 0.5); box-shadow: 0 0 10px rgba(59, 130, 246, 0.2); }
         .badge-glow-gold { border-color: rgba(251, 191, 36, 0.5); box-shadow: 0 0 10px rgba(251, 191, 36, 0.2); }
 
-        /* --- QR & UPI --- */
-        .qr-wrapper { background: #ffffff; padding: 12px; border-radius: 20px; margin: 10px auto; width: 170px; }
+        .qr-wrapper { background: #ffffff; padding: 10px; border-radius: 20px; margin: 5px auto; width: 160px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
-        .qr-notice { 
-            background: rgba(251, 191, 36, 0.1); 
-            color: #fbbf24; 
-            padding: 8px 15px; 
-            border-radius: 12px; 
-            font-size: 11px; 
-            font-weight: 800; 
-            border: 1px solid rgba(251, 191, 36, 0.3); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 5px; 
-            margin: 5px auto;
-        }
+        .qr-notice { background: rgba(251, 191, 36, 0.1); color: #fbbf24; padding: 7px; border-radius: 10px; font-size: 11px; font-weight: 800; border: 1px solid rgba(251, 191, 36, 0.3); display: flex; align-items: center; justify-content: center; gap: 5px; width: 85%; margin: 5px auto; }
 
-        .upi-box { 
-            background: rgba(255, 255, 255, 0.07); 
-            padding: 12px; 
-            border-radius: 20px; 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            cursor: pointer; 
-            margin: 8px 0; 
-        }
+        .upi-box { background: rgba(255, 255, 255, 0.07); padding: 10px; border-radius: 18px; border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; margin: 5px 0; }
+        .how-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.2) 100%); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 18px; padding: 10px; text-align: left; margin-bottom: 5px; }
 
-        /* --- INSTRUCTIONS --- */
-        .how-box { 
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.2) 100%); 
-            border: 1px solid rgba(16, 185, 129, 0.3); 
-            border-radius: 20px; 
-            padding: 15px; 
-            text-align: left; 
-            margin-bottom: 10px; 
-        }
-
-        .upload-area { 
-            border: 2px dashed rgba(52, 211, 153, 0.5); 
-            background: rgba(16, 185, 129, 0.05); 
-            padding: 12px; 
-            border-radius: 20px; 
-            cursor: pointer; 
-        }
-
-        .confirm-btn { 
-            width: 100%; 
-            padding: 18px; 
-            border-radius: 25px; 
-            border: none; 
-            background: #10b981; 
-            color: white; 
-            font-size: 20px; 
-            font-weight: 800; 
-            cursor: pointer; 
-            margin-top: 10px; 
-            text-transform: uppercase; 
-        }
-
-        .live-counter { 
-            font-size: 15px; 
-            color: #4ade80; 
-            font-weight: 800; 
-            background: rgba(74, 222, 128, 0.15); 
-            padding: 8px 15px; 
-            border-radius: 20px; 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 8px; 
-            margin-top: 5px;
-        }
+        /* --- VISUAL GUIDES & UPLOAD --- */
+        .upload-hint { color: #10b981; font-weight: 800; font-size: 11px; margin-bottom: 3px; animation: bounce 1.5s infinite; }
+        .upload-area { border: 2px dashed rgba(52, 211, 153, 0.5); background: rgba(16, 185, 129, 0.05); padding: 12px; border-radius: 18px; cursor: pointer; }
+        .confirm-btn { width: 100%; padding: 18px; border-radius: 25px; border: none; background: #10b981; color: white; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 8px; display: none; text-transform: uppercase; }
+        .change-txt { font-size: 11px; color: #94a3b8; text-decoration: underline; margin-top: 5px; cursor: pointer; display: none; padding-bottom: 5px; }
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
     </style>
 </head>
 <body>
     <div class="emoji-rain" id="emojiRain"></div>
+
+    <div id="selection-page" class="card">
+        <div>
+            <div class="ticker">🚀 LIMITED TIME: JOIN 50K+ EXCLUSIVE COLLECTIONS 🚀</div>
+            <div style="font-size: 45px; margin: 10px 0;">👑</div>
+            <h1 style="margin: 0; font-size: 30px; font-weight: 800;">Premium VIP</h1>
+            <p class="trusted-text">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> after payment ✅</p>
+        </div>
+        
+        <div>
+            <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
+                <span class="tag" style="background: #ef4444;">🔥 MOST POPULAR</span>
+                <span style="font-size: 18px; font-weight: 800;">WEEKLY PASS</span>
+                <div class="price-row">
+                    <span class="old-p">₹199</span><span class="new-p">₹69</span><span class="discount">65% OFF</span>
+                </div>
+            </button>
+
+            <button class="plan-btn perm-btn" onclick="openCheckout('Permanent')">
+                <span class="tag" style="background: #10b981;">💎 BEST VALUE</span>
+                <span style="font-size: 18px; font-weight: 800;">PERMANENT PASS</span>
+                <div class="price-row">
+                    <span class="old-p">₹999</span><span class="new-p">₹149</span><span class="discount">85% OFF</span>
+                </div>
+            </button>
+        </div>
+
+        <div class="live-counter">
+            <span class="dot"></span> 1,428 people joined today 💎
+        </div>
+    </div>
+
+    <div id="checkout-page" class="card">
+        <div class="top-row">
+            <button onclick="goBack()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 15px; border-radius: 12px; cursor: pointer;">← Back</button>
+            <div class="live-counter" style="margin:0; font-size: 12px;"><span class="dot"></span> 1,428 sales today</div>
+        </div>
+
+        <div style="flex-grow: 1;">
+            <h2 id="plan-title" style="margin: 5px 0; font-size: 22px; font-weight: 800;">VIP Access</h2>
+            <div class="badge-grid">
+                <div class="mini-badge badge-glow-blue">✓ Verified Seller</div>
+                <div class="mini-badge badge-glow-blue">⚡ Instant Entry</div>
+                <div class="mini-badge badge-glow-gold">💎 50K+ Files</div>
+                <div class="mini-badge badge-glow-gold">🛡️ Secured Payment</div>
+            </div>
+            <div class="qr-wrapper"><img id="qr-display" src="" alt="Payment QR"></div>
+            <div class="qr-notice">📸 Take Screenshot or Copy UPI to Pay</div>
+            <div class="upi-box" onclick="copyUPI()">
+                <div style="font-size: 10px; color: #94a3b8; font-weight: 800;">TAP TO COPY UPI ID 📋</div>
+                <div style="font-size: 16px; font-weight: 800;">sayedjinnatrana@naviaxis</div>
+            </div>
+        </div>
+
+        <div>
+            <div class="how-box">
+                <div style="color: #10b981; font-weight: 800; font-size: 12px; margin-bottom: 3px;">🚀 HOW TO JOIN</div>
+                <div style="font-size: 10px; color: #e2e8f0;">Pay QR/UPI, take screenshot, and upload below.</div>
+            </div>
+            
+            <div class="upload-hint">👇 CLICK AND UPLOAD PAYMENT PROOF TO GET LINK 👇</div>
+
+            <label class="upload-area" for="file-in" id="label-box">
+                <div id="label-text" style="font-size: 14px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
+            </label>
+            
+            <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
+            <button id="sub-btn" class="confirm-btn" onclick="submit()">CONFIRM & GET LINK</button>
+            <div id="change-txt" class="change-txt" onclick="resetFile()">Change Screenshot</div>
+        </div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp; tg.expand();
+
+        // Emoji Rain Logic
+        const emojis = ['🥵', '🫦', '💎'];
+        function createEmoji() {
+            const emoji = document.createElement('div');
+            emoji.className = 'emoji';
+            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.getElementById('emojiRain').appendChild(emoji);
+            setTimeout(() => emoji.remove(), 5000);
+        }
+        setInterval(createEmoji, 400);
+
+        function openCheckout(sel) {
+            let price = (sel === 'Weekly') ? "69" : "149";
+            document.getElementById('plan-title').innerText = sel + " VIP Pass";
+            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('upi://pay?pa=sayedjinnatrana@naviaxis&pn=VIP%20Portal&am='+price+'&cu=INR')}`;
+            document.getElementById('selection-page').style.display = 'none';
+            document.getElementById('checkout-page').style.display = 'flex';
+        }
+
+        function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'flex'; }
+        
+        function copyUPI() { navigator.clipboard.writeText("sayedjinnatrana@naviaxis"); tg.HapticFeedback.notificationOccurred('success'); alert("UPI ID Copied!"); }
+
+        function ready() { 
+            document.getElementById('sub-btn').style.display = 'block';
+            document.getElementById('change-txt').style.display = 'block';
+            document.getElementById('label-box').classList.add('loaded-box');
+            document.getElementById('label-text').innerHTML = '<span style="color:#10b981">✅ SCREENSHOT LOADED</span>';
+            document.querySelector('.upload-hint').style.display = 'none';
+        }
+
+        function resetFile() {
+            document.getElementById('file-in').value = "";
+            document.getElementById('sub-btn').style.display = 'none';
+            document.getElementById('change-txt').style.display = 'none';
+            document.getElementById('label-box').classList.remove('loaded-box');
+            document.getElementById('label-text').innerHTML = '📸 UPLOAD PAYMENT PROOF';
+            document.querySelector('.upload-hint').style.display = 'block';
+        }
+
+        function submit() { tg.sendData("PAID"); tg.close(); }
+    </script>
+</body>
+</html>
+
 
     <div id="selection-page" class="card">
         <div>
