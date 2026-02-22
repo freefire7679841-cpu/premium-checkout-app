@@ -20,7 +20,6 @@
         #checkout-page { display: none; }
         .back-btn { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; z-index: 20; }
         
-        /* Restored Original Marketing Ticker */
         .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 8px; border-radius: 12px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(251, 191, 36, 0.2); }
 
         .price-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 4px; }
@@ -108,7 +107,7 @@
             <div class="mini-badge badge-gold">🛡️ Secured Payment</div>
         </div>
 
-        <div class="qr-wrapper"><img id="qr-display" src="" alt="QR" crossorigin="anonymous"></div>
+        <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
         <button class="save-qr" onclick="saveQR()">📥 Save QR to Gallery</button>
 
         <div class="upi-box" onclick="copyUPI()">
@@ -143,6 +142,61 @@
         function copyUPI() { 
             navigator.clipboard.writeText(upiId); 
             tg.HapticFeedback.notificationOccurred('success'); 
+            alert("UPI ID Copied!");
+        }
+        
+        function openCheckout(sel) {
+            let price = (sel === 'Weekly') ? wPrice : pPrice;
+            document.getElementById('plan-title').innerText = sel + " VIP Pass";
+            let upiLink = `upi://pay?pa=${upiId}&pn=VIP%20Portal&am=${price}&cu=INR`;
+            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiLink)}`;
+            document.getElementById('selection-page').style.display = 'none'; 
+            document.getElementById('checkout-page').style.display = 'block';
+        }
+
+        async function saveQR() {
+            try {
+                const response = await fetch(document.getElementById('qr-display').src);
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'VIP_Payment_QR.png';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                tg.HapticFeedback.notificationOccurred('success');
+            } catch (err) { alert("Long-press the QR to save."); }
+        }
+        
+        function goBack() { 
+            document.getElementById('checkout-page').style.display = 'none'; 
+            document.getElementById('selection-page').style.display = 'block'; 
+        }
+        
+        function ready() { 
+            document.getElementById('sub-btn').style.display = 'block'; 
+            document.getElementById('change-btn').style.display = 'block'; 
+            document.getElementById('label-box').style.borderColor = "#10b981"; 
+            document.getElementById('label-box').innerHTML = '<div style="color:#34d399; font-weight:800;">✅ SCREENSHOT LOADED</div>';
+        }
+
+        function resetFile() {
+            document.getElementById('file-in').value = "";
+            document.getElementById('sub-btn').style.display = 'none';
+            document.getElementById('change-btn').style.display = 'none';
+            document.getElementById('label-box').style.borderColor = "rgba(255,255,255,0.2)";
+            document.getElementById('label-box').innerHTML = '<div style="font-size:13px; font-weight:800;">📸 UPLOAD PAYMENT PROOF</div><div style="font-size:10px; color:#94a3b8; margin-top:4px;">Auto-verification active</div>';
+        }
+
+        function submit() { 
+            tg.sendData("PAID"); 
+            tg.close(); 
+        }
+    </script>
+</body>
+</html>
             alert("UPI ID Copied!");
         }
         
