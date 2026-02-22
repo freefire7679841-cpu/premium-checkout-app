@@ -107,7 +107,7 @@
             <div class="mini-badge badge-gold">🛡️ Secured Payment</div>
         </div>
 
-        <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
+        <div class="qr-wrapper"><img id="qr-display" src="" alt="QR" crossorigin="anonymous"></div>
         <button class="save-qr" onclick="saveQR()">📥 Save QR to Gallery</button>
 
         <div class="upi-box" onclick="copyUPI()">
@@ -143,6 +143,73 @@
             navigator.clipboard.writeText(upiId); 
             tg.HapticFeedback.notificationOccurred('success'); 
             alert("UPI ID Copied!");
+        }
+        
+        function openCheckout(sel) {
+            let price = (sel === 'Weekly') ? wPrice : pPrice;
+            document.getElementById('plan-title').innerText = sel + " VIP Pass";
+            let upiLink = `upi://pay?pa=${upiId}&pn=VIP%20Portal&am=${price}&cu=INR`;
+            // Force anonymous cross-origin for canvas compatibility
+            let qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiLink)}`;
+            document.getElementById('qr-display').src = qrUrl;
+            document.getElementById('selection-page').style.display = 'none'; 
+            document.getElementById('checkout-page').style.display = 'block';
+        }
+
+        function saveQR() {
+            const img = document.getElementById('qr-display');
+            const canvas = document.createElement('canvas');
+            canvas.width = img.naturalWidth || 250;
+            canvas.height = img.naturalHeight || 250;
+            const ctx = canvas.getContext('2d');
+            
+            const image = new Image();
+            image.crossOrigin = "anonymous";
+            image.src = img.src;
+            image.onload = function() {
+                ctx.drawImage(image, 0, 0);
+                try {
+                    const dataUrl = canvas.toDataURL("image/png");
+                    const link = document.createElement('a');
+                    link.href = dataUrl;
+                    link.download = 'VIP_Payment_QR.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    tg.HapticFeedback.notificationOccurred('success');
+                } catch (e) {
+                    alert("Long-press the QR to save directly.");
+                }
+            };
+        }
+        
+        function goBack() { 
+            document.getElementById('checkout-page').style.display = 'none'; 
+            document.getElementById('selection-page').style.display = 'block'; 
+        }
+        
+        function ready() { 
+            document.getElementById('sub-btn').style.display = 'block'; 
+            document.getElementById('change-btn').style.display = 'block'; 
+            document.getElementById('label-box').style.borderColor = "#10b981"; 
+            document.getElementById('label-box').innerHTML = '<div style="color:#34d399; font-weight:800;">✅ SCREENSHOT LOADED</div>';
+        }
+
+        function resetFile() {
+            document.getElementById('file-in').value = "";
+            document.getElementById('sub-btn').style.display = 'none';
+            document.getElementById('change-btn').style.display = 'none';
+            document.getElementById('label-box').style.borderColor = "rgba(255,255,255,0.2)";
+            document.getElementById('label-box').innerHTML = '<div style="font-size:13px; font-weight:800;">📸 UPLOAD PAYMENT PROOF</div><div style="font-size:10px; color:#94a3b8; margin-top:4px;">Auto-verification active</div>';
+        }
+
+        function submit() { 
+            tg.sendData("PAID"); 
+            tg.close(); 
+        }
+    </script>
+</body>
+</html>
         }
         
         function openCheckout(sel) {
