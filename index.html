@@ -13,90 +13,119 @@
         .glow-1 { width: 300px; height: 300px; background: #6b21a8; top: -100px; left: -100px; }
         .glow-2 { width: 400px; height: 400px; background: #1d4ed8; bottom: -150px; right: -100px; }
         @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 50px) scale(1.2); } }
-        .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(24px); border-radius: 24px; padding: 25px; width: 85%; max-width: 340px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative; }
+        
+        .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(24px); border-radius: 24px; padding: 30px 20px; width: 85%; max-width: 340px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative; }
         #checkout-page { display: none; }
-        .back-btn { position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.1); border: none; color: white; padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; }
-        .qr-container { background: white; padding: 10px; border-radius: 12px; margin: 15px auto; width: 160px; height: 160px; }
+
+        /* Larger Back Button higher up */
+        .back-btn { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 700; z-index: 10; }
+
+        .qr-container { background: white; padding: 10px; border-radius: 12px; margin: 20px auto 10px; width: 160px; height: 160px; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
         .qr-container img { width: 100%; height: 100%; object-fit: contain; }
-        .facilities { text-align: left; font-size: 13px; color: #cbd5e1; margin: 15px 0; padding: 0; list-style: none; }
-        .facilities li { margin-bottom: 4px; display: flex; align-items: center; }
+        
+        /* UPI Copy Section */
+        .upi-box { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 15px; cursor: pointer; transition: 0.2s; }
+        .upi-box:active { background: rgba(255,255,255,0.15); }
+        .upi-label { font-size: 10px; color: #94a3b8; text-transform: uppercase; margin-bottom: 2px; }
+        .upi-id { font-size: 13px; font-weight: 600; color: #fff; word-break: break-all; }
+
+        .facilities { text-align: left; font-size: 13px; color: #cbd5e1; margin: 0 0 20px 0; padding: 0; list-style: none; }
+        .facilities li { margin-bottom: 6px; display: flex; align-items: center; }
         .facilities li::before { content: '✅'; margin-right: 8px; font-size: 10px; }
-        .btn { position: relative; width: 100%; padding: 15px; border-radius: 14px; border: none; font-size: 15px; font-weight: 800; color: white; cursor: pointer; margin-top: 10px; text-transform: uppercase; overflow: hidden; }
-        .btn-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); }
-        .btn-gold { background: linear-gradient(45deg, #d97706, #fbbf24); color: #000; }
-        .btn-green { background: linear-gradient(45deg, #059669, #10b981); margin-top: 15px; }
-        .upload-area { border: 1px dashed rgba(255,255,255,0.3); padding: 12px; border-radius: 10px; margin-top: 10px; cursor: pointer; font-size: 12px; background: rgba(255,255,255,0.05); display: block; }
+
+        .btn { position: relative; width: 100%; padding: 15px; border-radius: 16px; border: none; font-size: 15px; font-weight: 800; color: white; cursor: pointer; text-transform: uppercase; }
+        .btn-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); margin-bottom: 12px; }
+        .btn-gold { background: linear-gradient(45deg, #d97706, #fbbf24); color: #000; margin-bottom: 12px; }
+        .btn-green { background: linear-gradient(45deg, #059669, #10b981); margin-top: 10px; }
+        
+        .upload-area { border: 2px dashed rgba(255,255,255,0.2); padding: 15px; border-radius: 14px; cursor: pointer; background: rgba(255,255,255,0.03); display: block; }
+        .upload-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .upload-sub { font-size: 11px; color: #94a3b8; }
     </style>
 </head>
 <body>
     <div class="light-bg"><div class="glow glow-1"></div><div class="glow glow-2"></div></div>
+
     <div id="selection-page" class="card">
-        <div style="font-size: 40px;">👑</div>
+        <div style="font-size: 45px; margin-bottom: 10px;">👑</div>
         <h1>VIP Access</h1>
-        <p style="color:#94a3b8; font-size:14px; margin-bottom:25px;">Premium VIP Portal</p>
+        <p style="color:#94a3b8; font-size:14px; margin-bottom:30px;">Premium VIP Portal</p>
         <button class="btn btn-gold" onclick="openCheckout('Permanent')">Permanent Pass - ₹<span id="price-p">149</span></button>
         <button class="btn btn-blue" onclick="openCheckout('Weekly')">Weekly Pass - ₹<span id="price-w">69</span></button>
     </div>
+
     <div id="checkout-page" class="card">
         <button class="back-btn" onclick="goBack()">← Back</button>
-        <h2 id="title" style="margin:0;">Checkout</h2>
-        <div class="qr-container">
-            <img id="qr-display" src="" alt="Automatic QR">
+        <h2 id="title" style="margin: 20px 0 0 0;">Checkout</h2>
+        
+        <div class="qr-container"><img id="qr-display" src="" alt="QR"></div>
+        
+        <div class="upi-box" onclick="copyUPI()">
+            <div class="upi-label">Tap to Copy UPI ID 📋</div>
+            <div class="upi-id" id="upi-val">sayedjinnatrana@naviaxis</div>
         </div>
-        <p style="font-size:12px; color:#94a3b8;">UPI: <b id="upi-val" style="color:#fff;"></b></p>
+
         <ul class="facilities" id="fac-list"></ul>
-        <label class="upload-area" for="file-in" id="label-text">📸 Tap to Upload Screenshot</label>
+
+        <label class="upload-area" for="file-in" id="label-box">
+            <div class="upload-title" id="main-text">📸 Tap to Upload Screenshot</div>
+            <div class="upload-sub" id="sub-text">Submit after payment to get your link</div>
+        </label>
         <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
-        <button id="sub-btn" class="btn btn-green" style="display:none;" onclick="submit()">Confirm Payment</button>
+        
+        <button id="sub-btn" class="btn btn-green" style="display:none;" onclick="submit()">Confirm & Get Link</button>
     </div>
+
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
         let plan = "";
+
         const params = new URLSearchParams(window.location.search);
-        
         let upiId = params.get('upi') || "sayedjinnatrana@naviaxis";
-        let wPrice = params.get('w') || "69";
+        let wPrice = params.get('w') || "69"; 
         let pPrice = params.get('p') || "149";
 
         document.getElementById('price-w').innerText = wPrice;
         document.getElementById('price-p').innerText = pPrice;
         document.getElementById('upi-val').innerText = upiId;
 
+        function copyUPI() {
+            navigator.clipboard.writeText(upiId);
+            tg.HapticFeedback.notificationOccurred('success');
+            alert("UPI ID Copied!");
+        }
+
         function openCheckout(sel) {
             plan = sel;
-            let currentPrice = (sel === 'Weekly') ? wPrice : pPrice;
-            
-            // AUTOMATIC QR GENERATION LOGIC
-            let upiLink = `upi://pay?pa=${upiId}&pn=VIP%20Store&am=${currentPrice}&cu=INR`;
-            let qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}`;
-            
-            document.getElementById('qr-display').src = qrApiUrl;
+            let price = (sel === 'Weekly') ? wPrice : pPrice;
+            let upiLink = `upi://pay?pa=${upiId}&pn=VIP%20Portal&am=${price}&cu=INR`;
+            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}`;
             document.getElementById('selection-page').style.display = 'none';
             document.getElementById('checkout-page').style.display = 'block';
             document.getElementById('title').innerText = sel + " Checkout";
             
-            let list = document.getElementById('fac-list');
-            list.innerHTML = sel === 'Weekly' ? 
-                "<li>7 Days Entry</li><li>Daily Files</li><li>Verified Status</li>" : 
-                "<li>Lifetime Entry</li><li>All Future Updates</li><li>24/7 Priority Support</li>";
+            document.getElementById('fac-list').innerHTML = sel === 'Weekly' ? 
+                "<li>7 Days Full Access</li><li>Daily Updates</li><li>Verified Status</li>" : 
+                "<li>Lifetime Access</li><li>Priority Support</li><li>Verified VIP Tag</li>";
         }
 
         function goBack() {
             document.getElementById('checkout-page').style.display = 'none';
             document.getElementById('selection-page').style.display = 'block';
-            document.getElementById('sub-btn').style.display = 'none';
-            document.getElementById('label-text').innerText = "📸 Tap to Upload Screenshot";
         }
+
         function ready() {
             document.getElementById('sub-btn').style.display = 'block';
-            document.getElementById('label-text').innerText = "✅ Screenshot Ready";
+            document.getElementById('main-text').innerText = "✅ Screenshot Attached";
+            document.getElementById('sub-text').innerText = "Click the button below to finish";
+            document.getElementById('label-box').style.borderColor = "#10b981";
         }
+
         function submit() {
-            tg.sendData("PAID:" + plan);
+            tg.sendData("PAID");
             tg.close();
         }
     </script>
 </body>
-</html>
 </html>
