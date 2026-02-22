@@ -14,7 +14,7 @@
         .glow-2 { width: 400px; height: 400px; background: #1d4ed8; bottom: -150px; right: -100px; }
         @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, 40px) scale(1.1); } }
         
-        .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(24px); border-radius: 28px; padding: 25px 20px; width: 88%; max-width: 350px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative; z-index: 10; max-height: 90vh; overflow-y: auto; }
+        .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(24px); border-radius: 28px; padding: 25px 20px; width: 88%; max-width: 350px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative; z-index: 10; max-height: 92vh; overflow-y: auto; }
         .card::-webkit-scrollbar { display: none; }
 
         #checkout-page { display: none; }
@@ -29,7 +29,7 @@
         .btn { width: 100%; padding: 16px; border-radius: 18px; border: none; font-size: 16px; font-weight: 800; color: white; cursor: pointer; text-transform: uppercase; transition: 0.3s; position: relative; }
         .btn-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); margin-bottom: 30px; }
         .btn-gold { background: linear-gradient(45deg, #d97706, #fbbf24); color: #000; }
-        .btn-green { background: linear-gradient(45deg, #059669, #10b981); margin: 15px 0 10px 0; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
+        .btn-green { background: linear-gradient(45deg, #059669, #10b981); margin: 12px 0 5px 0; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
 
         .tag { position: absolute; top: -14px; right: 15px; color: white; font-size: 9px; padding: 5px 12px; border-radius: 6px; font-weight: 800; z-index: 15; text-transform: uppercase; }
         .popular-tag { background: #ef4444; }
@@ -40,19 +40,19 @@
         .badge-blue { box-shadow: 0 0 10px rgba(59, 130, 246, 0.4); border-color: rgba(59, 130, 246, 0.3); }
         .badge-gold { box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); border-color: rgba(251, 191, 36, 0.3); }
         
-        .qr-wrapper { background: white; padding: 10px; border-radius: 20px; margin: 10px auto; width: 140px; }
+        .qr-wrapper { background: white; padding: 8px; border-radius: 20px; margin: 10px auto; width: 130px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
         
-        .save-qr { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; margin-bottom: 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
+        .save-qr { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; margin-bottom: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
 
-        .instruction-box { background: rgba(52, 211, 153, 0.1); border-left: 3px solid #34d399; padding: 10px; border-radius: 8px; font-size: 11px; text-align: left; margin: 10px 0; color: #d1d5db; }
+        .instruction-box { background: rgba(52, 211, 153, 0.1); border-left: 3px solid #34d399; padding: 10px; border-radius: 8px; font-size: 11px; text-align: left; margin: 8px 0; color: #d1d5db; }
 
         .upi-box { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; margin-bottom: 5px; }
         .upload-area { border: 2px dashed rgba(255,255,255,0.2); padding: 15px; border-radius: 18px; cursor: pointer; background: rgba(255,255,255,0.03); display: block; }
 
-        .change-btn { font-size: 11px; color: #94a3b8; text-decoration: underline; margin-top: 8px; cursor: pointer; display: none; }
+        .change-btn { font-size: 11px; color: #94a3b8; text-decoration: underline; margin-top: 5px; cursor: pointer; display: none; padding-bottom: 5px; }
 
-        .live-counter { font-size: 11px; color: #34d399; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .live-counter { font-size: 11px; color: #34d399; font-weight: 800; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 5px; }
         .dot { height: 6px; width: 6px; background-color: #34d399; border-radius: 50%; display: inline-block; animation: pulse 1s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     </style>
@@ -64,7 +64,6 @@
         <div class="ticker">⚡ LIMITED TIME OFFER: JOIN 50K+ COLLECTIONS ⚡</div>
         <div style="font-size: 40px; margin-bottom: 10px;">👑</div>
         <h1 style="margin:0 0 5px 0;">Premium VIP</h1>
-        
         <p style="font-size: 13px; color: #94a3b8; margin: 0 0 20px 0;">
             Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant channel entry</span> after payment.<br>
             50,000+ Premium Videos & Collections inside. ✅
@@ -117,7 +116,7 @@
         </div>
 
         <div class="instruction-box">
-            <b>How to join:</b> 1. Pay via QR or UPI. 2. Take a screenshot. 3. Upload proof below.
+            <b>How to join:</b> Pay via QR/UPI, take screenshot, upload proof below.
         </div>
 
         <label class="upload-area" for="file-in" id="label-box">
@@ -157,21 +156,17 @@
 
         async function saveQR() {
             try {
-                const img = document.getElementById('qr-display');
-                const canvas = document.createElement('canvas');
-                canvas.width = 250; canvas.height = 250;
-                const ctx = canvas.getContext('2d');
-                const image = new Image();
-                image.crossOrigin = "anonymous";
-                image.src = img.src;
-                image.onload = () => {
-                    ctx.drawImage(image, 0, 0);
-                    const link = document.createElement('a');
-                    link.download = 'VIP_Payment_QR.png';
-                    link.href = canvas.toDataURL("image/png");
-                    link.click();
-                    tg.HapticFeedback.notificationOccurred('success');
-                };
+                const response = await fetch(document.getElementById('qr-display').src);
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'VIP_Payment_QR.png';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                tg.HapticFeedback.notificationOccurred('success');
             } catch (err) { alert("Long-press the QR to save."); }
         }
         
@@ -193,52 +188,6 @@
             document.getElementById('change-btn').style.display = 'none';
             document.getElementById('label-box').style.borderColor = "rgba(255,255,255,0.2)";
             document.getElementById('label-box').innerHTML = '<div style="font-size:13px; font-weight:800;">📸 UPLOAD PAYMENT PROOF</div><div style="font-size:10px; color:#94a3b8; margin-top:4px;">Auto-verification active</div>';
-        }
-
-        function submit() { 
-            tg.sendData("PAID"); 
-            tg.close(); 
-        }
-    </script>
-</body>
-</html>
-        
-        function openCheckout(sel) {
-            let price = (sel === 'Weekly') ? wPrice : pPrice;
-            document.getElementById('plan-title').innerText = sel + " VIP Pass";
-            let upiLink = `upi://pay?pa=${upiId}&pn=VIP%20Portal&am=${price}&cu=INR`;
-            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiLink)}`;
-            document.getElementById('selection-page').style.display = 'none'; 
-            document.getElementById('checkout-page').style.display = 'block';
-        }
-
-        async function saveQR() {
-            try {
-                const response = await fetch(document.getElementById('qr-display').src);
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'VIP_Payment_QR.png';
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-                tg.HapticFeedback.notificationOccurred('success');
-            } catch (err) {
-                alert("Please long-press the QR to save manually.");
-            }
-        }
-        
-        function goBack() { 
-            document.getElementById('checkout-page').style.display = 'none'; 
-            document.getElementById('selection-page').style.display = 'block'; 
-        }
-        
-        function ready() { 
-            document.getElementById('sub-btn').style.display = 'block'; 
-            document.getElementById('label-box').style.borderColor = "#10b981"; 
-            document.getElementById('label-box').innerHTML = '<div style="color:#34d399; font-weight:800;">✅ SCREENSHOT LOADED</div>';
         }
 
         function submit() { 
