@@ -28,7 +28,6 @@
         .popular-tag { background: #ef4444; }
         .value-tag { background: #10b981; }
         
-        /* GLOWING BADGES */
         .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
         .mini-badge { background: rgba(255,255,255,0.05); padding: 8px; border-radius: 12px; font-size: 10px; font-weight: 700; color: #fff; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.3s; }
         .badge-blue { box-shadow: 0 0 10px rgba(59, 130, 246, 0.4); border-color: rgba(59, 130, 246, 0.3); }
@@ -76,7 +75,6 @@
 
     <div id="checkout-page" class="card">
         <button class="back-btn" onclick="goBack()">← Back</button>
-        
         <div class="live-counter"><span class="dot"></span> 1,428 people purchased today</div>
         <h2 id="plan-title" style="margin: 0; font-size: 20px;">VIP Access</h2>
 
@@ -88,7 +86,6 @@
         </div>
 
         <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
-        
         <button class="save-qr" onclick="saveQR()">📥 Save QR to Gallery</button>
 
         <div class="upi-box" onclick="copyUPI()">
@@ -117,9 +114,16 @@
         const params = new URLSearchParams(window.location.search);
         let upiId = params.get('upi') || "sayedjinnatrana@naviaxis";
         let wPrice = params.get('w') || "69"; let pPrice = params.get('p') || "149";
-        document.getElementById('price-w').innerText = wPrice; document.getElementById('price-p').innerText = pPrice; document.getElementById('upi-val').innerText = upiId;
         
-        function copyUPI() { navigator.clipboard.writeText(upiId); tg.HapticFeedback.notificationOccurred('success'); alert("UPI ID Copied!"); }
+        document.getElementById('price-w').innerText = wPrice; 
+        document.getElementById('price-p').innerText = pPrice; 
+        document.getElementById('upi-val').innerText = upiId;
+        
+        function copyUPI() { 
+            navigator.clipboard.writeText(upiId); 
+            tg.HapticFeedback.notificationOccurred('success'); 
+            alert("UPI ID Copied!"); 
+        }
         
         function openCheckout(sel) {
             let price = (sel === 'Weekly') ? wPrice : pPrice;
@@ -140,7 +144,10 @@
             alert("QR Code link opened! Long press the image to save to gallery.");
         }
         
-        function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'block'; }
+        function goBack() { 
+            document.getElementById('checkout-page').style.display = 'none'; 
+            document.getElementById('selection-page').style.display = 'block'; 
+        }
         
         function ready() { 
             document.getElementById('sub-btn').style.display = 'block'; 
@@ -148,13 +155,10 @@
             document.getElementById('label-box').innerHTML = '<div style="color:#34d399; font-weight:800;">✅ SCREENSHOT LOADED</div>';
         }
 
-        function submit() { tg.sendData("PAID"); tg.close(); }
-    </script>
-</body>
-</html>
-            document.getElementById('label-box').innerHTML = '<div style="font-size:13px; font-weight:800; color:#34d399;">✅ SCREENSHOT ATTACHED</div>';
+        function submit() { 
+            tg.sendData("PAID"); 
+            tg.close(); 
         }
-        function submit() { tg.sendData("PAID"); tg.close(); }
     </script>
 </body>
 </html>
