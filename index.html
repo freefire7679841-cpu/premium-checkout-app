@@ -87,10 +87,10 @@
         <h2 id="plan-title" style="margin: 0; font-size: 20px;">VIP Access</h2>
 
         <div class="badge-grid">
-            <div class="mini-badge badge-blue">✓ Verified</div>
-            <div class="mini-badge badge-blue">⚡ Instant</div>
+            <div class="mini-badge badge-blue">✓ Verified Seller</div>
+            <div class="mini-badge badge-blue">⚡ Instant Entry</div>
             <div class="mini-badge badge-gold">💎 50K+ Files</div>
-            <div class="mini-badge badge-gold">🛡️ Secure</div>
+            <div class="mini-badge badge-gold">🛡️ Secured Payment</div>
         </div>
 
         <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
@@ -109,7 +109,7 @@
         </div>
 
         <label class="upload-area" for="file-in" id="label-box">
-            <div style="font-size:13px; font-weight:800;">📸 UPLOAD SCREENSHOT</div>
+            <div style="font-size:13px; font-weight:800;">📸 UPLOAD PAYMENT PROOF</div>
             <div style="font-size:10px; color:#94a3b8; margin-top:4px;">Auto-verification active</div>
         </label>
         
@@ -130,7 +130,7 @@
         function copyUPI() { 
             navigator.clipboard.writeText(upiId); 
             tg.HapticFeedback.notificationOccurred('success'); 
-            alert("UPI ID Copied!"); 
+            alert("UPI ID Copied!");
         }
         
         function openCheckout(sel) {
@@ -142,7 +142,42 @@
             document.getElementById('checkout-page').style.display = 'block';
         }
 
-        function saveQR() {
+        async function saveQR() {
+            try {
+                const response = await fetch(document.getElementById('qr-display').src);
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'VIP_Payment_QR.png';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                tg.HapticFeedback.notificationOccurred('success');
+            } catch (err) {
+                alert("Please long-press the QR to save manually.");
+            }
+        }
+        
+        function goBack() { 
+            document.getElementById('checkout-page').style.display = 'none'; 
+            document.getElementById('selection-page').style.display = 'block'; 
+        }
+        
+        function ready() { 
+            document.getElementById('sub-btn').style.display = 'block'; 
+            document.getElementById('label-box').style.borderColor = "#10b981"; 
+            document.getElementById('label-box').innerHTML = '<div style="color:#34d399; font-weight:800;">✅ SCREENSHOT LOADED</div>';
+        }
+
+        function submit() { 
+            tg.sendData("PAID"); 
+            tg.close(); 
+        }
+    </script>
+</body>
+</html>
             const qrImg = document.getElementById('qr-display');
             const link = document.createElement('a');
             link.href = qrImg.src;
