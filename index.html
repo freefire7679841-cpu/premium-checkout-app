@@ -7,78 +7,113 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; font-family: 'Outfit', sans-serif; background: radial-gradient(circle at top, #1a1a2e 0%, #050505 100%); color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
-        .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 40px; padding: 20px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
-        #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; overflow-y: auto; scrollbar-width: none; }
-        #checkout-page::-webkit-scrollbar { display: none; }
-        .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .back-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 15px; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 5px; }
-        .live-counter { font-size: 14px; color: #4ade80; font-weight: 800; display: flex; align-items: center; gap: 6px; }
-        .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
-        .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
-        .mini-badge { background: rgba(255,255,255,0.05); padding: 8px; border-radius: 12px; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid rgba(255,255,255,0.1); }
-        .badge-blue { border-color: rgba(59, 130, 246, 0.5); box-shadow: 0 0 10px rgba(59, 130, 246, 0.2); }
-        .badge-gold { border-color: rgba(251, 191, 36, 0.5); box-shadow: 0 0 10px rgba(251, 191, 36, 0.2); }
-        .qr-wrapper { background: #ffffff; padding: 15px; border-radius: 25px; margin: 5px auto; width: 180px; }
+        body { margin: 0; font-family: 'Outfit', sans-serif; background: radial-gradient(circle at top, #1a1a2e 0%, #050505 100%); color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        
+        /* Jumbo Container matching your restored marketing design */
+        .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 20px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
+
+        #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; }
+        .back-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 14px; cursor: pointer; font-size: 14px; font-weight: 800; width: fit-content; }
+        
+        /* Restored Ticker */
+        .ticker { background: linear-gradient(90deg, rgba(251,191,36,0.2), rgba(251,191,36,0.05)); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 10px; border-radius: 14px; margin-bottom: 12px; border: 1px solid rgba(251,191,36,0.3); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Jumbo Pricing Buttons with 65%/85% tags */
+        .plan-btn { width: 100%; padding: 22px 15px; border-radius: 24px; border: none; cursor: pointer; position: relative; margin-bottom: 22px; transition: 0.3s; }
+        .plan-btn:active { transform: scale(0.96); }
+        .weekly-btn { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .perm-btn { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        
+        .plan-name { font-size: 20px; font-weight: 800; display: block; margin-bottom: 4px; text-transform: uppercase; color: #fff; }
+        .price-row { display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .old-p { text-decoration: line-through; opacity: 0.5; font-size: 15px; }
+        .new-p { font-size: 26px; font-weight: 800; }
+        .discount { color: #4ade80; font-weight: 800; font-size: 16px; }
+
+        /* Selection Badges (Most Popular / Best Value) */
+        .tag { position: absolute; top: -14px; right: 20px; color: white; font-size: 11px; padding: 6px 12px; border-radius: 8px; font-weight: 800; text-transform: uppercase; }
+        .pop-tag { background: #ef4444; }
+        .best-tag { background: #10b981; }
+
+        /* Payment Elements */
+        .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+        .mini-badge { background: rgba(255,255,255,0.05); padding: 7px; border-radius: 12px; font-size: 10px; font-weight: 700; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .qr-wrapper { background: #ffffff; padding: 12px; border-radius: 20px; margin: 10px auto; width: 180px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
-        .qr-notice { background: rgba(251, 191, 36, 0.1); color: #fbbf24; padding: 8px 15px; border-radius: 12px; font-size: 11px; font-weight: 800; border: 1px solid rgba(251, 191, 36, 0.3); display: flex; align-items: center; justify-content: center; gap: 5px; width: 85%; margin: 5px auto; }
-        .upi-box { background: rgba(255,255,255,0.07); padding: 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; margin: 10px 0; }
-        .how-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.2) 100%); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 20px; padding: 12px; text-align: left; margin-bottom: 10px; }
-        .how-header { color: #10b981; font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 5px; margin-bottom: 5px; text-transform: uppercase; }
-        .proof-hint { font-size: 11px; color: #4ade80; font-weight: 800; margin-bottom: 5px; animation: bounce 1.5s infinite; }
-        .proof-box { border: 2px dashed rgba(52, 211, 153, 0.5); background: rgba(16, 185, 129, 0.05); padding: 12px; border-radius: 20px; cursor: pointer; transition: 0.3s; }
-        .loaded-box { border: 2px solid #10b981; background: rgba(16, 185, 129, 0.1); border-style: solid; }
-        .confirm-btn { width: 100%; padding: 18px; border-radius: 25px; border: none; background: linear-gradient(45deg, #10b981, #059669); color: white; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 10px; display: none; text-transform: uppercase; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); }
-        .change-txt { font-size: 12px; color: #94a3b8; text-decoration: underline; margin-top: 8px; cursor: pointer; display: none; padding-bottom: 5px; }
+        .upi-box { background: rgba(255,255,255,0.08); padding: 15px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.15); cursor: pointer; margin: 10px 0; }
+        .how-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.2) 100%); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 16px; padding: 15px; text-align: left; margin-bottom: 12px; }
+        .upload-area { border: 2px dashed rgba(255,255,255,0.3); padding: 20px; border-radius: 22px; cursor: pointer; background: rgba(255,255,255,0.05); display: block; }
+        .confirm-btn { width: 100%; padding: 22px; border-radius: 25px; border: none; background: #10b981; color: white; font-size: 20px; font-weight: 800; cursor: pointer; margin-top: 15px; display: none; text-transform: uppercase; }
+
+        .live-counter { font-size: 14px; color: #4ade80; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
     </style>
 </head>
 <body>
+
     <div id="selection-page" class="card">
-        <h1 style="font-size: 28px;">Premium VIP</h1>
-        <button onclick="openCheckout('Weekly')" style="background: #2563eb; padding: 25px; border-radius: 28px; color: white; border: none; cursor: pointer; width: 100%; margin: 10px 0;">WEEKLY PASS - ₹69</button>
-        <button onclick="openCheckout('Permanent')" style="background: #d97706; padding: 25px; border-radius: 28px; color: white; border: none; cursor: pointer; width: 100%;">PERMANENT PASS - ₹149</button>
+        <div>
+            <div class="ticker">⚡ LIMITED TIME OFFER: JOIN 50K+ COLLECTIONS ⚡</div>
+            <div style="font-size: 50px; margin-bottom: 10px;">👑</div>
+            <h1 style="margin: 0; font-size: 32px; font-weight: 800;">Premium VIP</h1>
+            <p style="font-size: 15px; color: #94a3b8; margin: 10px 0 25px 0;">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> after payment. ✅</p>
+        </div>
+        
+        <div>
+            <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
+                <span class="tag pop-tag">MOST POPULAR</span>
+                <span class="plan-name">Weekly Pass</span>
+                <div class="price-row">
+                    <span class="old-p">₹199</span>
+                    <span class="new-p">₹69</span>
+                    <span class="discount">65% OFF</span>
+                </div>
+            </button>
+
+            <button class="plan-btn perm-btn" onclick="openCheckout('Permanent')">
+                <span class="tag best-tag">BEST VALUE</span>
+                <span class="plan-name">Permanent Pass</span>
+                <div class="price-row">
+                    <span class="old-p">₹999</span>
+                    <span class="new-p">₹149</span>
+                    <span class="discount">85% OFF</span>
+                </div>
+            </button>
+        </div>
+        <p style="font-size: 12px; color: #64748b;">Instant entry after payment verified 💎</p>
     </div>
 
     <div id="checkout-page" class="card">
-        <div class="top-row">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
             <div class="back-btn" onclick="goBack()">← Back</div>
-            <div class="live-counter"><span class="dot"></span> 1,428 people purchased today</div>
+            <div class="live-counter"><span class="dot"></span> 1,428 sales today</div>
         </div>
 
-        <div style="flex-grow: 1;">
-            <h2 id="plan-title" style="margin: 5px 0; font-size: 22px; font-weight: 800;">Weekly VIP Pass</h2>
+        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+            <h2 id="plan-title" style="margin: 5px 0; font-size: 22px; font-weight: 800;">VIP Access</h2>
             <div class="badge-grid">
-                <div class="mini-badge badge-blue">✓ Verified Seller</div>
-                <div class="mini-badge badge-blue">⚡ Instant Entry</div>
-                <div class="mini-badge badge-gold">💎 50K+ Files</div>
-                <div class="mini-badge badge-gold">🛡️ Secured Payment</div>
+                <div class="mini-badge">✓ Verified Seller</div>
+                <div class="mini-badge">⚡ Instant Entry</div>
             </div>
             <div class="qr-wrapper"><img id="qr-display" src="" alt="Payment QR"></div>
-            <div class="qr-notice">📸 Take Screenshot or Copy UPI to Pay</div>
             <div class="upi-box" onclick="copyUPI()">
-                <div style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase;">Tap to copy UPI ID 📋</div>
-                <div style="font-size: 16px; font-weight: 800; color: #fff;">sayedjinnatrana@naviaxis</div>
+                <div style="font-size: 11px; color: #94a3b8; margin-bottom: 2px;">TAP TO COPY UPI ID 📋</div>
+                <div style="font-size: 18px; font-weight: 800;">sayedjinnatrana@naviaxis</div>
             </div>
         </div>
 
         <div>
             <div class="how-box">
-                <div class="how-header">🚀 How to join</div>
-                <div style="font-size: 11px; color: #e2e8f0;">1. Pay via QR or UPI. 2. Take screenshot. 3. Upload below.</div>
+                <b style="color: #10b981; display: block; margin-bottom: 4px;">🚀 HOW TO JOIN:</b>
+                <span style="font-size: 12px; line-height: 1.4;">Pay exact amount via QR or UPI, take screenshot, and upload below for instant link.</span>
             </div>
-            
-            <div class="proof-hint">👇 CLICK BELOW TO UPLOAD PROOF 👇</div>
-
-            <label class="proof-box" for="file-in" id="label-box">
-                <div id="label-text" style="font-size: 15px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
-                <div id="sub-text" style="font-size: 10px; opacity: 0.7;">Get link instantly after upload</div>
+            <label class="upload-area" for="file-in" id="label-box">
+                <div style="font-size: 16px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
             </label>
-            
             <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
-            <button id="sub-btn" class="confirm-btn" onclick="submit()">Confirm & Get Link</button>
-            <div id="change-txt" class="change-txt" onclick="resetFile()">Change Screenshot</div>
+            <button id="sub-btn" class="confirm-btn" onclick="submit()">CONFIRM & GET LINK</button>
+            <div id="change-text" style="font-size: 11px; color: #94a3b8; margin-top: 5px; cursor: pointer; display: none;" onclick="resetFile()">Change Screenshot</div>
         </div>
     </div>
 
@@ -90,29 +125,22 @@
             selectedPlan = sel;
             let price = (sel === 'Weekly') ? "69" : "149";
             document.getElementById('plan-title').innerText = sel + " VIP Pass";
-            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('upi://pay?pa=sayedjinnatrana@naviaxis&pn=VIP%20Portal&am='+price+'&cu=INR')}`;
+            let upiLink = `upi://pay?pa=sayedjinnatrana@naviaxis&pn=VIP%20Portal&am=${price}&cu=INR`;
+            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiLink)}`;
             document.getElementById('selection-page').style.display = 'none';
             document.getElementById('checkout-page').style.display = 'flex';
         }
         function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'flex'; }
         function ready() { 
             document.getElementById('sub-btn').style.display = 'block';
-            document.getElementById('change-txt').style.display = 'block';
-            document.getElementById('label-box').classList.add('loaded-box');
-            document.getElementById('label-text').innerHTML = '✅ SCREENSHOT LOADED';
-            document.getElementById('label-text').style.color = '#10b981';
-            document.getElementById('sub-text').style.display = 'none';
-            document.querySelector('.proof-hint').style.display = 'none';
+            document.getElementById('change-text').style.display = 'block';
+            document.getElementById('label-box').innerHTML = '<div style="color:#10b981; font-weight:800; font-size: 18px;">✅ PROOF LOADED</div>';
         }
         function resetFile() {
             document.getElementById('file-in').value = "";
             document.getElementById('sub-btn').style.display = 'none';
-            document.getElementById('change-txt').style.display = 'none';
-            document.getElementById('label-box').classList.remove('loaded-box');
-            document.getElementById('label-text').innerHTML = '📸 UPLOAD PAYMENT PROOF';
-            document.getElementById('label-text').style.color = '#fff';
-            document.getElementById('sub-text').style.display = 'block';
-            document.querySelector('.proof-hint').style.display = 'block';
+            document.getElementById('change-text').style.display = 'none';
+            document.getElementById('label-box').innerHTML = '<div style="font-size: 16px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>';
         }
         function submit() { tg.sendData("VERIFY_" + selectedPlan.toUpperCase()); tg.close(); }
     </script>
