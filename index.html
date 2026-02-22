@@ -3,146 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Premium VIP</title>
+    <title>Premium VIP Access</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; font-family: 'Outfit', sans-serif; background: radial-gradient(circle at top, #1a1a2e 0%, #050505 100%); color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        body { margin: 0; font-family: 'Outfit', sans-serif; background: radial-gradient(circle at top, #1a1a2e 0%, #050505 100%); color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
         
-        /* Jumbo Container matching your restored marketing design */
-        .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 20px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
+        .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 40px; padding: 30px 20px; width: 92%; max-width: 440px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; }
 
-        #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; }
-        .back-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 14px; cursor: pointer; font-size: 14px; font-weight: 800; width: fit-content; }
-        
-        /* Restored Ticker */
-        .ticker { background: linear-gradient(90deg, rgba(251,191,36,0.2), rgba(251,191,36,0.05)); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 10px; border-radius: 14px; margin-bottom: 12px; border: 1px solid rgba(251,191,36,0.3); text-transform: uppercase; letter-spacing: 1px; }
+        .ticker { background: linear-gradient(90deg, rgba(251,191,36,0.2), rgba(251,191,36,0.05)); color: #fbbf24; font-size: 12px; font-weight: 800; padding: 10px; border-radius: 16px; margin-bottom: 20px; border: 1px solid rgba(251,191,36,0.3); text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Jumbo Pricing Buttons with 65%/85% tags */
-        .plan-btn { width: 100%; padding: 22px 15px; border-radius: 24px; border: none; cursor: pointer; position: relative; margin-bottom: 22px; transition: 0.3s; }
+        .hot-emoji-bar { font-size: 22px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
+
+        h1 { margin: 0; font-size: 36px; font-weight: 800; letter-spacing: -1px; background: linear-gradient(to bottom, #fff, #a5a5a5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .trust-text { font-size: 15px; color: #94a3b8; margin: 10px 0 35px 0; }
+        .highlight { color: #fbbf24; font-weight: 800; text-shadow: 0 0 15px rgba(251,191,36,0.5); }
+
+        .plan-btn { width: 100%; padding: 25px 20px; border-radius: 30px; border: none; cursor: pointer; position: relative; margin-bottom: 25px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .plan-btn:active { transform: scale(0.96); }
-        .weekly-btn { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-        .perm-btn { background: linear-gradient(135deg, #f59e0b, #d97706); }
         
-        .plan-name { font-size: 20px; font-weight: 800; display: block; margin-bottom: 4px; text-transform: uppercase; color: #fff; }
-        .price-row { display: flex; justify-content: center; align-items: center; gap: 10px; }
-        .old-p { text-decoration: line-through; opacity: 0.5; font-size: 15px; }
-        .new-p { font-size: 26px; font-weight: 800; }
-        .discount { color: #4ade80; font-weight: 800; font-size: 16px; }
+        .weekly-btn { background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 15px 30px rgba(29, 78, 216, 0.4); animation: pulseBlue 3s infinite; }
+        .perm-btn { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 15px 30px rgba(217, 119, 6, 0.4); animation: pulseGold 3s infinite; }
 
-        /* Selection Badges (Most Popular / Best Value) */
-        .tag { position: absolute; top: -14px; right: 20px; color: white; font-size: 11px; padding: 6px 12px; border-radius: 8px; font-weight: 800; text-transform: uppercase; }
-        .pop-tag { background: #ef4444; }
-        .best-tag { background: #10b981; }
+        .plan-name { font-size: 22px; font-weight: 800; display: block; margin-bottom: 5px; text-transform: uppercase; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        
+        /* Ultra Noticeable Numbers */
+        .price-row { display: flex; justify-content: center; align-items: center; gap: 12px; }
+        .old-p { text-decoration: line-through; opacity: 0.6; font-size: 18px; font-weight: 400; }
+        .new-p { font-size: 38px; font-weight: 800; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.6); }
+        .discount-badge { background: #10b981; color: #fff; font-size: 14px; font-weight: 800; padding: 4px 10px; border-radius: 10px; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4); }
 
-        /* Payment Elements */
-        .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
-        .mini-badge { background: rgba(255,255,255,0.05); padding: 7px; border-radius: 12px; font-size: 10px; font-weight: 700; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; gap: 5px; }
-        .qr-wrapper { background: #ffffff; padding: 12px; border-radius: 20px; margin: 10px auto; width: 180px; }
-        .qr-wrapper img { width: 100%; height: auto; display: block; }
-        .upi-box { background: rgba(255,255,255,0.08); padding: 15px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.15); cursor: pointer; margin: 10px 0; }
-        .how-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.2) 100%); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 16px; padding: 15px; text-align: left; margin-bottom: 12px; }
-        .upload-area { border: 2px dashed rgba(255,255,255,0.3); padding: 20px; border-radius: 22px; cursor: pointer; background: rgba(255,255,255,0.05); display: block; }
-        .confirm-btn { width: 100%; padding: 22px; border-radius: 25px; border: none; background: #10b981; color: white; font-size: 20px; font-weight: 800; cursor: pointer; margin-top: 15px; display: none; text-transform: uppercase; }
+        .floating-tag { position: absolute; top: -15px; right: 25px; color: white; font-size: 12px; padding: 6px 16px; border-radius: 12px; font-weight: 800; text-transform: uppercase; box-shadow: 0 6px 15px rgba(0,0,0,0.4); }
+        .pop { background: #ef4444; }
+        .best { background: #10b981; }
 
-        .live-counter { font-size: 14px; color: #4ade80; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        .live-status { font-size: 13px; color: #4ade80; font-weight: 800; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .dot { height: 10px; width: 10px; background: #4ade80; border-radius: 50%; animation: blink 1s infinite; box-shadow: 0 0 10px #4ade80; }
+
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        @keyframes pulseBlue { 0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); } 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); } }
+        @keyframes pulseGold { 0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); } 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); } }
     </style>
 </head>
 <body>
 
-    <div id="selection-page" class="card">
-        <div>
-            <div class="ticker">⚡ LIMITED TIME OFFER: JOIN 50K+ COLLECTIONS ⚡</div>
-            <div style="font-size: 50px; margin-bottom: 10px;">👑</div>
-            <h1 style="margin: 0; font-size: 32px; font-weight: 800;">Premium VIP</h1>
-            <p style="font-size: 15px; color: #94a3b8; margin: 10px 0 25px 0;">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> after payment. ✅</p>
-        </div>
+    <div class="card">
+        <div class="ticker">🚀 LIMITED TIME: JOIN 50K+ EXCLUSIVE COLLECTIONS 🚀</div>
         
-        <div>
-            <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
-                <span class="tag pop-tag">MOST POPULAR</span>
-                <span class="plan-name">Weekly Pass</span>
-                <div class="price-row">
-                    <span class="old-p">₹199</span>
-                    <span class="new-p">₹69</span>
-                    <span class="discount">65% OFF</span>
-                </div>
-            </button>
-
-            <button class="plan-btn perm-btn" onclick="openCheckout('Permanent')">
-                <span class="tag best-tag">BEST VALUE</span>
-                <span class="plan-name">Permanent Pass</span>
-                <div class="price-row">
-                    <span class="old-p">₹999</span>
-                    <span class="new-p">₹149</span>
-                    <span class="discount">85% OFF</span>
-                </div>
-            </button>
-        </div>
-        <p style="font-size: 12px; color: #64748b;">Instant entry after payment verified 💎</p>
-    </div>
-
-    <div id="checkout-page" class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div class="back-btn" onclick="goBack()">← Back</div>
-            <div class="live-counter"><span class="dot"></span> 1,428 sales today</div>
-        </div>
-
-        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
-            <h2 id="plan-title" style="margin: 5px 0; font-size: 22px; font-weight: 800;">VIP Access</h2>
-            <div class="badge-grid">
-                <div class="mini-badge">✓ Verified Seller</div>
-                <div class="mini-badge">⚡ Instant Entry</div>
+        <div class="hot-emoji-bar">🥵 💦 🫦</div>
+        
+        <div style="font-size: 55px; margin-bottom: 10px;">👑</div>
+        <h1>Premium VIP</h1>
+        
+        <p class="trust-text">Trusted bot: <span class="highlight">Instant entry</span> after payment ✅</p>
+        
+        <button class="plan-btn weekly-btn" onclick="openPayment('Weekly', 69)">
+            <span class="floating-tag pop">🔥 MOST POPULAR</span>
+            <span class="plan-name">Weekly Pass</span>
+            <div class="price-row">
+                <span class="old-p">₹199</span>
+                <span class="new-p">₹69</span>
+                <span class="discount-badge">65% OFF</span>
             </div>
-            <div class="qr-wrapper"><img id="qr-display" src="" alt="Payment QR"></div>
-            <div class="upi-box" onclick="copyUPI()">
-                <div style="font-size: 11px; color: #94a3b8; margin-bottom: 2px;">TAP TO COPY UPI ID 📋</div>
-                <div style="font-size: 18px; font-weight: 800;">sayedjinnatrana@naviaxis</div>
-            </div>
-        </div>
+        </button>
 
-        <div>
-            <div class="how-box">
-                <b style="color: #10b981; display: block; margin-bottom: 4px;">🚀 HOW TO JOIN:</b>
-                <span style="font-size: 12px; line-height: 1.4;">Pay exact amount via QR or UPI, take screenshot, and upload below for instant link.</span>
+        <button class="plan-btn perm-btn" onclick="openPayment('Permanent', 149)">
+            <span class="floating-tag best">💎 BEST VALUE</span>
+            <span class="plan-name">Permanent Pass</span>
+            <div class="price-row">
+                <span class="old-p">₹999</span>
+                <span class="new-p">₹149</span>
+                <span class="discount-badge">85% OFF</span>
             </div>
-            <label class="upload-area" for="file-in" id="label-box">
-                <div style="font-size: 16px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
-            </label>
-            <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
-            <button id="sub-btn" class="confirm-btn" onclick="submit()">CONFIRM & GET LINK</button>
-            <div id="change-text" style="font-size: 11px; color: #94a3b8; margin-top: 5px; cursor: pointer; display: none;" onclick="resetFile()">Change Screenshot</div>
+        </button>
+
+        <div class="live-status">
+            <span class="dot"></span>
+            1,428 people joined in the last 24h 💎
         </div>
     </div>
 
     <script>
-        const tg = window.Telegram.WebApp; tg.expand();
-        let selectedPlan = "";
-        function copyUPI() { navigator.clipboard.writeText("sayedjinnatrana@naviaxis"); tg.HapticFeedback.notificationOccurred('success'); alert("UPI ID Copied!"); }
-        function openCheckout(sel) {
-            selectedPlan = sel;
-            let price = (sel === 'Weekly') ? "69" : "149";
-            document.getElementById('plan-title').innerText = sel + " VIP Pass";
-            let upiLink = `upi://pay?pa=sayedjinnatrana@naviaxis&pn=VIP%20Portal&am=${price}&cu=INR`;
-            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiLink)}`;
-            document.getElementById('selection-page').style.display = 'none';
-            document.getElementById('checkout-page').style.display = 'flex';
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+
+        function openPayment(plan, price) {
+            // This function links to your existing checkout page logic
+            // Ensure you pass the 'upi', 'w', and 'p' params as before
+            const upi = "sayedjinnatrana@naviaxis";
+            window.location.href = `checkout.html?plan=${plan}&price=${price}&upi=${upi}`;
         }
-        function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'flex'; }
-        function ready() { 
-            document.getElementById('sub-btn').style.display = 'block';
-            document.getElementById('change-text').style.display = 'block';
-            document.getElementById('label-box').innerHTML = '<div style="color:#10b981; font-weight:800; font-size: 18px;">✅ PROOF LOADED</div>';
-        }
-        function resetFile() {
-            document.getElementById('file-in').value = "";
-            document.getElementById('sub-btn').style.display = 'none';
-            document.getElementById('change-text').style.display = 'none';
-            document.getElementById('label-box').innerHTML = '<div style="font-size: 16px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>';
-        }
-        function submit() { tg.sendData("VERIFY_" + selectedPlan.toUpperCase()); tg.close(); }
     </script>
 </body>
 </html>
