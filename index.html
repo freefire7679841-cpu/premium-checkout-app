@@ -3,96 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Premium VIP Access</title>
+    <title>Premium VIP</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; font-family: 'Outfit', sans-serif; background: radial-gradient(circle at top, #1a1a2e 0%, #050505 100%); color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+        body { 
+            margin: 0; 
+            font-family: 'Outfit', sans-serif; 
+            background: #050505; 
+            color: #ffffff; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            overflow: hidden; 
+            position: relative;
+        }
+
+        /* Animated Emoji Rain */
+        .emoji-rain {
+            position: absolute;
+            top: -50px;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 30px; /* Bigger opacity/size as requested */
+            opacity: 0.3; /* Subtle but noticeable background presence */
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* Responsive Transparent Card */
+        .card { 
+            background: rgba(255, 255, 255, 0.05); /* Transparent color requested */
+            border: 1.5px solid rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(20px); 
+            border-radius: 35px; 
+            padding: 20px; 
+            width: 92%; 
+            max-width: 420px; 
+            text-align: center; 
+            position: relative; 
+            z-index: 10; 
+            display: flex; 
+            flex-direction: column; 
+            max-height: 98vh; 
+            box-sizing: border-box; 
+            justify-content: space-between; 
+        }
+
+        #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; }
         
-        .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 40px; padding: 30px 20px; width: 92%; max-width: 440px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; }
+        .ticker { 
+            background: rgba(251, 191, 36, 0.1); 
+            color: #fbbf24; 
+            font-size: 11px; 
+            font-weight: 800; 
+            padding: 10px; 
+            border-radius: 14px; 
+            border: 1px solid rgba(251, 191, 36, 0.3); 
+            text-transform: uppercase; 
+        }
 
-        .ticker { background: linear-gradient(90deg, rgba(251,191,36,0.2), rgba(251,191,36,0.05)); color: #fbbf24; font-size: 12px; font-weight: 800; padding: 10px; border-radius: 16px; margin-bottom: 20px; border: 1px solid rgba(251,191,36,0.3); text-transform: uppercase; letter-spacing: 1px; }
+        .plan-btn { 
+            width: 100%; 
+            padding: 22px 15px; 
+            border-radius: 24px; 
+            border: none; 
+            cursor: pointer; 
+            position: relative; 
+            margin-bottom: 22px; 
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08); /* Transparent background buttons */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-        .hot-emoji-bar { font-size: 22px; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
+        .weekly-btn { border-color: rgba(59, 130, 246, 0.5); box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+        .perm-btn { border-color: rgba(217, 119, 6, 0.5); box-shadow: 0 0 15px rgba(217, 119, 6, 0.2); }
 
-        h1 { margin: 0; font-size: 36px; font-weight: 800; letter-spacing: -1px; background: linear-gradient(to bottom, #fff, #a5a5a5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .price-row { display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .new-p { font-size: 26px; font-weight: 800; }
+        .discount { color: #4ade80; font-weight: 800; font-size: 16px; }
 
-        .trust-text { font-size: 15px; color: #94a3b8; margin: 10px 0 35px 0; }
-        .highlight { color: #fbbf24; font-weight: 800; text-shadow: 0 0 15px rgba(251,191,36,0.5); }
+        /* Status & Counter - Made Noticeable */
+        .live-counter { 
+            font-size: 15px; 
+            color: #4ade80; 
+            font-weight: 800; 
+            background: rgba(74, 222, 128, 0.15); 
+            padding: 8px 15px; 
+            border-radius: 20px; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            margin: 10px 0;
+        }
 
-        .plan-btn { width: 100%; padding: 25px 20px; border-radius: 30px; border: none; cursor: pointer; position: relative; margin-bottom: 25px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .plan-btn:active { transform: scale(0.96); }
-        
-        .weekly-btn { background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 15px 30px rgba(29, 78, 216, 0.4); animation: pulseBlue 3s infinite; }
-        .perm-btn { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 15px 30px rgba(217, 119, 6, 0.4); animation: pulseGold 3s infinite; }
+        .qr-wrapper { background: #ffffff; padding: 12px; border-radius: 20px; margin: 10px auto; width: 180px; }
+        .qr-wrapper img { width: 100%; height: auto; display: block; }
 
-        .plan-name { font-size: 22px; font-weight: 800; display: block; margin-bottom: 5px; text-transform: uppercase; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-        
-        /* Ultra Noticeable Numbers */
-        .price-row { display: flex; justify-content: center; align-items: center; gap: 12px; }
-        .old-p { text-decoration: line-through; opacity: 0.6; font-size: 18px; font-weight: 400; }
-        .new-p { font-size: 38px; font-weight: 800; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.6); }
-        .discount-badge { background: #10b981; color: #fff; font-size: 14px; font-weight: 800; padding: 4px 10px; border-radius: 10px; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4); }
+        .confirm-btn { 
+            width: 100%; 
+            padding: 20px; 
+            border-radius: 25px; 
+            border: none; 
+            background: #10b981; 
+            color: white; 
+            font-size: 20px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            margin-top: 15px; 
+            text-transform: uppercase; 
+        }
 
-        .floating-tag { position: absolute; top: -15px; right: 25px; color: white; font-size: 12px; padding: 6px 16px; border-radius: 12px; font-weight: 800; text-transform: uppercase; box-shadow: 0 6px 15px rgba(0,0,0,0.4); }
-        .pop { background: #ef4444; }
-        .best { background: #10b981; }
-
-        .live-status { font-size: 13px; color: #4ade80; font-weight: 800; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .dot { height: 10px; width: 10px; background: #4ade80; border-radius: 50%; animation: blink 1s infinite; box-shadow: 0 0 10px #4ade80; }
-
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-        @keyframes pulseBlue { 0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); } 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); } }
-        @keyframes pulseGold { 0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); } 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
     </style>
 </head>
 <body>
+    <div class="emoji-rain" id="emojiRain"></div>
 
-    <div class="card">
-        <div class="ticker">🚀 LIMITED TIME: JOIN 50K+ EXCLUSIVE COLLECTIONS 🚀</div>
+    <div id="selection-page" class="card">
+        <div>
+            <div class="ticker">🚀 LIMITED TIME: JOIN 50K+ EXCLUSIVE COLLECTIONS 🚀</div>
+            <div style="font-size: 50px; margin: 15px 0;">👑</div>
+            <h1 style="margin: 0; font-size: 32px; font-weight: 800;">Premium VIP</h1>
+            <p style="font-size: 15px; color: #94a3b8;">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> after payment ✅</p>
+        </div>
         
-        <div class="hot-emoji-bar">🥵 💦 🫦</div>
-        
-        <div style="font-size: 55px; margin-bottom: 10px;">👑</div>
-        <h1>Premium VIP</h1>
-        
-        <p class="trust-text">Trusted bot: <span class="highlight">Instant entry</span> after payment ✅</p>
-        
-        <button class="plan-btn weekly-btn" onclick="openPayment('Weekly', 69)">
-            <span class="floating-tag pop">🔥 MOST POPULAR</span>
-            <span class="plan-name">Weekly Pass</span>
-            <div class="price-row">
-                <span class="old-p">₹199</span>
-                <span class="new-p">₹69</span>
-                <span class="discount-badge">65% OFF</span>
-            </div>
-        </button>
+        <div>
+            <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
+                <span style="font-size: 20px; font-weight: 800;">WEEKLY PASS</span>
+                <div class="price-row">
+                    <span style="text-decoration: line-through; opacity: 0.5;">₹199</span>
+                    <span class="new-p">₹69</span>
+                    <span class="discount">65% OFF</span>
+                </div>
+            </button>
 
-        <button class="plan-btn perm-btn" onclick="openPayment('Permanent', 149)">
-            <span class="floating-tag best">💎 BEST VALUE</span>
-            <span class="plan-name">Permanent Pass</span>
-            <div class="price-row">
-                <span class="old-p">₹999</span>
-                <span class="new-p">₹149</span>
-                <span class="discount-badge">85% OFF</span>
-            </div>
-        </button>
+            <button class="plan-btn perm-btn" onclick="openCheckout('Permanent')">
+                <span style="font-size: 20px; font-weight: 800;">PERMANENT PASS</span>
+                <div class="price-row">
+                    <span style="text-decoration: line-through; opacity: 0.5;">₹999</span>
+                    <span class="new-p">₹149</span>
+                    <span class="discount">85% OFF</span>
+                </div>
+            </button>
+        </div>
 
-        <div class="live-status">
-            <span class="dot"></span>
+        <div class="live-counter">
+            <span style="height: 10px; width: 10px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite;"></span>
             1,428 people joined in the last 24h 💎
         </div>
     </div>
 
+    <div id="checkout-page" class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <button onclick="goBack()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 14px; cursor: pointer;">← Back</button>
+        </div>
+        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+            <h2 id="plan-title" style="margin: 10px 0; font-size: 24px; font-weight: 800;">VIP Access</h2>
+            <div class="qr-wrapper"><img id="qr-display" src="" alt="Payment QR"></div>
+            <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.15); cursor: pointer;" onclick="copyUPI()">
+                <div style="font-size: 11px; color: #94a3b8;">TAP TO COPY UPI ID 📋</div>
+                <div style="font-size: 18px; font-weight: 800;">sayedjinnatrana@naviaxis</div>
+            </div>
+        </div>
+        <button class="confirm-btn" onclick="submit()">CONFIRM & GET LINK</button>
+    </div>
+
     <script>
-        let tg = window.Telegram.WebApp;
+        const tg = window.Telegram.WebApp;
         tg.expand();
 
-        function openPayment(plan, price) {
-            // This function links to your existing checkout page logic
-            // Ensure you pass the 'upi', 'w', and 'p' params as before
-            const upi = "sayedjinnatrana@naviaxis";
-            window.location.href = `checkout.html?plan=${plan}&price=${price}&upi=${upi}`;
+        // Emoji Rain Logic
+        const emojis = ['🥵', '🫦', '💎'];
+        const container = document.getElementById('emojiRain');
+
+        function createEmoji() {
+            const emoji = document.createElement('div');
+            emoji.className = 'emoji';
+            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.animationDuration = Math.random() * 3 + 2 + 's';
+            container.appendChild(emoji);
+            setTimeout(() => emoji.remove(), 5000);
+        }
+        setInterval(createEmoji, 300);
+
+        // Functional Payment Logic
+        function openCheckout(sel) {
+            const upiId = "sayedjinnatrana@naviaxis";
+            let price = (sel === 'Weekly') ? "69" : "149";
+            document.getElementById('plan-title').innerText = sel + " VIP Pass";
+            let upiLink = `upi://pay?pa=${upiId}&pn=VIP%20Portal&am=${price}&cu=INR`;
+            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiLink)}`;
+            document.getElementById('selection-page').style.display = 'none';
+            document.getElementById('checkout-page').style.display = 'flex';
+        }
+
+        function goBack() { 
+            document.getElementById('checkout-page').style.display = 'none'; 
+            document.getElementById('selection-page').style.display = 'flex'; 
+        }
+
+        function copyUPI() {
+            navigator.clipboard.writeText("sayedjinnatrana@naviaxis");
+            tg.HapticFeedback.notificationOccurred('success');
+            alert("UPI ID Copied!");
+        }
+
+        function submit() {
+            tg.sendData("PAID");
+            tg.close();
         }
     </script>
 </body>
