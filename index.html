@@ -19,6 +19,9 @@
         #checkout-page { display: none; padding-top: 45px; }
         .back-btn { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; z-index: 20; }
         
+        /* Ticker Style */
+        .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 8px; border-radius: 12px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(251, 191, 36, 0.2); }
+
         .btn { width: 100%; padding: 16px; border-radius: 18px; border: none; font-size: 16px; font-weight: 800; color: white; cursor: pointer; text-transform: uppercase; transition: 0.3s; position: relative; }
         .btn-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); margin-bottom: 30px; }
         .btn-gold { background: linear-gradient(45deg, #d97706, #fbbf24); color: #000; }
@@ -28,8 +31,9 @@
         .popular-tag { background: #ef4444; }
         .value-tag { background: #10b981; }
         
+        /* Glowing Badges */
         .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        .mini-badge { background: rgba(255,255,255,0.05); padding: 8px; border-radius: 12px; font-size: 10px; font-weight: 700; color: #fff; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.3s; }
+        .mini-badge { background: rgba(255,255,255,0.05); padding: 8px; border-radius: 12px; font-size: 10px; font-weight: 700; color: #fff; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; gap: 6px; }
         .badge-blue { box-shadow: 0 0 10px rgba(59, 130, 246, 0.4); border-color: rgba(59, 130, 246, 0.3); }
         .badge-gold { box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); border-color: rgba(251, 191, 36, 0.3); }
         
@@ -52,9 +56,14 @@
     <div class="light-bg"><div class="glow glow-1"></div><div class="glow glow-2"></div></div>
     
     <div id="selection-page" class="card">
+        <div class="ticker">⚡ LIMITED TIME OFFER: JOIN 50K+ COLLECTIONS ⚡</div>
         <div style="font-size: 40px; margin-bottom: 10px;">👑</div>
-        <h1>Premium VIP</h1>
-        <p style="font-size: 13px; color: #94a3b8; margin-bottom: 25px;">Join 42,000+ elite members today.</p>
+        <h1 style="margin-bottom:5px;">Premium VIP</h1>
+        
+        <p style="font-size: 13px; color: #94a3b8; margin-bottom: 20px;">
+            Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant channel entry</span> after payment.<br>
+            50,000+ Premium Videos & Collections inside. ✅
+        </p>
         
         <div style="position:relative; margin-bottom:35px;">
             <div class="tag popular-tag">MOST POPULAR</div>
@@ -71,6 +80,7 @@
                 <div style="font-size: 18px;">₹<span id="price-p">149</span></div>
             </button>
         </div>
+        <p style="font-size:10px; color:#64748b; margin-top:20px;">Trusted bot instant entry after payment 💎</p>
     </div>
 
     <div id="checkout-page" class="card">
@@ -135,14 +145,34 @@
         }
 
         function saveQR() {
+            const qrImg = document.getElementById('qr-display');
             const link = document.createElement('a');
-            link.href = document.getElementById('qr-display').src;
+            link.href = qrImg.src;
             link.download = 'VIP_Payment_QR.png';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            alert("QR Code link opened! Long press the image to save to gallery.");
+            alert("QR Code ready! If it didn't save, please long-press the QR image to save to gallery.");
         }
+        
+        function goBack() { 
+            document.getElementById('checkout-page').style.display = 'none'; 
+            document.getElementById('selection-page').style.display = 'block'; 
+        }
+        
+        function ready() { 
+            document.getElementById('sub-btn').style.display = 'block'; 
+            document.getElementById('label-box').style.borderColor = "#10b981"; 
+            document.getElementById('label-box').innerHTML = '<div style="color:#34d399; font-weight:800;">✅ SCREENSHOT LOADED</div>';
+        }
+
+        function submit() { 
+            tg.sendData("PAID"); 
+            tg.close(); 
+        }
+    </script>
+</body>
+</html>
         
         function goBack() { 
             document.getElementById('checkout-page').style.display = 'none'; 
