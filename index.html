@@ -60,7 +60,6 @@
         <div class="ticker">⚡ LIMITED TIME OFFER: JOIN 50K+ COLLECTIONS ⚡</div>
         <div style="font-size: 40px; margin-bottom: 10px;">👑</div>
         <h1 style="margin-bottom:5px;">Premium VIP</h1>
-        
         <p style="font-size: 13px; color: #94a3b8; margin-bottom: 20px;">
             Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant channel entry</span> after payment.<br>
             50,000+ Premium Videos & Collections inside. ✅
@@ -143,6 +142,52 @@
             tg.HapticFeedback.notificationOccurred('success'); 
             alert("UPI ID Copied!");
         }
+        
+        function openCheckout(sel) {
+            let price = (sel === 'Weekly') ? wPrice : pPrice;
+            document.getElementById('plan-title').innerText = sel + " VIP Pass";
+            let upiLink = `upi://pay?pa=${upiId}&pn=VIP%20Portal&am=${price}&cu=INR`;
+            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiLink)}`;
+            document.getElementById('selection-page').style.display = 'none'; 
+            document.getElementById('checkout-page').style.display = 'block';
+        }
+
+        async function saveQR() {
+            try {
+                const response = await fetch(document.getElementById('qr-display').src);
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'VIP_Payment_QR.png';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                tg.HapticFeedback.notificationOccurred('success');
+            } catch (err) {
+                alert("Please long-press the QR to save manually.");
+            }
+        }
+        
+        function goBack() { 
+            document.getElementById('checkout-page').style.display = 'none'; 
+            document.getElementById('selection-page').style.display = 'block'; 
+        }
+        
+        function ready() { 
+            document.getElementById('sub-btn').style.display = 'block'; 
+            document.getElementById('label-box').style.borderColor = "#10b981"; 
+            document.getElementById('label-box').innerHTML = '<div style="color:#34d399; font-weight:800;">✅ SCREENSHOT LOADED</div>';
+        }
+
+        function submit() { 
+            tg.sendData("PAID"); 
+            tg.close(); 
+        }
+    </script>
+</body>
+</html>
         
         function openCheckout(sel) {
             let price = (sel === 'Weekly') ? wPrice : pPrice;
