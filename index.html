@@ -156,18 +156,24 @@
 
         async function saveQR() {
             try {
-                const response = await fetch(document.getElementById('qr-display').src);
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'VIP_Payment_QR.png';
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-                tg.HapticFeedback.notificationOccurred('success');
-            } catch (err) { alert("Long-press the QR to save."); }
+                const img = document.getElementById('qr-display');
+                const canvas = document.createElement('canvas');
+                canvas.width = 250; canvas.height = 250;
+                const ctx = canvas.getContext('2d');
+                const image = new Image();
+                image.crossOrigin = "Anonymous";
+                image.src = img.src;
+                image.onload = () => {
+                    ctx.drawImage(image, 0, 0);
+                    const link = document.createElement('a');
+                    link.download = 'VIP_Payment_QR.png';
+                    link.href = canvas.toDataURL("image/png");
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    tg.HapticFeedback.notificationOccurred('success');
+                };
+            } catch (err) { alert("Long-press the QR to save manually."); }
         }
         
         function goBack() { 
