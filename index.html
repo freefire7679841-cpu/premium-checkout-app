@@ -39,7 +39,7 @@
         .trust-text { font-size: 13px; color: #94a3b8; margin: 15px 0; line-height: 1.6; }
         .highlight { color: #fbbf24; font-weight: 800; }
 
-        /* Tag Styling - Positioned inside relative wrappers */
+        /* Tag Styling */
         .tag { position: absolute; top: -14px; right: 15px; color: white; font-size: 9px; padding: 5px 12px; border-radius: 6px; font-weight: 800; z-index: 15; text-transform: uppercase; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
         .popular-tag { background: #ef4444; }
         .value-tag { background: #10b981; }
@@ -118,12 +118,6 @@
             document.getElementById('selection-page').style.display = 'none'; document.getElementById('checkout-page').style.display = 'block';
         }
         
-        function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'block'; }
-        function ready() { document.getElementById('sub-btn').style.display = 'block'; document.getElementById('label-box').style.borderColor = "#10b981"; }
-        function submit() { tg.sendData("PAID"); tg.close(); }
-    </script>
-</body>
-</html>
         function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'block'; }
         function ready() { document.getElementById('sub-btn').style.display = 'block'; document.getElementById('label-box').style.borderColor = "#10b981"; }
         function submit() { tg.sendData("PAID"); tg.close(); }
