@@ -24,11 +24,12 @@
         .qr-container { background: white; padding: 12px; border-radius: 16px; margin: 15px auto; width: 160px; height: 160px; }
         .qr-container img { width: 100%; height: 100%; }
         .upi-box { background: rgba(255,255,255,0.05); padding: 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 15px; cursor: pointer; }
-        .btn { width: 100%; padding: 16px; border-radius: 18px; border: none; font-size: 16px; font-weight: 800; color: white; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
-        .btn-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); margin-bottom: 15px; }
+        .btn { width: 100%; padding: 16px; border-radius: 18px; border: none; font-size: 16px; font-weight: 800; color: white; cursor: pointer; text-transform: uppercase; transition: 0.3s; position: relative; }
+        .btn-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); margin-bottom: 20px; }
         .btn-gold { background: linear-gradient(45deg, #d97706, #fbbf24); color: #000; }
         .btn-green { background: linear-gradient(45deg, #059669, #10b981); margin-top: 15px; }
         .popular-tag { position: absolute; top: -10px; right: 15px; background: #ef4444; color: white; font-size: 9px; padding: 3px 8px; border-radius: 6px; }
+        .value-tag { position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); background: #10b981; color: white; font-size: 9px; padding: 3px 10px; border-radius: 6px; width: max-content; }
         .upload-area { border: 2px dashed rgba(255,255,255,0.2); padding: 20px; border-radius: 18px; cursor: pointer; background: rgba(255,255,255,0.03); }
     </style>
 </head>
@@ -39,36 +40,71 @@
         <div style="font-size: 45px; margin-bottom: 10px;">👑</div>
         <h1>Premium VIP</h1>
         <p style="font-size: 13px; color: #94a3b8; margin-bottom: 25px;">Instant channel entry after payment ✅</p>
-        <div style="position:relative; margin-bottom:20px;">
+        
+        <div style="position:relative; margin-bottom:25px;">
             <div class="popular-tag">MOST POPULAR</div>
-            <button class="btn btn-blue" onclick="openCheckout('Weekly')">Weekly Pass<div class="price-row"><span class="old-price">₹199</span><span class="current-price">₹<span id="price-w">69</span></span><span class="discount-tag">65% OFF</span></div></button>
+            <button class="btn btn-blue" onclick="openCheckout('Weekly')">
+                Weekly Pass
+                <div class="price-row">
+                    <span class="old-price">₹199</span>
+                    <span class="current-price">₹<span id="price-w">69</span></span>
+                    <span class="discount-tag">65% OFF</span>
+                </div>
+            </button>
         </div>
-        <button class="btn btn-gold" onclick="openCheckout('Permanent')">Permanent Pass<div class="price-row" style="color:#000;"><span class="old-price" style="color:rgba(0,0,0,0.5);">₹999</span><span class="current-price">₹<span id="price-p">149</span></span><span class="discount-tag" style="color:#059669;">85% OFF</span></div></button>
+
+        <div style="position:relative;">
+            <button class="btn btn-gold" onclick="openCheckout('Permanent')">
+                Permanent Pass
+                <div class="price-row" style="color:#000;">
+                    <span class="old-price" style="color:rgba(0,0,0,0.5);">₹999</span>
+                    <span class="current-price">₹<span id="price-p">149</span></span>
+                    <span class="discount-tag" style="color:#059669;">85% OFF</span>
+                </div>
+            </button>
+            <div class="value-tag">✨ VALUE FOR MONEY ✨</div>
+        </div>
     </div>
+
     <div id="checkout-page" class="card">
         <button class="back-btn" onclick="goBack()">← Back</button>
         <h2 style="margin-top:20px;">Secure Checkout</h2>
         <div class="qr-container"><img id="qr-display" src="" alt="QR"></div>
-        <div class="upi-box" onclick="copyUPI()"><div style="font-size:9px; color:#94a3b8;">TAP TO COPY UPI ID 📋</div><div id="upi-val" style="font-size:14px; font-weight:800;">sayedjinnatrana@naviaxis</div></div>
-        <label class="upload-area" for="file-in" id="label-box"><div style="font-size:14px; font-weight:800;">📸 UPLOAD SCREENSHOT</div><div style="font-size:11px; color:#94a3b8;">Submit proof to receive link</div></label>
+        <div class="upi-box" onclick="copyUPI()">
+            <div style="font-size:9px; color:#94a3b8;">TAP TO COPY UPI ID 📋</div>
+            <div id="upi-val" style="font-size:14px; font-weight:800;">sayedjinnatrana@naviaxis</div>
+        </div>
+        <label class="upload-area" for="file-in" id="label-box">
+            <div style="font-size:14px; font-weight:800;">📸 UPLOAD SCREENSHOT</div>
+            <div style="font-size:11px; color:#94a3b8;">Submit proof to receive link</div>
+        </label>
         <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
         <button id="sub-btn" class="btn btn-green" style="display:none;" onclick="submit()">Confirm & Get Link</button>
     </div>
+
     <script>
         let tg = window.Telegram.WebApp; tg.expand();
         const params = new URLSearchParams(window.location.search);
         let upiId = params.get('upi') || "sayedjinnatrana@naviaxis";
         let wPrice = params.get('w') || "69"; let pPrice = params.get('p') || "149";
         document.getElementById('price-w').innerText = wPrice; document.getElementById('price-p').innerText = pPrice; document.getElementById('upi-val').innerText = upiId;
+        
         function copyUPI() { navigator.clipboard.writeText(upiId); tg.HapticFeedback.notificationOccurred('success'); alert("UPI ID Copied!"); }
+        
         function openCheckout(sel) {
             let price = (sel === 'Weekly') ? wPrice : pPrice;
             let upiLink = `upi://pay?pa=${upiId}&pn=VIP%20Portal&am=${price}&cu=INR`;
             document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiLink)}`;
             document.getElementById('selection-page').style.display = 'none'; document.getElementById('checkout-page').style.display = 'block';
         }
+        
         function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'block'; }
-        function ready() { document.getElementById('sub-btn').style.display = 'block'; document.getElementById('label-box').style.borderColor = "#10b981"; }
+        
+        function ready() { 
+            document.getElementById('sub-btn').style.display = 'block'; 
+            document.getElementById('label-box').style.borderColor = "#10b981"; 
+        }
+        
         function submit() { tg.sendData("PAID"); tg.close(); }
     </script>
 </body>
