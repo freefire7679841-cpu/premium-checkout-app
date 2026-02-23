@@ -51,9 +51,28 @@
         .upi-box-small { background:rgba(255,255,255,0.07); padding:8px; border-radius:15px; cursor:pointer; margin: 5px 0; border: 1px solid rgba(255,255,255,0.1); }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        /* STATUS PAGE STYLES */
+        /* UPDATED STATUS PAGE STYLES */
         .status-icon { font-size: 60px; margin-bottom: 20px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        .goback-btn { 
+            width: 100%; 
+            padding: 20px; 
+            border-radius: 30px; 
+            border: 2.5px solid #ef4444; 
+            background: rgba(239, 68, 68, 0.15); 
+            color: white; 
+            font-size: 18px; 
+            font-weight: 800; 
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+            animation: move-glow 2.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes move-glow {
+            from { transform: translateY(0) scale(1); box-shadow: 0 0 10px rgba(239, 68, 68, 0.3); }
+            to { transform: translateY(-8px) scale(1.03); box-shadow: 0 0 30px rgba(239, 68, 68, 0.7); }
+        }
     </style>
 </head>
 <body>
@@ -135,10 +154,10 @@
                 Your payment proof has been submitted successfully. If you have really paid, you will receive the link in the bot shortly.
             </p>
             <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444; padding: 12px; border-radius: 15px; font-size: 13px; font-weight: 600;">
-                ⚠️ Note: Submitting fake proof will result in a permanent rejection.
+                ⚠️ Note: Submitting fake proof will result in a rejection.
             </div>
         </div>
-        <button onclick="tg.close()" style="width: 100%; padding: 20px; border-radius: 25px; border: none; background: rgba(255,255,255,0.1); color: white; font-size: 16px; font-weight: 800; cursor: pointer;">Close Window</button>
+        <button class="goback-btn" onclick="tg.close()">🔙 Go Back</button>
     </div>
 
     <script>
@@ -196,9 +215,7 @@
         }
 
         function submitProof() { 
-            // Send data to Telegram Bot
             tg.sendData("PAID");
-            // Show Status Page
             document.getElementById('checkout-page').style.display = 'none';
             document.getElementById('status-page').style.display = 'flex';
         }
