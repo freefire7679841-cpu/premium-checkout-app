@@ -41,20 +41,22 @@
         
         .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
 
-        .how-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%); border: 1.5px solid #10b981; border-radius: 22px; padding: 12px; text-align: left; width: 100%; box-sizing: border-box; margin-top: 5px; margin-bottom: 5px; }
-        .upload-area { border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.1); padding: 14px; border-radius: 22px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 5px 0; box-sizing: border-box; width: 100%; }
-        .confirm-btn { width: 100%; padding: 18px; border-radius: 30px; border: none; background: #10b981; color: white; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 5px; display: none; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); }
-        .change-txt { font-size: 14px; color: #ffffff; text-decoration: underline; margin-top: 5px; cursor: pointer; display: none; padding: 8px; font-weight: 800; background: rgba(255,255,255,0.15); border-radius: 12px; width: 80%; margin: 0 auto; }
+        /* GAP MAINTAINED HERE */
+        .how-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%); border: 1.5px solid #10b981; border-radius: 22px; padding: 18px; text-align: left; width: 100%; box-sizing: border-box; margin-top: 15px; margin-bottom: 12px; }
+        
+        .upload-area { border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.1); padding: 18px; border-radius: 22px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 10px 0; box-sizing: border-box; width: 100%; }
+        .confirm-btn { width: 100%; padding: 22px; border-radius: 30px; border: none; background: #10b981; color: white; font-size: 20px; font-weight: 800; cursor: pointer; margin-top: 10px; display: none; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); }
+        .change-txt { font-size: 15px; color: #ffffff; text-decoration: underline; margin-top: 10px; cursor: pointer; display: none; padding: 12px; font-weight: 800; background: rgba(255,255,255,0.15); border-radius: 15px; width: 80%; margin: 0 auto; }
 
-        .qr-wrapper { background: #ffffff; padding: 8px; border-radius: 15px; margin: 2px auto; width: 160px; }
+        .qr-wrapper { background: #ffffff; padding: 10px; border-radius: 20px; margin: 5px auto; width: 180px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
-        .upi-box-small { background:rgba(255,255,255,0.07); padding:6px; border-radius:15px; cursor:pointer; margin: 2px 0; border: 1px solid rgba(255,255,255,0.1); }
+        .upi-box-small { background:rgba(255,255,255,0.07); padding:8px; border-radius:15px; cursor:pointer; margin: 5px 0; border: 1px solid rgba(255,255,255,0.1); }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        .status-icon { font-size: 50px; margin-bottom: 15px; animation: bounce 2s infinite; }
+        .status-icon { font-size: 60px; margin-bottom: 20px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         
-        .close-btn { width: 100%; padding: 18px; border-radius: 30px; border: none; background: rgba(255,255,255,0.1); color: white; font-size: 16px; font-weight: 800; cursor: pointer; }
+        .close-btn { width: 100%; padding: 20px; border-radius: 30px; border: none; background: rgba(255,255,255,0.1); color: white; font-size: 18px; font-weight: 800; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -64,10 +66,10 @@
     <div id="selection-page" class="card">
         <div>
             <div class="ticker">🚀 LIMITED TIME: JOIN 50K+ EXCLUSIVE COLLECTIONS 🚀</div>
-            <div style="font-size: 40px; margin: 5px 0;">👑</div>
-            <h1 style="margin: 0; font-size: 30px; font-weight: 800;">Premium VIP</h1>
+            <div style="font-size: 45px; margin: 10px 0;">👑</div>
+            <h1 style="margin: 0; font-size: 32px; font-weight: 800;">Premium VIP</h1>
             
-            <div class="badge-grid" style="margin-top: 10px;">
+            <div class="badge-grid" style="margin-top: 15px;">
                 <div class="mini-badge badge-glow-blue">⚡ Instant Entry</div>
                 <div class="mini-badge badge-glow-gold">📂 50K+ Videos</div>
             </div>
@@ -82,48 +84,48 @@
             <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
                 <span class="tag" style="background: #ef4444;">🔥 MOST POPULAR</span>
                 <span style="font-size: 18px; font-weight: 800;">WEEKLY PASS</span>
-                <div style="font-size: 32px; font-weight: 800;">₹69 <span style="font-size: 16px; color: #4ade80;">65% OFF</span></div>
+                <div style="font-size: 34px; font-weight: 800;">₹69 <span style="font-size: 16px; color: #4ade80;">65% OFF</span></div>
             </button>
             <button class="plan-btn perm-btn" onclick="openCheckout('Permanent')">
                 <span class="tag" style="background: #10b981;">💎 BEST VALUE</span>
                 <span style="font-size: 18px; font-weight: 800;">PERMANENT PASS</span>
-                <div style="font-size: 32px; font-weight: 800;">₹149 <span style="font-size: 16px; color: #4ade80;">85% OFF</span></div>
+                <div style="font-size: 34px; font-weight: 800;">₹149 <span style="font-size: 16px; color: #4ade80;">85% OFF</span></div>
             </button>
         </div>
     </div>
 
     <div id="checkout-page" class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-            <button onclick="goBack()" style="background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2); color: white; padding: 8px 15px; border-radius: 12px; cursor: pointer; font-weight: 800;">← Back</button>
-            <div class="join-counter" style="margin:0; font-size: 11px; padding: 4px 10px;"><span class="dot"></span> Active Sales</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <button onclick="goBack()" style="background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2); color: white; padding: 10px 22px; border-radius: 15px; cursor: pointer; font-weight: 800;">← Back</button>
+            <div class="join-counter" style="margin:0; font-size: 12px; padding: 5px 12px;"><span class="dot"></span> Active Sales</div>
         </div>
 
         <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
-            <h2 id="plan-title" style="margin: 2px 0; font-size: 18px; font-weight: 800;">VIP Access</h2>
-            <div class="badge-grid" style="margin: 4px 0;">
+            <h2 id="plan-title" style="margin: 2px 0; font-size: 22px; font-weight: 800;">VIP Access</h2>
+            <div class="badge-grid">
                 <div class="mini-badge badge-glow-blue">✓ Verified Seller</div>
                 <div class="mini-badge badge-glow-blue">⚡ Instant Entry</div>
                 <div class="mini-badge badge-glow-gold">💎 50K+ Files</div>
                 <div class="mini-badge badge-glow-gold">🛡️ Secured Payment</div>
             </div>
             <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
-            <div style="background:rgba(251, 191, 36, 0.1); color:#fbbf24; padding:5px; border-radius:10px; border:1px solid rgba(251,191,36,0.3); font-size:9px; font-weight:800;">📸 Take Screenshot or Copy UPI to Pay</div>
+            <div style="background:rgba(251, 191, 36, 0.1); color:#fbbf24; padding:8px; border-radius:12px; border:1px solid rgba(251,191,36,0.3); font-size:11px; font-weight:800;">📸 Take Screenshot or Copy UPI to Pay</div>
             <div class="upi-box-small" onclick="copyUPI()">
-                <div style="font-size:8px; color:#94a3b8; font-weight:800;">TAP TO COPY UPI ID 📋</div>
-                <div style="font-size:13px; font-weight:800;">sayedjinnatrana@naviaxis</div>
+                <div style="font-size:9px; color:#94a3b8; font-weight:800;">TAP TO COPY UPI ID 📋</div>
+                <div style="font-size:15px; font-weight:800;">sayedjinnatrana@naviaxis</div>
             </div>
         </div>
 
         <div>
             <div id="how-to-join-box" class="how-box">
-                <div style="color: #10b981; font-weight: 800; font-size: 13px; margin-bottom: 4px;">🚀 HOW TO JOIN</div>
-                <div style="font-size: 11px; font-weight: 600; line-height: 1.3;">
+                <div style="color: #10b981; font-weight: 800; font-size: 14px; margin-bottom: 8px;">🚀 HOW TO JOIN</div>
+                <div style="font-size: 13px; font-weight: 600; line-height: 1.6;">
                     1. Pay exact amount via QR or UPI.<br>
                     2. Upload clear screenshot of success page below.
                 </div>
             </div>
             <label class="upload-area" for="file-in" id="label-box">
-                <div id="label-text" style="font-size: 14px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
+                <div id="label-text" style="font-size: 15px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
             </label>
             <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
             <button id="sub-btn" class="confirm-btn" onclick="submitProof()">CONFIRM & GET LINK</button>
@@ -132,13 +134,13 @@
     </div>
 
     <div id="status-page" class="card">
-        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 15px;">
+        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
             <div class="status-icon">📤</div>
-            <h2 style="font-size: 22px; font-weight: 800; color: #10b981; margin-bottom: 12px;">Proof Submitted!</h2>
-            <p style="font-size: 14px; color: #94a3b8; line-height: 1.5; margin-bottom: 20px;">
+            <h2 style="font-size: 24px; font-weight: 800; color: #10b981; margin-bottom: 15px;">Proof Submitted!</h2>
+            <p style="font-size: 15px; color: #94a3b8; line-height: 1.6; margin-bottom: 25px;">
                 Your payment proof has been submitted successfully. If you have really paid, you will receive the link in the bot shortly.
             </p>
-            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444; padding: 10px; border-radius: 12px; font-size: 12px; font-weight: 600;">
+            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444; padding: 12px; border-radius: 15px; font-size: 13px; font-weight: 600;">
                 ⚠️ Note: Submitting fake proof will result in a rejection.
             </div>
         </div>
@@ -206,6 +208,4 @@
     </script>
 </body>
 </html>
-
-
 
