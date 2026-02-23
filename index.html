@@ -37,9 +37,16 @@
         .plan-btn { width: 100%; padding: 22px 15px; border-radius: 28px; border: 2px solid rgba(255,255,255,0.1); cursor: pointer; position: relative; margin-bottom: 25px; color: #fff; transition: 0.3s; }
         .weekly-btn { background: rgba(37, 99, 235, 0.25); border-color: #2563eb; }
         .perm-btn { background: rgba(217, 119, 6, 0.25); border-color: #d97706; }
-        .tag { position: absolute; top: -14px; right: 20px; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 10px; text-transform: uppercase; }
 
-        .join-counter { font-size: 14px; color: #4ade80; font-weight: 800; background: rgba(74, 222, 128, 0.2); padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(74, 222, 128, 0.4); display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; }
+        /* ANIMATED TAGS */
+        .tag { position: absolute; top: -14px; right: 20px; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 10px; text-transform: uppercase; animation: tag-pulse 1.5s infinite ease-in-out; }
+        @keyframes tag-pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0px rgba(255,255,255,0); }
+            50% { transform: scale(1.08); box-shadow: 0 5px 15px rgba(255,255,255,0.2); }
+            100% { transform: scale(1); box-shadow: 0 0 0px rgba(255,255,255,0); }
+        }
+
+        .join-counter { font-size: 14px; color: #4ade80; font-weight: 800; background: rgba(74, 222, 128, 0.2); padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(74, 222, 128, 0.4); display: inline-flex; align-items: center; gap: 8px; margin-top: 5px; margin-bottom: 10px; }
         .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
 
         /* CHECKOUT ELEMENTS */
@@ -68,7 +75,8 @@
                 <div class="mini-badge badge-glow-gold">📂 50K+ Videos</div>
             </div>
 
-            <p style="font-size: 14px; color: #94a3b8; margin: 8px 0 15px 0;">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> after payment ✅</p>
+            <p style="font-size: 14px; color: #94a3b8; margin: 8px 0 5px 0;">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> after payment ✅</p>
+            
             <div class="join-counter">
                 <span class="dot"></span> 1,428 people joined today 💎
             </div>
