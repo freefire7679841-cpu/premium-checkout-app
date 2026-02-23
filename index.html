@@ -18,7 +18,7 @@
 
         .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 15px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
 
-        #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; transition: all 0.3s ease; }
+        #checkout-page, #status-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; transition: all 0.3s ease; }
 
         .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 10px; font-weight: 800; padding: 8px; border-radius: 12px; border: 1px solid rgba(251, 191, 36, 0.3); text-transform: uppercase; margin-bottom: 5px; }
 
@@ -36,7 +36,6 @@
         .tag { position: absolute; top: -14px; right: 20px; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 10px; text-transform: uppercase; animation: tag-pulse 1.5s infinite ease-in-out; }
         @keyframes tag-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
-        /* RE-ORDERED AND SPACED TEXTS */
         .trusted-text { font-size: 14px; color: #94a3b8; margin: 15px 0 10px 0; }
         .join-counter { font-size: 14px; color: #4ade80; font-weight: 800; background: rgba(74, 222, 128, 0.2); padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(74, 222, 128, 0.4); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 15px; }
         
@@ -51,6 +50,10 @@
         .qr-wrapper img { width: 100%; height: auto; display: block; }
         .upi-box-small { background:rgba(255,255,255,0.07); padding:8px; border-radius:15px; cursor:pointer; margin: 5px 0; border: 1px solid rgba(255,255,255,0.1); }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        /* STATUS PAGE STYLES */
+        .status-icon { font-size: 60px; margin-bottom: 20px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
     </style>
 </head>
 <body>
@@ -119,9 +122,23 @@
                 <div id="label-text" style="font-size: 15px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
             </label>
             <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
-            <button id="sub-btn" class="confirm-btn" onclick="submit()">CONFIRM & GET LINK</button>
+            <button id="sub-btn" class="confirm-btn" onclick="submitProof()">CONFIRM & GET LINK</button>
             <div id="change-txt" class="change-txt" onclick="resetFile()">Change Screenshot 🔄</div>
         </div>
+    </div>
+
+    <div id="status-page" class="card">
+        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
+            <div class="status-icon">📤</div>
+            <h2 style="font-size: 24px; font-weight: 800; color: #10b981; margin-bottom: 15px;">Proof Submitted!</h2>
+            <p style="font-size: 15px; color: #94a3b8; line-height: 1.6; margin-bottom: 25px;">
+                Your payment proof has been submitted successfully. If you have really paid, you will receive the link in the bot shortly.
+            </p>
+            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444; padding: 12px; border-radius: 15px; font-size: 13px; font-weight: 600;">
+                ⚠️ Note: Submitting fake proof will result in a permanent rejection.
+            </div>
+        </div>
+        <button onclick="tg.close()" style="width: 100%; padding: 20px; border-radius: 25px; border: none; background: rgba(255,255,255,0.1); color: white; font-size: 16px; font-weight: 800; cursor: pointer;">Close Window</button>
     </div>
 
     <script>
@@ -139,14 +156,7 @@
         }
         setInterval(createEmoji, 400);
 
-        // 50 DIVERSE NAMES FOR FAKE PURCHASES
-        const names = [
-            "Aman", "Rohit", "Vikram", "Sneha", "Kabir", "Arjun", "Zoya", "Ravi", "Suresh", "Ishita",
-            "Ananya", "Deepak", "Rahul", "Priya", "Manish", "Kiran", "Amit", "Sanjay", "Neha", "Vikas",
-            "Pankaj", "Sunita", "Rajesh", "Megha", "Abhishek", "Ritu", "Sameer", "Tanvi", "Gaurav", "Swati",
-            "Nitin", "Pooja", "Varun", "Shikha", "Kartik", "Jyoti", "Yogesh", "Bhavna", "Harish", "Preeti",
-            "Akash", "Anjali", "Siddharth", "Rashmi", "Mayank", "Divya", "Vivek", "Kavita", "Sahil", "Sapna"
-        ];
+        const names = ["Aman", "Rohit", "Vikram", "Sneha", "Kabir", "Arjun", "Zoya", "Ravi", "Suresh", "Ishita", "Ananya", "Deepak", "Rahul", "Priya", "Manish", "Kiran", "Amit", "Sanjay", "Neha", "Vikas", "Pankaj", "Sunita", "Rajesh", "Megha", "Abhishek", "Ritu", "Sameer", "Tanvi", "Gaurav", "Swati", "Nitin", "Pooja", "Varun", "Shikha", "Kartik", "Jyoti", "Yogesh", "Bhavna", "Harish", "Preeti", "Akash", "Anjali", "Siddharth", "Rashmi", "Mayank", "Divya", "Vivek", "Kavita", "Sahil", "Sapna"];
 
         function showPurchaseAlert() {
             const name = names[Math.floor(Math.random() * names.length)];
@@ -185,7 +195,13 @@
             document.getElementById('label-box').style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
         }
 
-        function submit() { tg.sendData("PAID"); tg.close(); }
+        function submitProof() { 
+            // Send data to Telegram Bot
+            tg.sendData("PAID");
+            // Show Status Page
+            document.getElementById('checkout-page').style.display = 'none';
+            document.getElementById('status-page').style.display = 'flex';
+        }
     </script>
 </body>
 </html>
