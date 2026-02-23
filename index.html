@@ -51,28 +51,10 @@
         .upi-box-small { background:rgba(255,255,255,0.07); padding:8px; border-radius:15px; cursor:pointer; margin: 5px 0; border: 1px solid rgba(255,255,255,0.1); }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        /* UPDATED STATUS PAGE STYLES */
         .status-icon { font-size: 60px; margin-bottom: 20px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-        .goback-btn { 
-            width: 100%; 
-            padding: 20px; 
-            border-radius: 30px; 
-            border: 2.5px solid #ef4444; 
-            background: rgba(239, 68, 68, 0.15); 
-            color: white; 
-            font-size: 18px; 
-            font-weight: 800; 
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
-            animation: move-glow 2.5s infinite alternate ease-in-out;
-        }
-
-        @keyframes move-glow {
-            from { transform: translateY(0) scale(1); box-shadow: 0 0 10px rgba(239, 68, 68, 0.3); }
-            to { transform: translateY(-8px) scale(1.03); box-shadow: 0 0 30px rgba(239, 68, 68, 0.7); }
-        }
+        
+        .close-btn { width: 100%; padding: 20px; border-radius: 30px; border: none; background: rgba(255,255,255,0.1); color: white; font-size: 18px; font-weight: 800; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -134,8 +116,11 @@
 
         <div>
             <div id="how-to-join-box" class="how-box">
-                <div style="color: #10b981; font-weight: 800; font-size: 14px; margin-bottom: 5px;">🚀 HOW TO JOIN</div>
-                <div style="font-size: 11px; line-height: 1.4;">Pay exact amount via QR or UPI and upload proof below.</div>
+                <div style="color: #10b981; font-weight: 800; font-size: 14px; margin-bottom: 8px;">🚀 HOW TO JOIN</div>
+                <div style="font-size: 13px; font-weight: 600; line-height: 1.6;">
+                    1. Pay exact amount via QR or UPI.<br>
+                    2. Upload clear screenshot of success page below.
+                </div>
             </div>
             <label class="upload-area" for="file-in" id="label-box">
                 <div id="label-text" style="font-size: 15px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
@@ -157,7 +142,7 @@
                 ⚠️ Note: Submitting fake proof will result in a rejection.
             </div>
         </div>
-        <button class="goback-btn" onclick="tg.close()">🔙 Go Back</button>
+        <button class="close-btn" onclick="tg.close()">Close Window</button>
     </div>
 
     <script>
