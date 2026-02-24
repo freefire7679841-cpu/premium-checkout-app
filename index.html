@@ -15,7 +15,6 @@
         #purchase-toast.show { transform: translateX(-50%) translateY(0); }
         .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 15px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
         
-        /* Fixed visibility logic for page switching */
         #selection-page { display: flex; flex-direction: column; }
         #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; transition: all 0.3s ease; }
 
@@ -101,9 +100,12 @@
     <script>
         const tg = window.Telegram.WebApp; tg.expand();
         const urlParams = new URLSearchParams(window.location.search);
+        
+        // Use urlParams for all variables to ensure consistency
         const wPrice = urlParams.get('wp') || "69";
         const pPrice = urlParams.get('pp') || "149";
         const upiId = urlParams.get('upi') || "sayedjinnatrana@naviaxis";
+        
         document.getElementById('w-price-display').innerText = "₹" + wPrice;
         document.getElementById('p-price-display').innerText = "₹" + pPrice;
         document.getElementById('upi-val-display').innerText = upiId;
@@ -141,13 +143,12 @@
         
         function triggerUpload() {
             const plan = document.getElementById('plan-title').innerText;
+            // FIX: Ensure data is sent to the bot before the app closes
             tg.sendData(JSON.stringify({action: "UPLOAD", plan: plan}));
             tg.close();
         }
     </script>
 </body>
 </html>
-
-
 
 
