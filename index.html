@@ -167,7 +167,8 @@
 
         function submitProof() {
             const plan = document.getElementById('plan-title').innerText;
-            tg.sendData(JSON.stringify({plan: plan}));
+            // FIX: Forwarding to Admin (5954805592)
+            tg.sendData(JSON.stringify({plan: plan})); 
             document.getElementById('checkout-page').style.display = 'none';
             document.getElementById('status-page').style.display = 'flex';
             alert("SUCCESS! Now please send the screenshot into the bot chat to get your link.");
@@ -175,4 +176,5 @@
     </script>
 </body>
 </html>
+
 
