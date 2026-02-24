@@ -8,65 +8,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body { margin: 0; font-family: 'Outfit', sans-serif; background: #050505; color: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; position: relative; }
-        
-        /* RESTORED: Emoji Rain */
         .emoji-rain { position: absolute; top: -50px; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
         .emoji { position: absolute; font-size: 35px; opacity: 0.6; filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9)); animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-
-        /* RESTORED: Member Purchase Alert Toast */
-        #purchase-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #4ade80; color: white; padding: 12px 25px; border-radius: 50px; font-size: 14px; font-weight: 800; z-index: 200; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 40px rgba(0,0,0,0.8); text-align: center; line-height: 1.4; border: 1.5px solid rgba(255,255,255,0.3); }
+        #purchase-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #4ade80; color: white; padding: 12px 25px; border-radius: 50px; font-size: 14px; font-weight: 800; z-index: 200; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 40px rgba(0,0,0,0.8); text-align: center; border: 1.5px solid rgba(255,255,255,0.3); }
         #purchase-toast.show { transform: translateX(-50%) translateY(0); }
-
         .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 15px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
-
         #checkout-page, #status-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; transition: all 0.3s ease; }
-
         .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 8px; border-radius: 12px; border: 1px solid rgba(251, 191, 36, 0.3); text-transform: uppercase; margin-bottom: 5px; }
-
-        /* RESTORED: Main Selection Badges */
         .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
-        .mini-badge { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 15px; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1.5px solid transparent; }
+        .mini-badge { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 15px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1.5px solid transparent; }
         .badge-glow-blue { border-color: #3b82f6; box-shadow: 0 0 12px rgba(59, 130, 246, 0.5); }
         .badge-glow-gold { border-color: #fbbf24; box-shadow: 0 0 12px rgba(251, 191, 36, 0.5); }
-
         .plan-btn { width: 100%; padding: 22px 15px; border-radius: 28px; border: 2px solid rgba(255,255,255,0.1); cursor: pointer; position: relative; margin-bottom: 25px; color: #fff; transition: 0.3s; }
         .weekly-btn { background: rgba(37, 99, 235, 0.15); border-color: #2563eb; }
         .perm-btn { background: rgba(217, 119, 6, 0.15); border-color: #d97706; }
-
-        /* RESTORED: Animated Popular Tags */
         .tag { position: absolute; top: -14px; right: 20px; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 10px; text-transform: uppercase; animation: tag-pulse 1.5s infinite ease-in-out; }
         @keyframes tag-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-
         .join-counter { font-size: 14px; color: #4ade80; font-weight: 800; background: rgba(74, 222, 128, 0.2); padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(74, 222, 128, 0.4); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 15px; }
         .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
-        /* RESTORED: Checkout UI */
-        .how-box { background: rgba(16, 185, 129, 0.1); border: 1.5px solid #10b981; border-radius: 22px; padding: 18px; text-align: left; margin: 10px 0; }
-        .upload-area { border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.05); padding: 20px; border-radius: 22px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 10px 0; width: 100%; box-sizing: border-box; }
         .qr-wrapper { background: #ffffff; padding: 10px; border-radius: 20px; margin: 5px auto; width: 180px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
-        .upi-box-small { background: rgba(255,255,255,0.07); padding: 12px; border-radius: 18px; cursor: pointer; margin: 8px 0; border: 1.5px solid rgba(255,255,255,0.15); }
-        .confirm-btn { width: 100%; padding: 22px; border-radius: 30px; border: none; background: #10b981; color: white; font-size: 20px; font-weight: 800; cursor: pointer; display: none; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); }
+        /* FIXED: Tighter UPI and instructions area */
+        .upi-box-small { background: rgba(255,255,255,0.07); padding: 10px; border-radius: 18px; cursor: pointer; margin: 5px 0; border: 1.5px solid rgba(255,255,255,0.15); }
+        .how-box { background: rgba(16, 185, 129, 0.1); border: 1.5px solid #10b981; border-radius: 22px; padding: 15px; text-align: left; margin: 5px 0; }
+        .upload-area { border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.05); padding: 18px; border-radius: 22px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 5px 0; width: 100%; box-sizing: border-box; }
+        .confirm-btn { width: 100%; padding: 22px; border-radius: 30px; border: none; background: #10b981; color: white; font-size: 20px; font-weight: 800; cursor: pointer; display: none; margin-top: 5px; }
         .close-btn { width: 100%; padding: 20px; border-radius: 30px; border: none; background: rgba(255,255,255,0.1); color: white; font-size: 18px; font-weight: 800; cursor: pointer; }
     </style>
 </head>
 <body>
     <div class="emoji-rain" id="emojiRain"></div>
     <div id="purchase-toast">💰 <span id="toast-msg">User just bought Weekly Pass!</span></div>
-
     <div id="selection-page" class="card">
         <div>
             <div class="ticker">🚀 LIMITED TIME: JOIN 50K+ EXCLUSIVE COLLECTIONS 🚀</div>
             <div style="font-size: 50px; margin: 10px 0;">👑</div>
             <h1 style="margin: 0; font-size: 34px; font-weight: 800;">Premium VIP</h1>
-            
             <div class="badge-grid" style="margin-top: 15px;">
                 <div class="mini-badge badge-glow-blue">⚡ Instant Entry</div>
                 <div class="mini-badge badge-glow-gold">📂 50K+ Videos</div>
             </div>
-
             <p style="font-size: 14px; margin: 15px 0 10px 0; color: #94a3b8;">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> after payment ✅</p>
             <div class="join-counter"><span class="dot"></span> 1,428 people joined today 💎</div>
         </div>
@@ -83,39 +65,39 @@
             </button>
         </div>
     </div>
-
     <div id="checkout-page" class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
             <button onclick="goBack()" style="background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2); color: white; padding: 10px 22px; border-radius: 15px; cursor: pointer; font-weight: 800;">← Back</button>
-            <div class="join-counter" style="margin:0; font-size: 12px; padding: 5px 12px;"><span class="dot"></span> Active Sales</div>
+            <div class="join-counter" style="margin:0; font-size: 11px; padding: 4px 10px;"><span class="dot"></span> Active Sales</div>
         </div>
-
         <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
-            <h2 id="plan-title" style="margin: 2px 0; font-size: 26px; font-weight: 800;">Weekly VIP Pass</h2>
+            <h2 id="plan-title" style="margin: 2px 0; font-size: 24px; font-weight: 800;">VIP Access</h2>
+            <div class="badge-grid" style="margin-bottom: 5px;">
+                <div class="mini-badge badge-glow-blue">✓ Verified Seller</div>
+                <div class="mini-badge badge-glow-blue">⚡ Instant Entry</div>
+                <div class="mini-badge badge-glow-gold">💎 50K+ Files</div>
+                <div class="mini-badge badge-glow-gold">🛡️ Secured Payment</div>
+            </div>
             <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
-            <div style="background:rgba(251, 191, 36, 0.1); color:#fbbf24; padding:8px; border-radius:12px; font-size:11px; font-weight:800; margin-bottom: 5px;">📸 Take Screenshot or Copy UPI to Pay</div>
+            <div style="background:rgba(251, 191, 36, 0.1); color:#fbbf24; padding:6px; border-radius:10px; font-size:10px; font-weight:800; margin-bottom: 2px;">📸 Take Screenshot or Copy UPI to Pay</div>
             <div class="upi-box-small" onclick="copyUPI()">
                 <div style="font-size:9px; color:#94a3b8; font-weight:800;">TAP TO COPY UPI ID 📋</div>
                 <div id="upi-val-display" style="font-size:15px; font-weight:800;">sayedjinnatrana@naviaxis</div>
             </div>
         </div>
-
         <div>
             <div class="how-box">
-                <div style="color: #10b981; font-weight: 800; font-size: 15px; margin-bottom: 8px;">🚀 HOW TO JOIN</div>
-                <div style="font-size: 13px; font-weight: 600; line-height: 1.6;">
+                <div style="color: #10b981; font-weight: 800; font-size: 14px; margin-bottom: 5px;">🚀 HOW TO JOIN</div>
+                <div style="font-size: 12px; font-weight: 600; line-height: 1.4;">
                     1. Pay exact amount via QR or UPI.<br>
                     2. Upload clear screenshot of success page below.
                 </div>
             </div>
-            <label class="upload-area" for="file-in" id="label-box">
-                <div id="label-text" style="font-size: 15px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div>
-            </label>
+            <label class="upload-area" for="file-in" id="label-box"><div id="label-text" style="font-size: 14px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div></label>
             <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
             <button id="sub-btn" class="confirm-btn" onclick="submitProof()">CONFIRM & GET LINK</button>
         </div>
     </div>
-
     <div id="status-page" class="card">
         <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
             <div style="font-size: 70px; margin-bottom: 20px;">📤</div>
@@ -124,18 +106,15 @@
         </div>
         <button class="close-btn" onclick="tg.close()">Close Window</button>
     </div>
-
     <script>
         const tg = window.Telegram.WebApp; tg.expand();
         const urlParams = new URLSearchParams(window.location.search);
         const wPrice = urlParams.get('wp') || "69";
         const pPrice = urlParams.get('pp') || "149";
         const upiId = urlParams.get('upi') || "sayedjinnatrana@naviaxis";
-
         document.getElementById('w-price-display').innerHTML = `₹${wPrice} <span style="font-size: 16px; color: #4ade80;">65% OFF</span>`;
         document.getElementById('p-price-display').innerHTML = `₹${pPrice} <span style="font-size: 16px; color: #4ade80;">85% OFF</span>`;
         document.getElementById('upi-val-display').innerText = upiId;
-
         const emojis = ['🥵', '🫦', '💎', '💦'];
         function createEmoji() {
             const emoji = document.createElement('div'); emoji.className = 'emoji';
@@ -146,7 +125,6 @@
             setTimeout(() => emoji.remove(), 5000);
         }
         setInterval(createEmoji, 350);
-
         const names = ["Aman", "Rohit", "Vikram", "Sneha", "Kabir", "Arjun", "Zoya", "Ravi", "Suresh", "Ishita", "Ananya", "Deepak", "Rahul", "Priya", "Manish", "Kiran", "Amit", "Sanjay", "Neha", "Vikas", "Pankaj", "Sunita", "Rajesh", "Megha", "Abhishek", "Ritu", "Sameer", "Tanvi", "Gaurav", "Swati", "Nitin", "Pooja", "Varun", "Shikha", "Kartik", "Jyoti", "Yogesh", "Bhavna", "Harish", "Preeti", "Akash", "Anjali", "Siddharth", "Rashmi", "Mayank", "Divya", "Vivek", "Kavita", "Sahil", "Sapna"];
         function showPurchaseAlert() {
             const name = names[Math.floor(Math.random() * names.length)];
@@ -156,7 +134,6 @@
             setTimeout(() => document.getElementById('purchase-toast').classList.remove('show'), 4000);
         }
         setInterval(showPurchaseAlert, 8000);
-
         function openCheckout(sel) {
             let price = (sel === 'Weekly') ? wPrice : pPrice;
             document.getElementById('plan-title').innerText = sel + " VIP Pass";
@@ -177,4 +154,5 @@
     </script>
 </body>
 </html>
+
 
