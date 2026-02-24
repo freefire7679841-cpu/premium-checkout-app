@@ -14,7 +14,7 @@
         #purchase-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #4ade80; color: white; padding: 12px 25px; border-radius: 50px; font-size: 14px; font-weight: 800; z-index: 200; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 40px rgba(0,0,0,0.8); text-align: center; border: 1.5px solid rgba(255,255,255,0.3); }
         #purchase-toast.show { transform: translateX(-50%) translateY(0); }
         .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 15px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
-        #checkout-page, #status-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; transition: all 0.3s ease; }
+        #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; transition: all 0.3s ease; }
         .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 8px; border-radius: 12px; border: 1px solid rgba(251, 191, 36, 0.3); text-transform: uppercase; margin-bottom: 5px; }
         .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
         .mini-badge { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 15px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1.5px solid transparent; }
@@ -30,13 +30,8 @@
         .qr-wrapper { background: #ffffff; padding: 10px; border-radius: 20px; margin: 5px auto; width: 180px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
         .upi-box-small { background: rgba(255,255,255,0.07); padding: 10px; border-radius: 18px; cursor: pointer; margin: 5px 0; border: 1.5px solid rgba(255,255,255,0.15); }
-        
-        /* REFINED GAP MANAGEMENT */
         .how-box { background: rgba(16, 185, 129, 0.1); border: 1.5px solid #10b981; border-radius: 22px; padding: 15px; text-align: left; margin: 5px 0; }
-        .upload-area { border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.05); padding: 18px; border-radius: 22px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 5px 0; width: 100%; box-sizing: border-box; }
-        .confirm-btn { width: 100%; padding: 22px; border-radius: 30px; border: none; background: #10b981; color: white; font-size: 20px; font-weight: 800; cursor: pointer; display: none; margin-top: 10px; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); }
-        .change-txt { font-size: 15px; color: #ffffff; text-decoration: underline; margin-top: 10px; cursor: pointer; display: none; padding: 12px; font-weight: 800; background: rgba(255,255,255,0.15); border-radius: 15px; width: 80%; margin: 0 auto; }
-        .close-btn { width: 100%; padding: 20px; border-radius: 30px; border: none; background: rgba(255,255,255,0.1); color: white; font-size: 18px; font-weight: 800; cursor: pointer; }
+        .upload-trigger-btn { width: 100%; padding: 22px; border-radius: 30px; border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.05); color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -70,7 +65,6 @@
     <div id="checkout-page" class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
             <button onclick="goBack()" style="background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2); color: white; padding: 10px 22px; border-radius: 15px; cursor: pointer; font-weight: 800;">← Back</button>
-            <div class="join-counter" style="margin:0; font-size: 11px; padding: 4px 10px;"><span class="dot"></span> Active Sales</div>
         </div>
         <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
             <h2 id="plan-title" style="margin: 2px 0; font-size: 24px; font-weight: 800;">VIP Access</h2>
@@ -81,39 +75,27 @@
                 <div class="mini-badge badge-glow-gold">🛡️ Secured Payment</div>
             </div>
             <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
-            <div style="background:rgba(251, 191, 36, 0.1); color:#fbbf24; padding:6px; border-radius:10px; font-size:10px; font-weight:800; margin-bottom: 2px;">📸 Take Screenshot or Copy UPI to Pay</div>
             <div class="upi-box-small" onclick="copyUPI()">
                 <div style="font-size:9px; color:#94a3b8; font-weight:800;">TAP TO COPY UPI ID 📋</div>
                 <div id="upi-val-display" style="font-size:15px; font-weight:800;">sayedjinnatrana@naviaxis</div>
             </div>
         </div>
         <div>
-            <div class="how-box" id="how-to-join-box">
+            <div class="how-box">
                 <div style="color: #10b981; font-weight: 800; font-size: 14px; margin-bottom: 5px;">🚀 HOW TO JOIN</div>
                 <div style="font-size: 12px; font-weight: 600; line-height: 1.4;">
                     1. Pay exact amount via QR or UPI.<br>
-                    2. Upload clear screenshot of success page below.
+                    2. Click button below & send screenshot in chat.
                 </div>
             </div>
-            <label class="upload-area" for="file-in" id="label-box"><div id="label-text" style="font-size: 14px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div></label>
-            <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
-            <button id="sub-btn" class="confirm-btn" onclick="submitProof()">CONFIRM & GET LINK</button>
-            <div id="change-txt" class="change-txt" onclick="resetFile()">Change Screenshot 🔄</div>
+            <button class="upload-trigger-btn" onclick="triggerUpload()">📸 UPLOAD PAYMENT PROOF</button>
         </div>
-    </div>
-    <div id="status-page" class="card">
-        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
-            <div style="font-size: 70px; margin-bottom: 20px;">📤</div>
-            <h2 style="font-size: 26px; font-weight: 800; color: #10b981; margin-bottom: 15px;">Proof Submitted!</h2>
-            <p style="font-size: 15px; color: #94a3b8; line-height: 1.6;">Successfully submitted. Please send the screenshot in the bot chat now.</p>
-        </div>
-        <button class="close-btn" onclick="tg.close()">Close Window</button>
     </div>
     <script>
         const tg = window.Telegram.WebApp; tg.expand();
-        const urlParams = new URLSearchParams(window.location.search);
-        const wPrice = urlParams.get('wp') || "69";
-        const pPrice = urlParams.get('pp') || "149";
+        const params = new URLSearchParams(window.location.search);
+        const wPrice = params.get('wp') || "69";
+        const pPrice = params.get('pp') || "149";
         const upiId = urlParams.get('upi') || "sayedjinnatrana@naviaxis";
         document.getElementById('w-price-display').innerHTML = `₹${wPrice} <span style="font-size: 16px; color: #4ade80;">65% OFF</span>`;
         document.getElementById('p-price-display').innerHTML = `₹${pPrice} <span style="font-size: 16px; color: #4ade80;">85% OFF</span>`;
@@ -147,34 +129,15 @@
         function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'flex'; }
         function copyUPI() { navigator.clipboard.writeText(upiId); alert("UPI ID Copied!"); }
         
-        // DYNAMIC FRAME MANAGEMENT
-        function ready() { 
-            document.getElementById('how-to-join-box').style.display = 'none';
-            document.getElementById('sub-btn').style.display = 'block';
-            document.getElementById('change-txt').style.display = 'block';
-            document.getElementById('label-box').style.backgroundColor = 'rgba(16, 185, 129, 0.2)';
-            document.getElementById('label-text').innerHTML = '<span style="color:#10b981">✅ SCREENSHOT LOADED</span>';
-        }
-
-        function resetFile() {
-            document.getElementById('file-in').value = "";
-            document.getElementById('sub-btn').style.display = 'none';
-            document.getElementById('change-txt').style.display = 'none';
-            document.getElementById('how-to-join-box').style.display = 'block';
-            document.getElementById('label-text').innerHTML = '📸 UPLOAD PAYMENT PROOF';
-            document.getElementById('label-box').style.backgroundColor = 'rgba(16, 185, 129, 0.05)';
-        }
-
-        function submitProof() {
+        // FIX: TRIGGERS BOT TO ASK FOR PHOTO
+        function triggerUpload() {
             const plan = document.getElementById('plan-title').innerText;
-            // FIX: Forwarding to Admin (5954805592)
-            tg.sendData(JSON.stringify({plan: plan})); 
-            document.getElementById('checkout-page').style.display = 'none';
-            document.getElementById('status-page').style.display = 'flex';
-            alert("SUCCESS! Now please send the screenshot into the bot chat to get your link.");
+            tg.sendData(JSON.stringify({action: "UPLOAD", plan: plan}));
+            tg.close();
         }
     </script>
 </body>
 </html>
+
 
 
