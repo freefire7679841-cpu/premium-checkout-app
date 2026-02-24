@@ -14,7 +14,11 @@
         #purchase-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #4ade80; color: white; padding: 12px 25px; border-radius: 50px; font-size: 14px; font-weight: 800; z-index: 200; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 40px rgba(0,0,0,0.8); text-align: center; border: 1.5px solid rgba(255,255,255,0.3); }
         #purchase-toast.show { transform: translateX(-50%) translateY(0); }
         .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 15px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
+        
+        /* Fixed visibility logic for page switching */
+        #selection-page { display: flex; flex-direction: column; }
         #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; transition: all 0.3s ease; }
+
         .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 8px; border-radius: 12px; border: 1px solid rgba(251, 191, 36, 0.3); text-transform: uppercase; margin-bottom: 5px; }
         .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
         .mini-badge { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 15px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1.5px solid transparent; }
@@ -37,6 +41,7 @@
 <body>
     <div class="emoji-rain" id="emojiRain"></div>
     <div id="purchase-toast">💰 <span id="toast-msg">User just bought Weekly Pass!</span></div>
+    
     <div id="selection-page" class="card">
         <div>
             <div class="ticker">🚀 LIMITED TIME: JOIN 50K+ EXCLUSIVE COLLECTIONS 🚀</div>
@@ -53,15 +58,16 @@
             <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
                 <span class="tag" style="background: #ef4444;">🔥 MOST POPULAR</span>
                 <span style="font-size: 18px; font-weight: 800;">WEEKLY PASS</span>
-                <div id="w-price-display" style="font-size: 34px; font-weight: 800;">₹69 <span style="font-size: 16px; color: #4ade80;">65% OFF</span></div>
+                <div id="w-price-display" style="font-size: 34px; font-weight: 800;">₹69</div>
             </button>
             <button class="plan-btn perm-btn" onclick="openCheckout('Permanent')">
                 <span class="tag" style="background: #10b981;">💎 BEST VALUE</span>
                 <span style="font-size: 18px; font-weight: 800;">PERMANENT PASS</span>
-                <div id="p-price-display" style="font-size: 34px; font-weight: 800;">₹149 <span style="font-size: 16px; color: #4ade80;">85% OFF</span></div>
+                <div id="p-price-display" style="font-size: 34px; font-weight: 800;">₹149</div>
             </button>
         </div>
     </div>
+
     <div id="checkout-page" class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
             <button onclick="goBack()" style="background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2); color: white; padding: 10px 22px; border-radius: 15px; cursor: pointer; font-weight: 800;">← Back</button>
@@ -91,15 +97,17 @@
             <button class="upload-trigger-btn" onclick="triggerUpload()">📸 UPLOAD PAYMENT PROOF</button>
         </div>
     </div>
+
     <script>
         const tg = window.Telegram.WebApp; tg.expand();
-        const params = new URLSearchParams(window.location.search);
-        const wPrice = params.get('wp') || "69";
-        const pPrice = params.get('pp') || "149";
+        const urlParams = new URLSearchParams(window.location.search);
+        const wPrice = urlParams.get('wp') || "69";
+        const pPrice = urlParams.get('pp') || "149";
         const upiId = urlParams.get('upi') || "sayedjinnatrana@naviaxis";
-        document.getElementById('w-price-display').innerHTML = `₹${wPrice} <span style="font-size: 16px; color: #4ade80;">65% OFF</span>`;
-        document.getElementById('p-price-display').innerHTML = `₹${pPrice} <span style="font-size: 16px; color: #4ade80;">85% OFF</span>`;
+        document.getElementById('w-price-display').innerText = "₹" + wPrice;
+        document.getElementById('p-price-display').innerText = "₹" + pPrice;
         document.getElementById('upi-val-display').innerText = upiId;
+
         const emojis = ['🥵', '🫦', '💎', '💦'];
         function createEmoji() {
             const emoji = document.createElement('div'); emoji.className = 'emoji';
@@ -110,6 +118,7 @@
             setTimeout(() => emoji.remove(), 5000);
         }
         setInterval(createEmoji, 350);
+
         const names = ["Aman", "Rohit", "Vikram", "Sneha", "Kabir", "Arjun", "Zoya", "Ravi", "Suresh", "Ishita", "Ananya", "Deepak", "Rahul", "Priya", "Manish", "Kiran", "Amit", "Sanjay", "Neha", "Vikas", "Pankaj", "Sunita", "Rajesh", "Megha", "Abhishek", "Ritu", "Sameer", "Tanvi", "Gaurav", "Swati", "Nitin", "Pooja", "Varun", "Shikha", "Kartik", "Jyoti", "Yogesh", "Bhavna", "Harish", "Preeti", "Akash", "Anjali", "Siddharth", "Rashmi", "Mayank", "Divya", "Vivek", "Kavita", "Sahil", "Sapna"];
         function showPurchaseAlert() {
             const name = names[Math.floor(Math.random() * names.length)];
@@ -119,6 +128,7 @@
             setTimeout(() => document.getElementById('purchase-toast').classList.remove('show'), 4000);
         }
         setInterval(showPurchaseAlert, 8000);
+
         function openCheckout(sel) {
             let price = (sel === 'Weekly') ? wPrice : pPrice;
             document.getElementById('plan-title').innerText = sel + " VIP Pass";
@@ -129,7 +139,6 @@
         function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'flex'; }
         function copyUPI() { navigator.clipboard.writeText(upiId); alert("UPI ID Copied!"); }
         
-        // FIX: TRIGGERS BOT TO ASK FOR PHOTO
         function triggerUpload() {
             const plan = document.getElementById('plan-title').innerText;
             tg.sendData(JSON.stringify({action: "UPLOAD", plan: plan}));
@@ -138,6 +147,7 @@
     </script>
 </body>
 </html>
+
 
 
 
