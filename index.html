@@ -11,6 +11,8 @@
         .emoji-rain { position: absolute; top: -50px; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
         .emoji { position: absolute; font-size: 35px; opacity: 0.6; filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9)); animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+        #purchase-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: rgba(16, 185, 129, 0.95); color: white; padding: 12px 25px; border-radius: 50px; font-size: 13px; font-weight: 800; z-index: 200; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1.5px solid rgba(255,255,255,0.3); box-shadow: 0 10px 40px rgba(0,0,0,0.8); display: flex; align-items: center; gap: 10px; pointer-events: none; }
+        #purchase-toast.show { transform: translateX(-50%) translateY(0); }
         .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 15px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
         #checkout-page, #status-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; transition: all 0.3s ease; }
         .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 10px; font-weight: 800; padding: 8px; border-radius: 12px; border: 1px solid rgba(251, 191, 36, 0.3); text-transform: uppercase; margin-bottom: 5px; }
@@ -21,19 +23,24 @@
         .plan-btn { width: 100%; padding: 22px 15px; border-radius: 28px; border: 2px solid rgba(255,255,255,0.1); cursor: pointer; position: relative; margin-bottom: 25px; color: #fff; transition: 0.3s; }
         .weekly-btn { background: rgba(37, 99, 235, 0.25); border-color: #2563eb; }
         .perm-btn { background: rgba(217, 119, 6, 0.25); border-color: #d97706; }
-        .tag { position: absolute; top: -14px; right: 20px; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 10px; text-transform: uppercase; }
+        .tag { position: absolute; top: -14px; right: 20px; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 10px; text-transform: uppercase; animation: tag-pulse 1.5s infinite ease-in-out; }
+        .trusted-text { font-size: 14px; color: #94a3b8; margin: 15px 0 10px 0; }
         .join-counter { font-size: 14px; color: #4ade80; font-weight: 800; background: rgba(74, 222, 128, 0.2); padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(74, 222, 128, 0.4); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 15px; }
         .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
+        .how-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.25) 100%); border: 1.5px solid #10b981; border-radius: 22px; padding: 18px; text-align: left; width: 100%; box-sizing: border-box; margin-top: 10px; margin-bottom: 10px; }
+        .upload-area { border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.1); padding: 18px; border-radius: 22px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 8px 0; box-sizing: border-box; width: 100%; }
+        .confirm-btn { width: 100%; padding: 22px; border-radius: 30px; border: none; background: #10b981; color: white; font-size: 20px; font-weight: 800; cursor: pointer; margin-top: 10px; display: none; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); }
+        .change-txt { font-size: 15px; color: #ffffff; text-decoration: underline; margin-top: 10px; cursor: pointer; display: none; padding: 12px; font-weight: 800; background: rgba(255,255,255,0.15); border-radius: 15px; width: 80%; margin: 0 auto; }
         .qr-wrapper { background: #ffffff; padding: 10px; border-radius: 20px; margin: 5px auto; width: 180px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
         .upi-box-small { background:rgba(255,255,255,0.07); padding:8px; border-radius:15px; cursor:pointer; margin: 4px 0; border: 1px solid rgba(255,255,255,0.1); }
-        .upload-area { border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.1); padding: 18px; border-radius: 22px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 8px 0; width: 100%; box-sizing: border-box; }
-        .confirm-btn { width: 100%; padding: 22px; border-radius: 30px; border: none; background: #10b981; color: white; font-size: 20px; font-weight: 800; cursor: pointer; display: none; }
+        .status-icon { font-size: 60px; margin-bottom: 20px; animation: bounce 2s infinite; }
         .close-btn { width: 100%; padding: 20px; border-radius: 30px; border: none; background: rgba(255,255,255,0.1); color: white; font-size: 18px; font-weight: 800; cursor: pointer; }
     </style>
 </head>
 <body>
     <div class="emoji-rain" id="emojiRain"></div>
+    <div id="purchase-toast">💰 <span id="toast-msg">User just bought Weekly Pass!</span></div>
     <div id="selection-page" class="card">
         <div>
             <div class="ticker">🚀 LIMITED TIME: JOIN 50K+ EXCLUSIVE COLLECTIONS 🚀</div>
@@ -43,73 +50,88 @@
                 <div class="mini-badge badge-glow-blue">⚡ Instant Entry</div>
                 <div class="mini-badge badge-glow-gold">📂 50K+ Videos</div>
             </div>
+            <p class="trusted-text">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> after payment ✅</p>
             <div class="join-counter"><span class="dot"></span> 1,428 people joined today 💎</div>
         </div>
         <div>
             <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
                 <span class="tag" style="background: #ef4444;">🔥 MOST POPULAR</span>
                 <span style="font-size: 18px; font-weight: 800;">WEEKLY PASS</span>
-                <div id="w-price-txt" style="font-size: 34px; font-weight: 800;">₹69</div>
+                <div id="w-price-display" style="font-size: 34px; font-weight: 800;">₹69 <span style="font-size: 16px; color: #4ade80;">65% OFF</span></div>
             </button>
             <button class="plan-btn perm-btn" onclick="openCheckout('Permanent')">
                 <span class="tag" style="background: #10b981;">💎 BEST VALUE</span>
                 <span style="font-size: 18px; font-weight: 800;">PERMANENT PASS</span>
-                <div id="p-price-txt" style="font-size: 34px; font-weight: 800;">₹149</div>
+                <div id="p-price-display" style="font-size: 34px; font-weight: 800;">₹149 <span style="font-size: 16px; color: #4ade80;">85% OFF</span></div>
             </button>
         </div>
     </div>
     <div id="checkout-page" class="card">
-        <h2 id="plan-title" style="margin: 5px 0; font-size: 22px; font-weight: 800;">VIP Access</h2>
-        <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
-        <div class="upi-box-small" onclick="copyUPI()"><div id="upi-display" style="font-size:15px; font-weight:800;">Loading...</div></div>
-        <label class="upload-area" for="file-in" id="label-box"><div id="label-text" style="font-size: 15px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div></label>
-        <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
-        <button id="sub-btn" class="confirm-btn" onclick="submitProof()">CONFIRM & GET LINK</button>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+            <button onclick="goBack()" style="background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2); color: white; padding: 10px 22px; border-radius: 15px; cursor: pointer; font-weight: 800;">← Back</button>
+        </div>
+        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+            <h2 id="plan-title" style="margin: 2px 0; font-size: 22px; font-weight: 800;">VIP Access</h2>
+            <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
+            <div class="upi-box-small" onclick="copyUPI()">
+                <div style="font-size:9px; color:#94a3b8; font-weight:800;">TAP TO COPY UPI ID 📋</div>
+                <div id="upi-val-display" style="font-size:15px; font-weight:800;">sayedjinnatrana@naviaxis</div>
+            </div>
+        </div>
+        <div>
+            <label class="upload-area" for="file-in" id="label-box"><div id="label-text" style="font-size: 15px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div></label>
+            <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
+            <button id="sub-btn" class="confirm-btn" onclick="submitProof()">CONFIRM & GET LINK</button>
+        </div>
     </div>
     <div id="status-page" class="card">
         <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
-            <div style="font-size: 60px;">📤</div>
-            <h2 style="font-size: 24px; font-weight: 800; color: #10b981;">Proof Sent!</h2>
-            <p>Now please send the photo in the chat.</p>
+            <div class="status-icon">📤</div>
+            <h2 style="font-size: 24px; font-weight: 800; color: #10b981; margin-bottom: 15px;">Proof Submitted!</h2>
+            <p style="font-size: 15px; color: #94a3b8; line-height: 1.6;">You will receive the link in the bot shortly.</p>
         </div>
         <button class="close-btn" onclick="tg.close()">Close Window</button>
     </div>
     <script>
         const tg = window.Telegram.WebApp; tg.expand();
-        const urlParams = new URLSearchParams(window.location.search);
-        const weeklyPrice = urlParams.get('wp') || "69";
-        const permPrice = urlParams.get('pp') || "149";
-        const upiId = urlParams.get('upi') || "sayedjinnatrana@naviaxis";
-        document.getElementById('w-price-txt').innerText = "₹" + weeklyPrice;
-        document.getElementById('p-price-txt').innerText = "₹" + permPrice;
-        document.getElementById('upi-display').innerText = upiId;
+        const params = new URLSearchParams(window.location.search);
+        const wPrice = params.get('wp') || "69";
+        const pPrice = params.get('pp') || "149";
+        const upiId = params.get('upi') || "sayedjinnatrana@naviaxis";
+        document.getElementById('w-price-display').innerHTML = `₹${wPrice} <span style="font-size: 16px; color: #4ade80;">65% OFF</span>`;
+        document.getElementById('p-price-display').innerHTML = `₹${pPrice} <span style="font-size: 16px; color: #4ade80;">85% OFF</span>`;
+        document.getElementById('upi-val-display').innerText = upiId;
         const emojis = ['🥵', '🫦', '💎', '💦'];
         function createEmoji() {
             const emoji = document.createElement('div'); emoji.className = 'emoji';
             emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
             emoji.style.left = Math.random() * 100 + 'vw';
-            emoji.style.animationDuration = Math.random() * 2 + 2 + 's';
+            emoji.style.animationDuration = Math.random() * 3 + 2 + 's';
             document.getElementById('emojiRain').appendChild(emoji);
             setTimeout(() => emoji.remove(), 5000);
         }
         setInterval(createEmoji, 400);
         function openCheckout(sel) {
-            let price = (sel === 'Weekly') ? weeklyPrice : permPrice;
-            document.getElementById('plan-title').innerText = sel + " Pass";
+            let price = (sel === 'Weekly') ? wPrice : pPrice;
+            document.getElementById('plan-title').innerText = sel + " VIP Pass";
             document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('upi://pay?pa='+upiId+'&am='+price+'&cu=INR')}`;
             document.getElementById('selection-page').style.display = 'none';
             document.getElementById('checkout-page').style.display = 'flex';
         }
-        function copyUPI() { navigator.clipboard.writeText(upiId); alert("UPI Copied!"); }
-        function ready() { document.getElementById('sub-btn').style.display = 'block'; document.getElementById('label-text').innerText = '✅ READY'; }
-        function submitProof() {
-            tg.sendData(JSON.stringify({status: "PAID", plan: document.getElementById('plan-title').innerText}));
+        function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'flex'; }
+        function copyUPI() { navigator.clipboard.writeText(upiId); alert("UPI ID Copied!"); }
+        function ready() { document.getElementById('sub-btn').style.display = 'block'; document.getElementById('label-text').innerHTML = '<span style="color:#10b981">✅ READY</span>'; }
+        function submitProof() { 
+            const plan = document.getElementById('plan-title').innerText;
+            tg.sendData(JSON.stringify({plan: plan}));
             document.getElementById('checkout-page').style.display = 'none';
             document.getElementById('status-page').style.display = 'flex';
+            alert("SUCCESS! Now please send the screenshot into the bot chat to get your link.");
         }
     </script>
 </body>
 </html>
+
 
 
 
