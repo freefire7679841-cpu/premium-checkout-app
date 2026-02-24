@@ -29,11 +29,13 @@
         .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
         .qr-wrapper { background: #ffffff; padding: 10px; border-radius: 20px; margin: 5px auto; width: 180px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
-        /* FIXED: Tighter UPI and instructions area */
         .upi-box-small { background: rgba(255,255,255,0.07); padding: 10px; border-radius: 18px; cursor: pointer; margin: 5px 0; border: 1.5px solid rgba(255,255,255,0.15); }
+        
+        /* REFINED GAP MANAGEMENT */
         .how-box { background: rgba(16, 185, 129, 0.1); border: 1.5px solid #10b981; border-radius: 22px; padding: 15px; text-align: left; margin: 5px 0; }
         .upload-area { border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.05); padding: 18px; border-radius: 22px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 5px 0; width: 100%; box-sizing: border-box; }
-        .confirm-btn { width: 100%; padding: 22px; border-radius: 30px; border: none; background: #10b981; color: white; font-size: 20px; font-weight: 800; cursor: pointer; display: none; margin-top: 5px; }
+        .confirm-btn { width: 100%; padding: 22px; border-radius: 30px; border: none; background: #10b981; color: white; font-size: 20px; font-weight: 800; cursor: pointer; display: none; margin-top: 10px; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); }
+        .change-txt { font-size: 15px; color: #ffffff; text-decoration: underline; margin-top: 10px; cursor: pointer; display: none; padding: 12px; font-weight: 800; background: rgba(255,255,255,0.15); border-radius: 15px; width: 80%; margin: 0 auto; }
         .close-btn { width: 100%; padding: 20px; border-radius: 30px; border: none; background: rgba(255,255,255,0.1); color: white; font-size: 18px; font-weight: 800; cursor: pointer; }
     </style>
 </head>
@@ -86,7 +88,7 @@
             </div>
         </div>
         <div>
-            <div class="how-box">
+            <div class="how-box" id="how-to-join-box">
                 <div style="color: #10b981; font-weight: 800; font-size: 14px; margin-bottom: 5px;">🚀 HOW TO JOIN</div>
                 <div style="font-size: 12px; font-weight: 600; line-height: 1.4;">
                     1. Pay exact amount via QR or UPI.<br>
@@ -96,6 +98,7 @@
             <label class="upload-area" for="file-in" id="label-box"><div id="label-text" style="font-size: 14px; font-weight: 800;">📸 UPLOAD PAYMENT PROOF</div></label>
             <input type="file" id="file-in" accept="image/*" style="display:none;" onchange="ready()">
             <button id="sub-btn" class="confirm-btn" onclick="submitProof()">CONFIRM & GET LINK</button>
+            <div id="change-txt" class="change-txt" onclick="resetFile()">Change Screenshot 🔄</div>
         </div>
     </div>
     <div id="status-page" class="card">
@@ -143,7 +146,25 @@
         }
         function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'flex'; }
         function copyUPI() { navigator.clipboard.writeText(upiId); alert("UPI ID Copied!"); }
-        function ready() { document.getElementById('sub-btn').style.display = 'block'; document.getElementById('label-text').innerHTML = '<span style="color:#10b981">✅ SCREENSHOT LOADED</span>'; }
+        
+        // DYNAMIC FRAME MANAGEMENT
+        function ready() { 
+            document.getElementById('how-to-join-box').style.display = 'none';
+            document.getElementById('sub-btn').style.display = 'block';
+            document.getElementById('change-txt').style.display = 'block';
+            document.getElementById('label-box').style.backgroundColor = 'rgba(16, 185, 129, 0.2)';
+            document.getElementById('label-text').innerHTML = '<span style="color:#10b981">✅ SCREENSHOT LOADED</span>';
+        }
+
+        function resetFile() {
+            document.getElementById('file-in').value = "";
+            document.getElementById('sub-btn').style.display = 'none';
+            document.getElementById('change-txt').style.display = 'none';
+            document.getElementById('how-to-join-box').style.display = 'block';
+            document.getElementById('label-text').innerHTML = '📸 UPLOAD PAYMENT PROOF';
+            document.getElementById('label-box').style.backgroundColor = 'rgba(16, 185, 129, 0.05)';
+        }
+
         function submitProof() {
             const plan = document.getElementById('plan-title').innerText;
             tg.sendData(JSON.stringify({plan: plan}));
@@ -154,5 +175,4 @@
     </script>
 </body>
 </html>
-
 
