@@ -13,13 +13,10 @@
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
         #purchase-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #4ade80; color: white; padding: 12px 25px; border-radius: 50px; font-size: 14px; font-weight: 800; z-index: 200; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 40px rgba(0,0,0,0.8); text-align: center; border: 1.5px solid rgba(255,255,255,0.3); }
         #purchase-toast.show { transform: translateX(-50%) translateY(0); }
-        
-        /* Updated Card and Success Page Styles */
         .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 15px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
         #selection-page { display: flex; flex-direction: column; }
         #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; transition: all 0.3s ease; }
         #success-page { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 40px 20px; }
-
         .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 8px; border-radius: 12px; border: 1px solid rgba(251, 191, 36, 0.3); text-transform: uppercase; margin-bottom: 5px; }
         .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
         .mini-badge { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 15px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1.5px solid transparent; }
@@ -37,8 +34,6 @@
         .upi-box-small { background: rgba(255,255,255,0.07); padding: 10px; border-radius: 18px; cursor: pointer; margin: 5px 0; border: 1.5px solid rgba(255,255,255,0.15); }
         .how-box { background: rgba(16, 185, 129, 0.1); border: 1.5px solid #10b981; border-radius: 22px; padding: 15px; text-align: left; margin: 5px 0; }
         .upload-trigger-btn { width: 100%; padding: 22px; border-radius: 30px; border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.05); color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 10px; }
-        
-        /* Feature additions */
         #timer { color: #ef4444; font-weight: 800; }
         .progress-bar-bg { width: 100%; background: rgba(255,255,255,0.1); height: 6px; border-radius: 10px; margin-top: 5px; overflow: hidden; }
         .progress-bar-fill { width: 87%; height: 100%; background: linear-gradient(90deg, #3b82f6, #4ade80); border-radius: 10px; }
@@ -111,55 +106,20 @@
 
     <div id="success-page" class="card">
         <div style="font-size: 80px; animation: tag-pulse 1s infinite;">✅</div>
-        <h1 style="color: #4ade80; margin: 0;">Submitted!</h1>
-        <p style="color: #94a3b8; font-size: 16px; line-height: 1.5;">Your payment proof has been successfully sent. <br><br> <b>Check the bot chat</b> for your verification status.</p>
-        <div style="font-size: 12px; color: #4ade80; font-weight: 800;">REDIRECITNG TO BOT...</div>
+        <h1 style="color: #4ade80; margin: 0;">Success!</h1>
+        <p style="color: #94a3b8; font-size: 16px; line-height: 1.5;">Registration signal sent.<br><br><b>Now attach your screenshot in the bot chat</b> to finish verification.</p>
+        <div style="font-size: 12px; color: #4ade80; font-weight: 800;">CLOSING APP...</div>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp; tg.expand();
         const urlParams = new URLSearchParams(window.location.search);
-        
         const wPrice = urlParams.get('wp') || "69";
         const pPrice = urlParams.get('pp') || "149";
         const upiId = urlParams.get('upi') || "sayedjinnatrana@naviaxis";
-        
         document.getElementById('w-price-display').innerText = "₹" + wPrice;
         document.getElementById('p-price-display').innerText = "₹" + pPrice;
         document.getElementById('upi-val-display').innerText = upiId;
-
-        const emojis = ['🥵', '🫦', '💎', '💦'];
-        function createEmoji() {
-            const emoji = document.createElement('div'); emoji.className = 'emoji';
-            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            emoji.style.left = Math.random() * 100 + 'vw';
-            emoji.style.animationDuration = Math.random() * 2 + 3 + 's';
-            document.getElementById('emojiRain').appendChild(emoji);
-            setTimeout(() => emoji.remove(), 5000);
-        }
-        setInterval(createEmoji, 350);
-
-        const names = ["Aman", "Rohit", "Vikram", "Sneha", "Kabir", "Arjun", "Zoya", "Ravi", "Suresh", "Ishita", "Ananya", "Deepak", "Rahul", "Priya", "Manish", "Kiran", "Amit", "Sanjay", "Neha", "Vikas", "Pankaj", "Sunita", "Rajesh", "Megha", "Abhishek", "Ritu", "Sameer", "Tanvi", "Gaurav", "Swati", "Nitin", "Pooja", "Varun", "Shikha", "Kartik", "Jyoti", "Yogesh", "Bhavna", "Harish", "Preeti", "Akash", "Anjali", "Siddharth", "Rashmi", "Mayank", "Divya", "Vivek", "Kavita", "Sahil", "Sapna"];
-        function showPurchaseAlert() {
-            const name = names[Math.floor(Math.random() * names.length)];
-            const plan = Math.random() > 0.4 ? "Permanent Pass" : "Weekly Pass";
-            document.getElementById('toast-msg').innerText = `${name} just purchased ${plan}!`;
-            document.getElementById('purchase-toast').classList.add('show');
-            setTimeout(() => document.getElementById('purchase-toast').classList.remove('show'), 4000);
-        }
-        setInterval(showPurchaseAlert, 8000);
-
-        const reviews = [
-            "\"Instant access, best 149 spent!\" - Aman",
-            "\"The 50k+ files are actually real.\" - Sneha",
-            "\"Admin is very helpful.\" - Vikram",
-            "\"Finally a bot that works instantly.\" - Priya"
-        ];
-        let reviewIdx = 0;
-        setInterval(() => {
-            reviewIdx = (reviewIdx + 1) % reviews.length;
-            document.getElementById('review-text').innerText = reviews[reviewIdx];
-        }, 4000);
 
         function startTimer(duration, display) {
             let timer = duration, minutes, seconds;
@@ -190,30 +150,21 @@
             navigator.clipboard.writeText(upiId);
             tg.HapticFeedback.notificationOccurred('success');
             const label = document.getElementById('copy-label');
-            const valDisplay = document.getElementById('upi-val-display');
-            label.innerText = "✅ COPIED SUCCESSFULLY!";
-            label.style.color = "#4ade80";
-            setTimeout(() => {
-                label.innerText = "TAP TO COPY UPI ID 📋";
-                label.style.color = "#94a3b8";
-            }, 2000);
+            label.innerText = "✅ COPIED!";
+            setTimeout(() => label.innerText = "TAP TO COPY UPI ID 📋", 2000);
         }
         
         function triggerUpload() {
             tg.HapticFeedback.impactOccurred('heavy');
-            const plan = document.getElementById('plan-title').innerText;
-            
-            // Switch to Success Page
             document.getElementById('checkout-page').style.display = 'none';
             document.getElementById('success-page').style.display = 'flex';
-
-            // Send data to bot and close with small delay
             setTimeout(() => {
-                tg.sendData(JSON.stringify({action: "UPLOAD", plan: plan}));
+                tg.sendData(JSON.stringify({action: "UPLOAD", plan: document.getElementById('plan-title').innerText}));
                 tg.close();
             }, 2500);
         }
     </script>
 </body>
 </html>
+
 
