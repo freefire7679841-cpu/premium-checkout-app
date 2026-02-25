@@ -38,16 +38,32 @@
         .how-box { background: rgba(16, 185, 129, 0.1); border: 1.5px solid #10b981; border-radius: 22px; padding: 15px; text-align: left; margin: 5px 0; }
         .upload-trigger-btn { width: 100%; padding: 22px; border-radius: 30px; border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.05); color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; }
         
+        /* Action Buttons */
         .submit-btn { width: 100%; padding: 18px; border-radius: 25px; border: none; background: #10b981; color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-bottom: 10px; }
         .change-btn { width: 100%; padding: 14px; border-radius: 25px; border: 1.5px solid rgba(255,255,255,0.2); background: transparent; color: #ffffff; font-size: 14px; font-weight: 600; cursor: pointer; }
-        .img-preview { max-width: 100%; max-height: 250px; border-radius: 15px; border: 2px solid #10b981; margin: 15px 0; }
+        
+        /* Noticeable Back Buttons */
+        .back-mini { 
+            background: #2563eb; 
+            border: 2px solid rgba(255,255,255,0.2); 
+            color: white; 
+            padding: 10px 24px; 
+            border-radius: 15px; 
+            cursor: pointer; 
+            font-weight: 800; 
+            align-self: flex-start; 
+            margin-bottom: 10px; 
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+            transition: 0.2s ease;
+        }
+        .back-mini:active { transform: scale(0.95); background: #1d4ed8; }
 
+        .img-preview { max-width: 100%; max-height: 250px; border-radius: 15px; border: 2px solid #10b981; margin: 15px 0; }
         #timer { color: #ef4444; font-weight: 800; }
         .progress-bar-bg { width: 100%; background: rgba(255,255,255,0.1); height: 6px; border-radius: 10px; margin-top: 5px; overflow: hidden; }
         .progress-bar-fill { width: 87%; height: 100%; background: linear-gradient(90deg, #3b82f6, #4ade80); border-radius: 10px; }
         .review-slider { font-size: 11px; color: #94a3b8; font-style: italic; margin-top: 10px; min-height: 15px; }
-
-        .back-mini { background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2); color: white; padding: 8px 18px; border-radius: 12px; cursor: pointer; font-weight: 800; align-self: flex-start; margin-bottom: 5px; font-size: 12px;}
     </style>
 </head>
 <body>
@@ -85,8 +101,8 @@
     </div>
 
     <div id="checkout-page" class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-            <button onclick="goBack()" class="back-mini">← Back</button>
+        <div style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 5px;">
+            <button onclick="goBack()" class="back-mini">← BACK</button>
         </div>
         <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
             <h2 id="plan-title" style="margin: 2px 0; font-size: 24px; font-weight: 800;">VIP Access</h2>
@@ -118,7 +134,9 @@
     </div>
 
     <div id="preview-page" class="card">
-        <button onclick="backToCheckout()" class="back-mini">← Back</button>
+        <div style="display: flex; justify-content: flex-start; align-items: center; margin-bottom: 5px;">
+            <button onclick="backToCheckout()" class="back-mini">← BACK</button>
+        </div>
         <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%;">
             <h2 style="margin: 0; color: #10b981;">Review Proof</h2>
             <p style="font-size: 13px; color: #94a3b8; margin-top: 5px;">Confirm if this is the correct image</p>
@@ -170,11 +188,13 @@
         }
 
         function goBack() { 
+            tg.HapticFeedback.impactOccurred('light');
             document.getElementById('checkout-page').style.display = 'none'; 
             document.getElementById('selection-page').style.display = 'flex'; 
         }
 
         function backToCheckout() {
+            tg.HapticFeedback.impactOccurred('light');
             document.getElementById('preview-page').style.display = 'none';
             document.getElementById('checkout-page').style.display = 'flex';
         }
@@ -213,6 +233,7 @@
     </script>
 </body>
 </html>
+
 
 
 
