@@ -17,6 +17,7 @@
         
         #selection-page { display: flex; flex-direction: column; }
         #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; transition: all 0.3s ease; }
+        #preview-page { display: none; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; }
         #success-page { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 40px 20px; }
 
         .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 8px; border-radius: 12px; border: 1px solid rgba(251, 191, 36, 0.3); text-transform: uppercase; margin-bottom: 5px; }
@@ -37,6 +38,11 @@
         .how-box { background: rgba(16, 185, 129, 0.1); border: 1.5px solid #10b981; border-radius: 22px; padding: 15px; text-align: left; margin: 5px 0; }
         .upload-trigger-btn { width: 100%; padding: 22px; border-radius: 30px; border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.05); color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; }
         
+        /* New Buttons for Preview */
+        .submit-btn { width: 100%; padding: 18px; border-radius: 25px; border: none; background: #10b981; color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-bottom: 10px; }
+        .change-btn { width: 100%; padding: 14px; border-radius: 25px; border: 1.5px solid rgba(255,255,255,0.2); background: transparent; color: #94a3b8; font-size: 14px; font-weight: 600; cursor: pointer; }
+        .img-preview { max-width: 100%; max-height: 250px; border-radius: 15px; border: 2px solid #10b981; margin: 15px 0; }
+
         #timer { color: #ef4444; font-weight: 800; }
         .progress-bar-bg { width: 100%; background: rgba(255,255,255,0.1); height: 6px; border-radius: 10px; margin-top: 5px; overflow: hidden; }
         .progress-bar-fill { width: 87%; height: 100%; background: linear-gradient(90deg, #3b82f6, #4ade80); border-radius: 10px; }
@@ -100,15 +106,23 @@
                 <div style="color: #10b981; font-weight: 800; font-size: 14px; margin-bottom: 5px;">🚀 HOW TO JOIN</div>
                 <div style="font-size: 12px; font-weight: 600; line-height: 1.4;">
                     1. Pay exact amount via QR or UPI.<br>
-                    2. Click button below & select screenshot from gallery.
+                    2. Select screenshot from your gallery.
                 </div>
             </div>
-            
             <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileSelect()">
-            
             <button class="upload-trigger-btn" onclick="document.getElementById('fileInput').click()">
-                📸 UPLOAD PAYMENT PROOF
+                📸 SELECT PAYMENT PROOF
             </button>
+        </div>
+    </div>
+
+    <div id="preview-page" class="card">
+        <h2 style="margin: 0; color: #10b981;">Review Proof</h2>
+        <p style="font-size: 13px; color: #94a3b8;">Confirm if this is the correct image</p>
+        <img id="imagePreview" class="img-preview" src="">
+        <div style="width: 100%;">
+            <button class="submit-btn" onclick="finalSubmit()">✅ SUBMIT PROOF</button>
+            <button class="change-btn" onclick="document.getElementById('fileInput').click()">🔄 CHANGE PROOF</button>
         </div>
     </div>
 
@@ -142,34 +156,6 @@
         }
         setInterval(createEmoji, 350);
 
-        const names = ["Aman", "Rohit", "Vikram", "Sneha", "Kabir", "Arjun", "Zoya", "Ravi", "Suresh", "Ishita", "Ananya", "Deepak", "Rahul", "Priya", "Manish", "Kiran", "Amit", "Sanjay", "Neha", "Vikas", "Pankaj", "Sunita", "Rajesh", "Megha", "Abhishek", "Ritu", "Sameer", "Tanvi", "Gaurav", "Swati", "Nitin", "Pooja", "Varun", "Shikha", "Kartik", "Jyoti", "Yogesh", "Bhavna", "Harish", "Preeti", "Akash", "Anjali", "Siddharth", "Rashmi", "Mayank", "Divya", "Vivek", "Kavita", "Sahil", "Sapna"];
-        function showPurchaseAlert() {
-            const name = names[Math.floor(Math.random() * names.length)];
-            const plan = Math.random() > 0.4 ? "Permanent Pass" : "Weekly Pass";
-            document.getElementById('toast-msg').innerText = `${name} just purchased ${plan}!`;
-            document.getElementById('purchase-toast').classList.add('show');
-            setTimeout(() => document.getElementById('purchase-toast').classList.remove('show'), 4000);
-        }
-        setInterval(showPurchaseAlert, 8000);
-
-        const reviews = ["\"Instant access, best 149 spent!\" - Aman", "\"The 50k+ files are actually real.\" - Sneha", "\"Admin is very helpful.\" - Vikram", "\"Finally a bot that works instantly.\" - Priya"];
-        let reviewIdx = 0;
-        setInterval(() => {
-            reviewIdx = (reviewIdx + 1) % reviews.length;
-            document.getElementById('review-text').innerText = reviews[reviewIdx];
-        }, 4000);
-
-        function startTimer(duration, display) {
-            let timer = duration, minutes, seconds;
-            setInterval(function () {
-                minutes = parseInt(timer / 60, 10);
-                seconds = parseInt(timer % 60, 10);
-                display.textContent = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
-                if (--timer < 0) timer = duration;
-            }, 1000);
-        }
-        startTimer(60 * 10, document.querySelector('#timer'));
-
         function openCheckout(sel) {
             tg.HapticFeedback.impactOccurred('medium');
             let price = (sel === 'Weekly') ? wPrice : pPrice;
@@ -192,16 +178,24 @@
             setTimeout(() => label.innerText = "TAP TO COPY UPI ID 📋", 2000);
         }
         
-        // This function handles what happens AFTER user picks an image
         function handleFileSelect() {
+            const file = document.getElementById('fileInput').files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('imagePreview').src = e.target.result;
+                    document.getElementById('checkout-page').style.display = 'none';
+                    document.getElementById('preview-page').style.display = 'flex';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function finalSubmit() {
             tg.HapticFeedback.impactOccurred('heavy');
             const plan = document.getElementById('plan-title').innerText;
-            
-            // Switch to Success Page
-            document.getElementById('checkout-page').style.display = 'none';
+            document.getElementById('preview-page').style.display = 'none';
             document.getElementById('success-page').style.display = 'flex';
-
-            // Send signal to bot
             setTimeout(() => {
                 tg.sendData(JSON.stringify({action: "UPLOAD", plan: plan}));
                 tg.close();
@@ -210,6 +204,7 @@
     </script>
 </body>
 </html>
+
 
 
 
