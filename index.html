@@ -28,13 +28,20 @@
         .perm-btn { background: rgba(217, 119, 6, 0.15); border-color: #d97706; }
         .tag { position: absolute; top: -14px; right: 20px; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 10px; text-transform: uppercase; animation: tag-pulse 1.5s infinite ease-in-out; }
         @keyframes tag-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        .join-counter { font-size: 14px; color: #4ade80; font-weight: 800; background: rgba(74, 222, 128, 0.2); padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(74, 222, 128, 0.4); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 15px; }
+        .join-counter { font-size: 14px; color: #4ade80; font-weight: 800; background: rgba(74, 222, 128, 0.2); padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(74, 222, 128, 0.4); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; }
         .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
         .qr-wrapper { background: #ffffff; padding: 10px; border-radius: 20px; margin: 5px auto; width: 180px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
-        .upi-box-small { background: rgba(255,255,255,0.07); padding: 10px; border-radius: 18px; cursor: pointer; margin: 5px 0; border: 1.5px solid rgba(255,255,255,0.15); }
+        .upi-box-small { background: rgba(255,255,255,0.07); padding: 10px; border-radius: 18px; cursor: pointer; margin: 5px 0; border: 1.5px solid rgba(255,255,255,0.15); transition: 0.2s; }
         .how-box { background: rgba(16, 185, 129, 0.1); border: 1.5px solid #10b981; border-radius: 22px; padding: 15px; text-align: left; margin: 5px 0; }
         .upload-trigger-btn { width: 100%; padding: 22px; border-radius: 30px; border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.05); color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 10px; }
+        
+        /* New Styles */
+        #timer { color: #ef4444; font-variant-numeric: tabular-nums; }
+        .progress-container { width: 100%; background: rgba(255,255,255,0.1); height: 6px; border-radius: 10px; margin-bottom: 5px; overflow: hidden; }
+        .progress-bar { width: 88%; height: 100%; background: linear-gradient(90deg, #3b82f6, #4ade80); border-radius: 10px; animation: progress-shrink 30s infinite alternate; }
+        @keyframes progress-shrink { from { width: 85%; } to { width: 94%; } }
+        .review-text { font-size: 11px; color: #94a3b8; font-style: italic; margin-top: 5px; min-height: 15px; }
     </style>
 </head>
 <body>
@@ -43,15 +50,19 @@
     
     <div id="selection-page" class="card">
         <div>
+            <div id="countdown" style="font-size: 12px; font-weight: 800; margin-bottom: 8px;">🚀 SPECIAL OFFER EXPIRES IN: <span id="timer">09:59</span></div>
             <div class="ticker">🚀 LIMITED TIME: JOIN 50K+ EXCLUSIVE COLLECTIONS 🚀</div>
-            <div style="font-size: 50px; margin: 10px 0;">👑</div>
-            <h1 style="margin: 0; font-size: 34px; font-weight: 800;">Premium VIP</h1>
-            <div class="badge-grid" style="margin-top: 15px;">
+            <div style="font-size: 45px; margin: 5px 0;">👑</div>
+            <h1 style="margin: 0; font-size: 32px; font-weight: 800;">Premium VIP</h1>
+            <div class="badge-grid" style="margin-top: 10px;">
                 <div class="mini-badge badge-glow-blue">⚡ Instant Entry</div>
                 <div class="mini-badge badge-glow-gold">📂 50K+ Videos</div>
             </div>
-            <p style="font-size: 14px; margin: 15px 0 10px 0; color: #94a3b8;">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> after payment ✅</p>
+            <p style="font-size: 13px; margin: 10px 0; color: #94a3b8;">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> after payment ✅</p>
+            
             <div class="join-counter"><span class="dot"></span> 1,428 people joined today 💎</div>
+            <div class="progress-container"><div class="progress-bar"></div></div>
+            <div style="font-size: 10px; color: #94a3b8; text-align: right; margin-bottom: 5px; font-weight: 800;">92% SLOTS FILLED</div>
         </div>
         <div>
             <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
@@ -64,6 +75,7 @@
                 <span style="font-size: 18px; font-weight: 800;">PERMANENT PASS</span>
                 <div id="p-price-display" style="font-size: 34px; font-weight: 800;">₹149</div>
             </button>
+            <div class="review-text" id="review-text">"Instant access, best 149 spent!" - Aman</div>
         </div>
     </div>
 
@@ -81,7 +93,7 @@
             </div>
             <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
             <div class="upi-box-small" onclick="copyUPI()">
-                <div style="font-size:9px; color:#94a3b8; font-weight:800;">TAP TO COPY UPI ID 📋</div>
+                <div id="upi-label" style="font-size:9px; color:#94a3b8; font-weight:800;">TAP TO COPY UPI ID 📋</div>
                 <div id="upi-val-display" style="font-size:15px; font-weight:800;">sayedjinnatrana@naviaxis</div>
             </div>
         </div>
@@ -101,7 +113,6 @@
         const tg = window.Telegram.WebApp; tg.expand();
         const urlParams = new URLSearchParams(window.location.search);
         
-        // Use urlParams for all variables to ensure consistency
         const wPrice = urlParams.get('wp') || "69";
         const pPrice = urlParams.get('pp') || "149";
         const upiId = urlParams.get('upi') || "sayedjinnatrana@naviaxis";
@@ -110,6 +121,7 @@
         document.getElementById('p-price-display').innerText = "₹" + pPrice;
         document.getElementById('upi-val-display').innerText = upiId;
 
+        // Emoji Rain logic
         const emojis = ['🥵', '🫦', '💎', '💦'];
         function createEmoji() {
             const emoji = document.createElement('div'); emoji.className = 'emoji';
@@ -121,6 +133,7 @@
         }
         setInterval(createEmoji, 350);
 
+        // Fake Purchase Alerts
         const names = ["Aman", "Rohit", "Vikram", "Sneha", "Kabir", "Arjun", "Zoya", "Ravi", "Suresh", "Ishita", "Ananya", "Deepak", "Rahul", "Priya", "Manish", "Kiran", "Amit", "Sanjay", "Neha", "Vikas", "Pankaj", "Sunita", "Rajesh", "Megha", "Abhishek", "Ritu", "Sameer", "Tanvi", "Gaurav", "Swati", "Nitin", "Pooja", "Varun", "Shikha", "Kartik", "Jyoti", "Yogesh", "Bhavna", "Harish", "Preeti", "Akash", "Anjali", "Siddharth", "Rashmi", "Mayank", "Divya", "Vivek", "Kavita", "Sahil", "Sapna"];
         function showPurchaseAlert() {
             const name = names[Math.floor(Math.random() * names.length)];
@@ -131,24 +144,71 @@
         }
         setInterval(showPurchaseAlert, 8000);
 
+        // Review Slider
+        const reviews = [
+            "\"Instant access, best 149 spent!\" - Aman",
+            "\"The 50k+ files are actually real.\" - Sneha",
+            "\"Admin is very helpful.\" - Vikram",
+            "\"Finally a bot that works instantly.\" - Priya",
+            "\"Full paisa vasool content!\" - Rohit"
+        ];
+        let revIdx = 0;
+        setInterval(() => {
+            revIdx = (revIdx + 1) % reviews.length;
+            document.getElementById('review-text').innerText = reviews[revIdx];
+        }, 4000);
+
+        // Countdown Timer
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            setInterval(() => {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                display.textContent = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+                if (--timer < 0) timer = duration;
+            }, 1000);
+        }
+        startTimer(599, document.querySelector('#timer'));
+
         function openCheckout(sel) {
+            tg.HapticFeedback.impactOccurred('heavy');
             let price = (sel === 'Weekly') ? wPrice : pPrice;
             document.getElementById('plan-title').innerText = sel + " VIP Pass";
             document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('upi://pay?pa='+upiId+'&am='+price+'&cu=INR')}`;
             document.getElementById('selection-page').style.display = 'none';
             document.getElementById('checkout-page').style.display = 'flex';
         }
-        function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'flex'; }
-        function copyUPI() { navigator.clipboard.writeText(upiId); alert("UPI ID Copied!"); }
+
+        function goBack() { 
+            tg.HapticFeedback.impactOccurred('light');
+            document.getElementById('checkout-page').style.display = 'none'; 
+            document.getElementById('selection-page').style.display = 'flex'; 
+        }
+
+        function copyUPI() {
+            const upiVal = document.getElementById('upi-val-display');
+            const upiLabel = document.getElementById('upi-label');
+            
+            navigator.clipboard.writeText(upiId);
+            tg.HapticFeedback.notificationOccurred('success');
+            
+            const oldVal = upiVal.innerText;
+            upiVal.innerText = "✅ COPIED SUCCESSFULLY";
+            upiVal.style.color = "#4ade80";
+            
+            setTimeout(() => {
+                upiVal.innerText = oldVal;
+                upiVal.style.color = "#ffffff";
+            }, 2000);
+        }
         
         function triggerUpload() {
+            tg.HapticFeedback.impactOccurred('medium');
             const plan = document.getElementById('plan-title').innerText;
-            // FIX: Ensure data is sent to the bot before the app closes
             tg.sendData(JSON.stringify({action: "UPLOAD", plan: plan}));
             tg.close();
         }
     </script>
 </body>
 </html>
-
 
