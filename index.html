@@ -38,15 +38,16 @@
         .how-box { background: rgba(16, 185, 129, 0.1); border: 1.5px solid #10b981; border-radius: 22px; padding: 15px; text-align: left; margin: 5px 0; }
         .upload-trigger-btn { width: 100%; padding: 22px; border-radius: 30px; border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.05); color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; }
         
-        /* New Buttons for Preview */
         .submit-btn { width: 100%; padding: 18px; border-radius: 25px; border: none; background: #10b981; color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-bottom: 10px; }
-        .change-btn { width: 100%; padding: 14px; border-radius: 25px; border: 1.5px solid rgba(255,255,255,0.2); background: transparent; color: #94a3b8; font-size: 14px; font-weight: 600; cursor: pointer; }
+        .change-btn { width: 100%; padding: 14px; border-radius: 25px; border: 1.5px solid rgba(255,255,255,0.2); background: transparent; color: #ffffff; font-size: 14px; font-weight: 600; cursor: pointer; }
         .img-preview { max-width: 100%; max-height: 250px; border-radius: 15px; border: 2px solid #10b981; margin: 15px 0; }
 
         #timer { color: #ef4444; font-weight: 800; }
         .progress-bar-bg { width: 100%; background: rgba(255,255,255,0.1); height: 6px; border-radius: 10px; margin-top: 5px; overflow: hidden; }
         .progress-bar-fill { width: 87%; height: 100%; background: linear-gradient(90deg, #3b82f6, #4ade80); border-radius: 10px; }
         .review-slider { font-size: 11px; color: #94a3b8; font-style: italic; margin-top: 10px; min-height: 15px; }
+
+        .back-mini { background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2); color: white; padding: 8px 18px; border-radius: 12px; cursor: pointer; font-weight: 800; align-self: flex-start; margin-bottom: 5px; font-size: 12px;}
     </style>
 </head>
 <body>
@@ -72,7 +73,7 @@
             <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
                 <span class="tag" style="background: #ef4444;">🔥 MOST POPULAR</span>
                 <span style="font-size: 18px; font-weight: 800;">WEEKLY PASS</span>
-                <div id="w-price-display" style="font-size: 34px; font-weight: 800;">₹69</div>
+                <div id="w-price-display" style="font-size: 34px; font-weight: 800;">₹99</div>
             </button>
             <button class="plan-btn perm-btn" onclick="openCheckout('Permanent')">
                 <span class="tag" style="background: #10b981;">💎 BEST VALUE</span>
@@ -85,7 +86,7 @@
 
     <div id="checkout-page" class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-            <button onclick="goBack()" style="background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2); color: white; padding: 10px 22px; border-radius: 15px; cursor: pointer; font-weight: 800;">← Back</button>
+            <button onclick="goBack()" class="back-mini">← Back</button>
         </div>
         <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
             <h2 id="plan-title" style="margin: 2px 0; font-size: 24px; font-weight: 800;">VIP Access</h2>
@@ -117,9 +118,12 @@
     </div>
 
     <div id="preview-page" class="card">
-        <h2 style="margin: 0; color: #10b981;">Review Proof</h2>
-        <p style="font-size: 13px; color: #94a3b8;">Confirm if this is the correct image</p>
-        <img id="imagePreview" class="img-preview" src="">
+        <button onclick="backToCheckout()" class="back-mini">← Back</button>
+        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%;">
+            <h2 style="margin: 0; color: #10b981;">Review Proof</h2>
+            <p style="font-size: 13px; color: #94a3b8; margin-top: 5px;">Confirm if this is the correct image</p>
+            <img id="imagePreview" class="img-preview" src="">
+        </div>
         <div style="width: 100%;">
             <button class="submit-btn" onclick="finalSubmit()">✅ SUBMIT PROOF</button>
             <button class="change-btn" onclick="document.getElementById('fileInput').click()">🔄 CHANGE PROOF</button>
@@ -170,6 +174,11 @@
             document.getElementById('selection-page').style.display = 'flex'; 
         }
 
+        function backToCheckout() {
+            document.getElementById('preview-page').style.display = 'none';
+            document.getElementById('checkout-page').style.display = 'flex';
+        }
+
         function copyUPI() {
             navigator.clipboard.writeText(upiId);
             tg.HapticFeedback.notificationOccurred('success');
@@ -204,7 +213,6 @@
     </script>
 </body>
 </html>
-
 
 
 
