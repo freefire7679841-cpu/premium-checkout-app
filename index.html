@@ -11,8 +11,11 @@
         .emoji-rain { position: absolute; top: -50px; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
         .emoji { position: absolute; font-size: 35px; opacity: 0.6; filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9)); animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+        
+        /* FAKE PURCHASE TOAST */
         #purchase-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #4ade80; color: white; padding: 12px 25px; border-radius: 50px; font-size: 14px; font-weight: 800; z-index: 200; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 40px rgba(0,0,0,0.8); text-align: center; border: 1.5px solid rgba(255,255,255,0.3); }
         #purchase-toast.show { transform: translateX(-50%) translateY(0); }
+        
         .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 15px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
         
         #selection-page { display: flex; flex-direction: column; }
@@ -25,41 +28,33 @@
         .mini-badge { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 15px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1.5px solid transparent; }
         .badge-glow-blue { border-color: #3b82f6; box-shadow: 0 0 12px rgba(59, 130, 246, 0.5); }
         .badge-glow-gold { border-color: #fbbf24; box-shadow: 0 0 12px rgba(251, 191, 36, 0.5); }
+        
         .plan-btn { width: 100%; padding: 22px 15px; border-radius: 28px; border: 2px solid rgba(255,255,255,0.1); cursor: pointer; position: relative; margin-bottom: 25px; color: #fff; transition: 0.3s; }
         .weekly-btn { background: rgba(37, 99, 235, 0.15); border-color: #2563eb; }
         .perm-btn { background: rgba(217, 119, 6, 0.15); border-color: #d97706; }
+        
         .tag { position: absolute; top: -14px; right: 20px; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 10px; text-transform: uppercase; animation: tag-pulse 1.5s infinite ease-in-out; }
         @keyframes tag-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        
         .join-counter { font-size: 14px; color: #4ade80; font-weight: 800; background: rgba(74, 222, 128, 0.2); padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(74, 222, 128, 0.4); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; }
         .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
+        
         .qr-wrapper { background: #ffffff; padding: 10px; border-radius: 20px; margin: 5px auto; width: 180px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
+        
         .upi-box-small { background: rgba(255,255,255,0.07); padding: 10px; border-radius: 18px; cursor: pointer; margin: 5px 0; border: 1.5px solid rgba(255,255,255,0.15); }
         .how-box { background: rgba(16, 185, 129, 0.1); border: 1.5px solid #10b981; border-radius: 22px; padding: 15px; text-align: left; margin: 5px 0; }
         .upload-trigger-btn { width: 100%; padding: 22px; border-radius: 30px; border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.05); color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; }
         
-        /* Action Buttons */
-        .submit-btn { width: 100%; padding: 18px; border-radius: 25px; border: none; background: #10b981; color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-bottom: 10px; }
-        .change-btn { width: 100%; padding: 14px; border-radius: 25px; border: 1.5px solid rgba(255,255,255,0.2); background: transparent; color: #ffffff; font-size: 14px; font-weight: 600; cursor: pointer; }
-        
-        /* Noticeable Back Buttons */
-        .back-mini { 
-            background: #2563eb; 
-            border: 2px solid rgba(255,255,255,0.2); 
-            color: white; 
-            padding: 10px 24px; 
-            border-radius: 15px; 
-            cursor: pointer; 
-            font-weight: 800; 
-            align-self: flex-start; 
-            margin-bottom: 10px; 
-            font-size: 14px;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
-            transition: 0.2s ease;
-        }
+        /* NOTICEABLE BACK BUTTONS */
+        .back-mini { background: #2563eb; border: 2px solid rgba(255,255,255,0.2); color: white; padding: 12px 28px; border-radius: 15px; cursor: pointer; font-weight: 800; align-self: flex-start; margin-bottom: 10px; font-size: 14px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.5); transition: 0.2s ease; text-transform: uppercase; }
         .back-mini:active { transform: scale(0.95); background: #1d4ed8; }
 
-        .img-preview { max-width: 100%; max-height: 250px; border-radius: 15px; border: 2px solid #10b981; margin: 15px 0; }
+        .submit-btn { width: 100%; padding: 18px; border-radius: 25px; border: none; background: #10b981; color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
+        .change-btn { width: 100%; padding: 14px; border-radius: 25px; border: 1.5px solid rgba(255,255,255,0.2); background: transparent; color: #ffffff; font-size: 14px; font-weight: 600; cursor: pointer; }
+        
+        .img-preview { max-width: 100%; max-height: 250px; border-radius: 15px; border: 2px solid #10b981; margin: 15px 0; object-fit: contain; }
+        
         #timer { color: #ef4444; font-weight: 800; }
         .progress-bar-bg { width: 100%; background: rgba(255,255,255,0.1); height: 6px; border-radius: 10px; margin-top: 5px; overflow: hidden; }
         .progress-bar-fill { width: 87%; height: 100%; background: linear-gradient(90deg, #3b82f6, #4ade80); border-radius: 10px; }
@@ -167,6 +162,7 @@
         document.getElementById('p-price-display').innerText = "₹" + pPrice;
         document.getElementById('upi-val-display').innerText = upiId;
 
+        // EMOJI RAIN
         const emojis = ['🥵', '🫦', '💎', '💦'];
         function createEmoji() {
             const emoji = document.createElement('div'); emoji.className = 'emoji';
@@ -178,6 +174,38 @@
         }
         setInterval(createEmoji, 350);
 
+        // FAKE PURCHASE NOTIFICATIONS
+        const names = ["Aman", "Rohit", "Vikram", "Sneha", "Kabir", "Arjun", "Zoya", "Ravi", "Suresh", "Ishita", "Ananya", "Deepak", "Rahul", "Priya", "Manish", "Kiran", "Amit", "Sanjay", "Neha", "Vikas", "Pankaj", "Sunita", "Rajesh", "Megha", "Abhishek", "Ritu", "Sameer", "Tanvi", "Gaurav", "Swati", "Nitin", "Pooja", "Varun", "Shikha", "Kartik", "Jyoti", "Yogesh", "Bhavna", "Harish", "Preeti", "Akash", "Anjali", "Siddharth", "Rashmi", "Mayank", "Divya", "Vivek", "Kavita", "Sahil", "Sapna"];
+        function showPurchaseAlert() {
+            const name = names[Math.floor(Math.random() * names.length)];
+            const plan = Math.random() > 0.4 ? "Permanent Pass" : "Weekly Pass";
+            document.getElementById('toast-msg').innerText = `${name} just purchased ${plan}!`;
+            document.getElementById('purchase-toast').classList.add('show');
+            setTimeout(() => document.getElementById('purchase-toast').classList.remove('show'), 4000);
+        }
+        setInterval(showPurchaseAlert, 8000);
+
+        // REVIEWS SLIDER
+        const reviews = ["\"Instant access, best 149 spent!\" - Aman", "\"The 50k+ files are actually real.\" - Sneha", "\"Admin is very helpful.\" - Vikram", "\"Finally a bot that works instantly.\" - Priya"];
+        let reviewIdx = 0;
+        setInterval(() => {
+            reviewIdx = (reviewIdx + 1) % reviews.length;
+            document.getElementById('review-text').innerText = reviews[reviewIdx];
+        }, 4000);
+
+        // COUNTDOWN TIMER
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                display.textContent = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+                if (--timer < 0) timer = duration;
+            }, 1000);
+        }
+        startTimer(60 * 10, document.querySelector('#timer'));
+
+        // NAVIGATION LOGIC
         function openCheckout(sel) {
             tg.HapticFeedback.impactOccurred('medium');
             let price = (sel === 'Weekly') ? wPrice : pPrice;
@@ -207,6 +235,7 @@
             setTimeout(() => label.innerText = "TAP TO COPY UPI ID 📋", 2000);
         }
         
+        // FILE HANDLING
         function handleFileSelect() {
             const file = document.getElementById('fileInput').files[0];
             if (file) {
@@ -233,6 +262,7 @@
     </script>
 </body>
 </html>
+
 
 
 
