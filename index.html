@@ -11,61 +11,43 @@
         .emoji-rain { position: absolute; top: -50px; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
         .emoji { position: absolute; font-size: 35px; opacity: 0.6; filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9)); animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-        
-        /* FAKE PURCHASE TOAST */
         #purchase-toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #4ade80; color: white; padding: 12px 25px; border-radius: 50px; font-size: 14px; font-weight: 800; z-index: 200; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 40px rgba(0,0,0,0.8); text-align: center; border: 1.5px solid rgba(255,255,255,0.3); }
         #purchase-toast.show { transform: translateX(-50%) translateY(0); }
-        
         .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(30px); border-radius: 35px; padding: 15px; width: 92%; max-width: 420px; text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7); position: relative; z-index: 10; display: flex; flex-direction: column; max-height: 98vh; box-sizing: border-box; justify-content: space-between; }
-        
         #selection-page { display: flex; flex-direction: column; }
         #checkout-page { display: none; flex-direction: column; height: 100%; justify-content: space-between; transition: all 0.3s ease; }
         #preview-page { display: none; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; }
         #success-page { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 40px 20px; }
-
         .ticker { background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 8px; border-radius: 12px; border: 1px solid rgba(251, 191, 36, 0.3); text-transform: uppercase; margin-bottom: 5px; }
         .badge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
         .mini-badge { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 15px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1.5px solid transparent; }
         .badge-glow-blue { border-color: #3b82f6; box-shadow: 0 0 12px rgba(59, 130, 246, 0.5); }
         .badge-glow-gold { border-color: #fbbf24; box-shadow: 0 0 12px rgba(251, 191, 36, 0.5); }
-        
         .plan-btn { width: 100%; padding: 22px 15px; border-radius: 28px; border: 2px solid rgba(255,255,255,0.1); cursor: pointer; position: relative; margin-bottom: 25px; color: #fff; transition: 0.3s; }
         .weekly-btn { background: rgba(37, 99, 235, 0.15); border-color: #2563eb; }
         .perm-btn { background: rgba(217, 119, 6, 0.15); border-color: #d97706; }
-        
         .tag { position: absolute; top: -14px; right: 20px; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 10px; text-transform: uppercase; animation: tag-pulse 1.5s infinite ease-in-out; }
         @keyframes tag-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        
         .join-counter { font-size: 14px; color: #4ade80; font-weight: 800; background: rgba(74, 222, 128, 0.2); padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(74, 222, 128, 0.4); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; }
         .dot { height: 8px; width: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1s infinite; }
-        
         .qr-wrapper { background: #ffffff; padding: 10px; border-radius: 20px; margin: 5px auto; width: 180px; }
         .qr-wrapper img { width: 100%; height: auto; display: block; }
-        
         .upi-box-small { background: rgba(255,255,255,0.07); padding: 10px; border-radius: 18px; cursor: pointer; margin: 5px 0; border: 1.5px solid rgba(255,255,255,0.15); }
         .how-box { background: rgba(16, 185, 129, 0.1); border: 1.5px solid #10b981; border-radius: 22px; padding: 15px; text-align: left; margin: 5px 0; }
         .upload-trigger-btn { width: 100%; padding: 22px; border-radius: 30px; border: 2.5px dashed #10b981; background: rgba(16, 185, 129, 0.05); color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; }
-        
-        /* NOTICEABLE LEFT-ALIGNED BACK BUTTONS */
         .header-row { display: flex; justify-content: flex-start; width: 100%; margin-bottom: 10px; }
         .back-mini { background: #2563eb; border: 2px solid rgba(255,255,255,0.2); color: white; padding: 10px 24px; border-radius: 15px; cursor: pointer; font-weight: 800; font-size: 14px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.5); transition: 0.2s ease; text-transform: uppercase; }
-        .back-mini:active { transform: scale(0.95); background: #1d4ed8; }
-
         .submit-btn { width: 100%; padding: 18px; border-radius: 25px; border: none; background: #10b981; color: white; font-size: 16px; font-weight: 800; cursor: pointer; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
         .change-btn { width: 100%; padding: 14px; border-radius: 25px; border: 1.5px solid rgba(255,255,255,0.2); background: transparent; color: #ffffff; font-size: 14px; font-weight: 600; cursor: pointer; }
-        
         .img-preview { max-width: 100%; max-height: 250px; border-radius: 15px; border: 2px solid #10b981; margin: 15px 0; object-fit: contain; }
-        
         #timer { color: #ef4444; font-weight: 800; }
         .progress-bar-bg { width: 100%; background: rgba(255,255,255,0.1); height: 6px; border-radius: 10px; margin-top: 5px; overflow: hidden; }
         .progress-bar-fill { width: 87%; height: 100%; background: linear-gradient(90deg, #3b82f6, #4ade80); border-radius: 10px; }
-        .review-slider { font-size: 11px; color: #94a3b8; font-style: italic; margin-top: 10px; min-height: 15px; }
     </style>
 </head>
 <body>
     <div class="emoji-rain" id="emojiRain"></div>
     <div id="purchase-toast">💰 <span id="toast-msg">User just bought Weekly Pass!</span></div>
-    
     <div id="selection-page" class="card">
         <div>
             <div style="font-size: 12px; font-weight: 800; margin-bottom: 5px; color: #ef4444;">⏳ OFFER EXPIRES IN: <span id="timer">09:54</span></div>
@@ -79,7 +61,6 @@
             <p style="font-size: 14px; margin: 15px 0 10px 0; color: #94a3b8;">Trusted bot: <span style="color:#fbbf24; font-weight:800;">Instant entry</span> after payment ✅</p>
             <div class="join-counter"><span class="dot"></span> 1,428 people joined today 💎</div>
             <div class="progress-bar-bg"><div class="progress-bar-fill"></div></div>
-            <div style="font-size: 10px; color: #94a3b8; text-align: right; margin-top: 3px;">87% SLOTS FULL</div>
         </div>
         <div>
             <button class="plan-btn weekly-btn" onclick="openCheckout('Weekly')">
@@ -92,177 +73,120 @@
                 <span style="font-size: 18px; font-weight: 800;">PERMANENT PASS</span>
                 <div id="p-price-display" style="font-size: 34px; font-weight: 800;">₹149</div>
             </button>
-            <div class="review-slider" id="review-text">"Instant access, best 149 spent!" - Aman</div>
         </div>
     </div>
 
     <div id="checkout-page" class="card">
-        <div class="header-row">
-            <button onclick="goBack()" class="back-mini">← BACK</button>
-        </div>
+        <div class="header-row"><button onclick="goBack()" class="back-mini">← BACK</button></div>
         <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
             <h2 id="plan-title" style="margin: 2px 0; font-size: 24px; font-weight: 800;">VIP Access</h2>
-            <div class="badge-grid" style="margin-bottom: 5px;">
-                <div class="mini-badge badge-glow-blue">✓ Verified Seller</div>
-                <div class="mini-badge badge-glow-blue">⚡ Instant Entry</div>
-                <div class="mini-badge badge-glow-gold">💎 50K+ Files</div>
-                <div class="mini-badge badge-glow-gold">🛡️ Secured Payment</div>
-            </div>
             <div class="qr-wrapper"><img id="qr-display" src="" alt="QR"></div>
             <div class="upi-box-small" onclick="copyUPI()">
-                <div style="font-size:9px; color:#94a3b8; font-weight:800;" id="copy-label">TAP TO COPY UPI ID 📋</div>
                 <div id="upi-val-display" style="font-size:15px; font-weight:800;">7679841263@omni</div>
             </div>
         </div>
         <div>
             <div class="how-box">
                 <div style="color: #10b981; font-weight: 800; font-size: 14px; margin-bottom: 5px;">🚀 HOW TO JOIN</div>
-                <div style="font-size: 12px; font-weight: 600; line-height: 1.4;">
-                    1. Pay exact amount via QR or UPI.<br>
-                    2. Select screenshot from your gallery.
-                </div>
+                <div style="font-size: 12px; font-weight: 600; line-height: 1.4;">1. Pay exact amount via QR or UPI.<br>2. Select screenshot from your gallery.</div>
             </div>
             <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileSelect()">
-            <button class="upload-trigger-btn" onclick="document.getElementById('fileInput').click()">
-                📸 SELECT PAYMENT PROOF
-            </button>
+            <button class="upload-trigger-btn" onclick="document.getElementById('fileInput').click()">📸 SELECT PROOF</button>
         </div>
     </div>
 
     <div id="preview-page" class="card">
-        <div class="header-row">
-            <button onclick="backToCheckout()" class="back-mini">← BACK</button>
-        </div>
+        <div class="header-row"><button onclick="backToCheckout()" class="back-mini">← BACK</button></div>
         <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%;">
             <h2 style="margin: 0; color: #10b981;">Review Proof</h2>
-            <p style="font-size: 13px; color: #94a3b8; margin-top: 5px;">Confirm if this is the correct image</p>
             <img id="imagePreview" class="img-preview" src="">
         </div>
         <div style="width: 100%;">
-            <button class="submit-btn" onclick="finalSubmit()">✅ SUBMIT PROOF</button>
+            <button class="submit-btn" id="submitBtn" onclick="finalSubmit()">✅ SUBMIT PROOF</button>
             <button class="change-btn" onclick="document.getElementById('fileInput').click()">🔄 CHANGE PROOF</button>
         </div>
     </div>
 
     <div id="success-page" class="card">
         <div style="font-size: 80px; animation: tag-pulse 1s infinite;">✅</div>
-        <h1 style="color: #4ade80; margin: 0;">Success!</h1>
-        <p style="color: #94a3b8; font-size: 16px; line-height: 1.5;">Registration signal sent.<br><br><b>The bot will now receive your proof.</b></p>
-        <div style="font-size: 12px; color: #4ade80; font-weight: 800;">CLOSING APP...</div>
+        <h1 id="status-text" style="color: #4ade80;">Uploading...</h1>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp; tg.expand();
         const urlParams = new URLSearchParams(window.location.search);
-        
-        const wPrice = urlParams.get('wp') || "99";
-        const pPrice = urlParams.get('pp') || "149";
         const upiId = urlParams.get('upi') || "7679841263@omni";
-        
-        document.getElementById('w-price-display').innerText = "₹" + wPrice;
-        document.getElementById('p-price-display').innerText = "₹" + pPrice;
-        document.getElementById('upi-val-display').innerText = upiId;
-
-        // EMOJI RAIN
-        const emojis = ['🥵', '🫦', '💎', '💦'];
-        function createEmoji() {
-            const emoji = document.createElement('div'); emoji.className = 'emoji';
-            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            emoji.style.left = Math.random() * 100 + 'vw';
-            emoji.style.animationDuration = Math.random() * 2 + 3 + 's';
-            document.getElementById('emojiRain').appendChild(emoji);
-            setTimeout(() => emoji.remove(), 5000);
-        }
-        setInterval(createEmoji, 350);
-
-        // FAKE PURCHASE NOTIFICATIONS
-        const names = ["Aman", "Rohit", "Vikram", "Sneha", "Kabir", "Arjun", "Zoya", "Ravi", "Suresh", "Ishita", "Ananya", "Deepak", "Rahul", "Priya", "Manish", "Kiran", "Amit", "Sanjay", "Neha", "Vikas", "Pankaj", "Sunita", "Rajesh", "Megha", "Abhishek", "Ritu", "Sameer", "Tanvi", "Gaurav", "Swati", "Nitin", "Pooja", "Varun", "Shikha", "Kartik", "Jyoti", "Yogesh", "Bhavna", "Harish", "Preeti", "Akash", "Anjali", "Siddharth", "Rashmi", "Mayank", "Divya", "Vivek", "Kavita", "Sahil", "Sapna"];
-        function showPurchaseAlert() {
+        const names = ["Aman", "Rohit", "Sneha", "Vikram", "Priya"];
+        setInterval(() => {
             const name = names[Math.floor(Math.random() * names.length)];
-            const plan = Math.random() > 0.4 ? "Permanent Pass" : "Weekly Pass";
-            document.getElementById('toast-msg').innerText = `${name} just purchased ${plan}!`;
+            document.getElementById('toast-msg').innerText = `${name} just purchased Pass!`;
             document.getElementById('purchase-toast').classList.add('show');
             setTimeout(() => document.getElementById('purchase-toast').classList.remove('show'), 4000);
-        }
-        setInterval(showPurchaseAlert, 8000);
+        }, 8000);
 
-        // REVIEWS SLIDER
-        const reviews = ["\"Instant access, best 149 spent!\" - Aman", "\"The 50k+ files are actually real.\" - Sneha", "\"Admin is very helpful.\" - Vikram", "\"Finally a bot that works instantly.\" - Priya"];
-        let reviewIdx = 0;
-        setInterval(() => {
-            reviewIdx = (reviewIdx + 1) % reviews.length;
-            document.getElementById('review-text').innerText = reviews[reviewIdx];
-        }, 4000);
-
-        // COUNTDOWN TIMER
-        function startTimer(duration, display) {
-            let timer = duration, minutes, seconds;
-            setInterval(function () {
-                minutes = parseInt(timer / 60, 10);
-                seconds = parseInt(timer % 60, 10);
-                display.textContent = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
-                if (--timer < 0) timer = duration;
-            }, 1000);
-        }
-        startTimer(60 * 10, document.querySelector('#timer'));
-
-        // NAVIGATION LOGIC
         function openCheckout(sel) {
-            tg.HapticFeedback.impactOccurred('medium');
-            let price = (sel === 'Weekly') ? wPrice : pPrice;
             document.getElementById('plan-title').innerText = sel + " VIP Pass";
-            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('upi://pay?pa='+upiId+'&am='+price+'&cu=INR')}`;
+            document.getElementById('qr-display').src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('upi://pay?pa='+upiId+'&am=99&cu=INR')}`;
             document.getElementById('selection-page').style.display = 'none';
             document.getElementById('checkout-page').style.display = 'flex';
         }
 
-        function goBack() { 
-            tg.HapticFeedback.impactOccurred('light');
-            document.getElementById('checkout-page').style.display = 'none'; 
-            document.getElementById('selection-page').style.display = 'flex'; 
-        }
-
-        function backToCheckout() {
-            tg.HapticFeedback.impactOccurred('light');
-            document.getElementById('preview-page').style.display = 'none';
-            document.getElementById('checkout-page').style.display = 'flex';
-        }
-
-        function copyUPI() {
-            navigator.clipboard.writeText(upiId);
-            tg.HapticFeedback.notificationOccurred('success');
-            const label = document.getElementById('copy-label');
-            label.innerText = "✅ COPIED!";
-            setTimeout(() => label.innerText = "TAP TO COPY UPI ID 📋", 2000);
-        }
-        
-        // FILE HANDLING
         function handleFileSelect() {
             const file = document.getElementById('fileInput').files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = e => {
                     document.getElementById('imagePreview').src = e.target.result;
                     document.getElementById('checkout-page').style.display = 'none';
                     document.getElementById('preview-page').style.display = 'flex';
-                }
+                };
                 reader.readAsDataURL(file);
             }
         }
 
-        function finalSubmit() {
-            tg.HapticFeedback.impactOccurred('heavy');
-            const plan = document.getElementById('plan-title').innerText;
-            document.getElementById('preview-page').style.display = 'none';
-            document.getElementById('success-page').style.display = 'flex';
-            setTimeout(() => {
-                tg.sendData(JSON.stringify({action: "UPLOAD", plan: plan}));
+        async function finalSubmit() {
+            const btn = document.getElementById('submitBtn');
+            const file = document.getElementById('fileInput').files[0];
+            btn.innerText = "⌛ UPLOADING...";
+            btn.disabled = true;
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', 'Get premium'); // Your preset name
+
+            try {
+                // Using your cloud name: dpjjcepum
+                const res = await fetch('https://api.cloudinary.com/v1_1/dpjjcepum/image/upload', { 
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await res.json();
+                
+                document.getElementById('preview-page').style.display = 'none';
+                document.getElementById('success-page').style.display = 'flex';
+                document.getElementById('status-text').innerText = "Success!";
+
+                tg.sendData(JSON.stringify({
+                    action: "UPLOAD",
+                    plan: document.getElementById('plan-title').innerText,
+                    image: result.secure_url
+                }));
+                setTimeout(() => tg.close(), 3000);
+            } catch (err) {
+                alert("Upload failed. Ensure preset is set to Unsigned in Cloudinary.");
                 tg.close();
-            }, 3000);
+            }
         }
+
+        function goBack() { document.getElementById('checkout-page').style.display = 'none'; document.getElementById('selection-page').style.display = 'flex'; }
+        function backToCheckout() { document.getElementById('preview-page').style.display = 'none'; document.getElementById('checkout-page').style.display = 'flex'; }
+        function copyUPI() { navigator.clipboard.writeText(upiId); alert("Copied!"); }
+        startTimer(600, document.getElementById('timer'));
+        function startTimer(d, s) { let t = d, m, c; setInterval(() => { m = parseInt(t / 60, 10); c = parseInt(t % 60, 10); s.textContent = (m < 10 ? "0" + m : m) + ":" + (c < 10 ? "0" + c : c); if (--t < 0) t = d; }, 1000); }
     </script>
 </body>
 </html>
+
 
 
 
